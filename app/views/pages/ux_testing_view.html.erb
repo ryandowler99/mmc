@@ -1,0 +1,16 @@
+<%= %>
+<div style="margin-left: 100px;">
+	<% @users.each do |u| %>
+		<% @theBudgets = u.budgets %>
+		<div class="col-md-3" style="border:1px solid #7b69eb; margin: 12px;">
+			<h1><u><%= u.email %></u></h1>
+			<h3>Budgets <%= (@theBudgets.count) %>:</h3>
+			<% @theBudgets.each_with_index do |b, index| %>
+				<h4>
+					[ <%= (index + 1) %> ]
+					<%= link_to b.title, b %>
+				</h4>
+			<% end %>
+		</div>
+	<% end %>
+</div>	

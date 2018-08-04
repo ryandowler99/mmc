@@ -1,0 +1,233 @@
+<%= stylesheet_link_tag "theme" %>
+	<section id="home" name="home" style="margin-top: -190px;"></section>
+	<div id="headerwrap">
+	    <div class="container">
+	    	<div class="row centered">
+	    		<div class="col-lg-12">
+					<h1>Welcome To <b>My Money Counts</b></h1>
+					<h3>Helping you to better manage your money</h3>
+					<br>
+	    		</div>
+	    		<div class="col-lg-2">
+	    			<h5 id="heroTitle1"><center>Manage your money</center></h5>
+	    			<p>Put a budget together in no time using the Drag & Drop budget maker.</p>
+	    			<%= image_tag("arrow1", class: "hidden-xs hidden-sm hidden-md") %>
+	    		</div>
+	    		<div class="col-lg-8">
+	    			<%= image_tag("app-bg2", class: "img-responsive mainBg") %>
+	    		</div>
+	    		<div class="col-lg-2">
+	    			<br>
+	    			<br>
+	    			<br>
+	    			<h5>Clearly see where your money goes</h5>
+	    			<%= image_tag("arrow2", class: "hidden-xs hidden-sm hidden-md") %>
+	    			<!-- <p>Clearly see where your money is going via your dashboard visuals</p> -->
+	    			<div style="margin-top: 175px;">
+		    			<%= image_tag("plusMore", class: "hidden-xs hidden-sm hidden-md ") %>
+		    			<h5 class="andMoreText"> And More!</h5>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div> <!--/ .container -->
+	</div><!--/ #headerwrap -->
+
+	<section id="desc" name="desc"></section>
+	<!-- INTRO WRAP -->
+	<div id="intro">
+		<div class="container">
+			<div class="row centered">
+				<h1>The basics provided by My Money Counts</h1>
+				<br>
+				<br>
+				<div class="col-lg-4">
+					<%= image_tag("intro015") %>
+					<h3>See where your money goes</h3>
+					<p>Visualize your spending habits so you know exactly what's going in, and out.</p>
+				</div>
+				<div class="col-lg-4">
+					<%= image_tag("intro02") %>
+					<h3>Get ahead</h3>
+					<p>Create budgets for the comming weeks. You can even access old budgets too!</p>
+				</div>
+				<div class="col-lg-4">
+					<%= image_tag("intro032") %>
+					<h3>Access Anywhere</h3>
+					<p>Use and interact with My Money Counts anywhere using any device.</p>
+				</div>
+			</div>
+			<br>
+			<hr>
+	    </div> <!--/ .container -->
+	</div><!--/ #introwrap -->
+	
+	<!-- FEATURES WRAP -->
+	<div id="features">
+		<div class="container">
+			<div class="row">
+				<h1 class="centered">What can I do with My Money Counts?</h1>
+				<br>
+				<br>
+				<div class="col-lg-6 centered">
+					<%= image_tag("mobile",  class: "centered", id: "showFeaturesPhone1") %>
+					<%= image_tag("mobile2", class: "hidden centered", id: "showFeaturesPhone2") %>
+					<%= image_tag("mobile4", class: "hidden centered", id: "showFeaturesPhone4") %>
+				</div>
+				
+				<div class="col-lg-6">
+					<h3>Some Features</h3>
+					<br>
+				<!-- ACCORDION -->
+		            <div class="accordion ac" id="accordion2">
+		                <div class="accordion-group">
+		                    <div class="accordion-heading">
+		                        <a class="showFeatures_1 accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+		                        Interactive & Effortless Budget Creation
+		                        </a>
+		                    </div><!-- /accordion-heading -->
+		                    <div id="collapseOne" class="accordion-body collapse in">
+		                        <div class="accordion-inner">
+								<p>A series of tools are availible at the users disposal which ensure a pleasant experience. These tools make Budget creation as simple as it should be. These tools are designed around UX research techniques - and will soon be tested by My Money Counts users to better improve theme.</p>
+								</div><!-- /accordion-inner -->
+		                    </div><!-- /collapse -->
+		                </div><!-- /accordion-group -->
+		                <br>
+		
+		                <div class="accordion-group">
+		                    <div class="accordion-heading">
+		                        <a class="showFeatures_2 accordion-toggle" data-toggle="collapse"
+		                           data-parent="#accordion2" href="#collapseTwo">
+		                           Input Wheel
+		                        </a>
+		                    </div>
+		                    <div id="collapseTwo" class="accordion-body collapse">
+		                        <div class="accordion-inner">
+								<p>Nobody likes filling out long forms, paper or digital. The process is repetitive and unpleasant - clicking into the field, reading the title and inputting the appropriate answer before continuing to move to the next field. Rinse & Repeat untill the form is completed. This is how it is done on every website & app. <br><br> When answers are required from My Money Counts users, whether it be for creating a Budget or signing up, an interactive wheel can be used. This wheel brings the field to the user each time, no messing, no wasted efferts or time. Cut out the confussion.</p>
+								</div><!-- /accordion-inner -->
+		                    </div><!-- /collapse -->
+		                </div><!-- /accordion-group -->
+		                <br>
+		
+		                 <div class="accordion-group">
+		                    <div class="accordion-heading">
+		                        <a class="showFeatures_3 accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+		                        Drag & Drop 
+		                        </a>
+		                    </div>
+		                    <div id="collapseThree" class="accordion-body collapse">
+		                        <div class="accordion-inner">
+								<p>Before a user even fills out a form stating how much they will spend on certain things, first they need to choose what items they will be (rent, going out for dinner, savings etc.) This is another time when the user is prompted for answers. <br> <br> A drag and drop feature is displayed to the user prior to the wheel where they can drag items of their choosing into a box and make a budget depending on these items. Not every budget is the same so having this level of cusomization mixed with its ease of use is a useful solution.</p>
+								</div><!-- /accordion-inner -->
+		                    </div><!-- /collapse -->
+		                </div><!-- /accordion-group -->
+		                <br>
+		                
+		                 <div class="accordion-group">
+		                    <div class="accordion-heading">
+		                        <a class="showFeatures_4 accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+		                        Visualizations
+		                        </a>
+		                    </div>
+		                    <div id="collapseFour" class="accordion-body collapse">
+		                        <div class="accordion-inner">
+								<p>When the user creates a budget they can view how their money is being spent using the visual aid(pie chart) provided. This way their spendings can be seen in proportions relative to one another. <br> <br>Its one way to find out you spend nearly as much on junk food as you do rent!</p>
+								</div><!-- /accordion-inner -->
+		                    </div><!-- /collapse -->
+		                </div><!-- /accordion-group -->
+		                <br>			
+					</div><!-- Accordion -->
+				</div>
+			</div>
+		</div><!--/ .container -->
+	</div><!--/ #features -->
+	
+	<section id="showcase" name="showcase"></section>
+	<div id="showcase">
+		<div class="container">
+			<div class="row">
+				<h1 class="centered">Some Screenshots</h1>
+				<br>
+				<div class="col-lg-8 col-lg-offset-2">
+					<div id="carousel-example-generic" class="carousel slide">
+					  <!-- Indicators -->
+					  <ol class="carousel-indicators">
+					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					  </ol>
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner">
+					    <div class="item active">
+					      <%= image_tag("item-011") %>
+					    </div>
+					    <div class="item">
+					      <%= image_tag("item-022") %>
+					    </div>
+					    <div class="item">
+					      <%= image_tag("item-3") %>
+					    </div>
+					  </div>
+					</div>
+				</div>
+			</div>
+			<br><br><br>	
+		</div><!-- /container -->
+	</div>	
+
+	<section id="contact" name="contact"></section>
+	<div id="footerwrap" style="display: none;">
+		<div class="container">
+			<div class="col-lg-5">
+				<h3>Address</h3>
+				<p>
+				Av. Greenville 987,<br/>
+				New York,<br/>
+				90873<br/>
+				United States
+				</p>
+			</div>
+			<div class="col-lg-7">
+				<h3>Drop Us A Line</h3>
+				<br>
+				<form role="form" action="#" method="post" enctype="plain"> 
+				  <div class="form-group">
+				    <label for="name1">Your Name</label>
+				    <input type="name" name="Name" class="form-control" id="name1" placeholder="Your Name">
+				  </div>
+				  <div class="form-group">
+				    <label for="email1">Email address</label>
+				    <input type="email" name="Mail" class="form-control" id="email1" placeholder="Enter email">
+				  </div>
+				  <div class="form-group">
+				  	<label>Your Text</label>
+				  	<textarea class="form-control" name="Message" rows="3"></textarea>
+				  </div>
+				  <br>
+				  <button type="submit" class="btn btn-large btn-success">SUBMIT</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="c">
+		<div class="container">
+			<p>Maybe add some Links Here for<a href="http://www.blacktie.co">Budget creation & profile</a></p>
+		</div>
+	</div>
+
+	<script>
+		$('.carousel').carousel({
+		  interval: 4000
+		})
+
+		$( ".showFeatures_2" ).click(function() {
+	        //change image with class showFeaturesPhone to mobile2
+	        $("#showFeaturesPhone1").addClass("hidden");
+	        $("#showFeaturesPhone2").removeClass("hidden");
+	    });
+
+	    $( ".showFeatures_4" ).click(function() {
+	        //change image with class showFeaturesPhone to mobile2
+	        $("#showFeaturesPhone2").addClass("hidden");
+	        $("#showFeaturesPhone4").removeClass("hidden");
+	    });
+	</script>

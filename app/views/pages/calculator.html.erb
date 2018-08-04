@@ -1,0 +1,88 @@
+<%= stylesheet_link_tag "calculator" %>
+<!-- change this minus business! -->
+<div>
+	<div class="col-md-6 typeOfCalcBtn numberCalcBtn" style="background-color: #78CBC3;">
+		<h1>Number calculator</h1>
+	</div>
+	<div class="col-md-6 typeOfCalcBtn moneyCalcBtn" style="background-color: #7b69eb;">
+		<h1>Money calculator</h1>
+	</div>	
+	<!-- arrows that indicate which calculator is active -->
+	<div id="arrow1" class="col-md-6 typeOfCalcBtnArrow" style="color: #78CBC3; visibility: hidden;">
+		<i class="fa fa-caret-down"></i>
+	</div>
+	<div id="arrow2" class="col-md-6 typeOfCalcBtnArrow" style="color: #7b69eb;">
+		<i class="fa fa-caret-down"></i>
+	</div>	
+
+	<div class="col-md-12 calculatorMain" style="background-color: #7b69eb;">
+		<!-- number calculator -->
+		 <div id="calculator_number" class="col-md-6 col-md-push-3 calculator hidden">
+	        <div id="" class="result"></div>
+	        <span class="key col-md-3" value='7'>7</span>
+	        <span class="key col-md-3" value='8'>8</span>
+	        <span class="key col-md-3" value='9'>9</span>
+	        <span class="key clear-key right-key col-md-3" value='C'>C</span>
+	        <span class="key col-md-3" value='4'>4</span>
+	        <span class="key col-md-3" value='5'>5</span>
+	        <span class="key col-md-3" value='6'>6</span>
+	        <span class="key right-key col-md-3" value='/'>/</span>
+	        <span class="key col-md-3" value='1'>1</span>
+	        <span class="key col-md-3" value='2'>2</span>
+	        <span class="key col-md-3" value='3'>3</span>
+	        <span class="key right-key col-md-3" value='*'>X</span>
+	        <span class="key col-md-3" value='0'>0</span>
+	        <span class="key col-md-3" value='00'>00</span>
+	        <span class="key col-md-3" value='.'>.</span>
+	        <span class="key right-key col-md-3" value='+'>+</span>
+	        <span class="key equal-key col-md-3" value='='>=</span>
+	        <span class="key right-key col-md-3" value='-'>-</span>
+	    </div>
+	    <!-- money calculator -->
+	    <div id="calculator_money" class="col-md-6 col-md-push-3 calculator" style="">
+	    	<div id="" class="result"></div>
+	        <span class="key key-money col-md-3" value='100'>
+	        	<%= image_tag "euroCurrency/100e", class: " img img-responsive" %>
+	      	</span>
+	        <span class="key key-money col-md-3" value='50'>
+	        	<%= image_tag "euroCurrency/50e", class: " img img-responsive" %>
+	      	</span>
+	        <span class="key key-money col-md-3" value='20'>
+	        	<%= image_tag "euroCurrency/20e", class: " img img-responsive" %>
+	      	</span>
+	        <span class="key clear-key right-key col-md-3" value='C'>C</span>
+	        <span class="key key-money col-md-3" value='10'>
+	        	<%= image_tag "euroCurrency/10e", class: " img img-responsive" %>
+	      	</span>
+	        <span class="key key-money col-md-3" value='5'>
+	        	<%= image_tag "euroCurrency/5e", class: " img img-responsive" %>
+	      	</span>
+	        <span class="key key-money col-md-3" value='2'>
+	        	<%= image_tag "euroCurrency/2e", class: " img img-responsive" %>
+	      	</span>
+	        <span class="key right-key col-md-3" value='/'>/</span>
+	        <span class="key key-money col-md-3" value='1'>
+	        	<%= image_tag "euroCurrency/1e", class: " img img-responsive" %>
+	        </span>
+	         <span class="key key-money col-md-3" value='.50'>
+	        	<%= image_tag "euroCurrency/50c", class: " img img-responsive" %>
+	        </span>
+	        <span class="key key-money col-md-3" value='.20'>
+	        	<%= image_tag "euroCurrency/20c", class: " img img-responsive" %>
+	        </span>
+	        <span class="key right-key col-md-3" value='*'>X</span>
+	        <span class="key key-money col-md-3" value='.10'>
+	        	<%= image_tag "euroCurrency/10c", class: " img img-responsive" %>
+	        </span>
+	        <span class="key key-money col-md-3" value='.5'>
+	        	<%= image_tag "euroCurrency/5c", class: " img img-responsive" %>
+	        </span>
+	        <span class="key key-money col-md-3" value='.'>.</span>
+	        <span class="key right-key col-md-3" value='+'>+</span>
+	        <span class="key equal-key col-md-3" value='='>=</span>
+	        <span class="key right-key col-md-3" value='-'>-</span>
+	    </div>
+	</div>
+</div>
+
+<%= javascript_include_tag "calculator" %>

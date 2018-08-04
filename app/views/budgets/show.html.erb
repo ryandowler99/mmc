@@ -1,0 +1,132 @@
+<style>
+  blockquote{
+    border-left:none
+}
+.quote-badge{
+    background-color: rgba(0, 0, 0, 0.2);   
+}
+.quote-box{
+  overflow: hidden;
+  border-radius: 17px;
+  background-color: #4ADFCC;
+  margin-top: 25px;
+  margin-left: 60px;
+  color:white;
+  box-shadow: 2px 2px 2px 2px #E0E0E0;
+  padding-bottom: 25px;
+  max-height: 100%;
+}
+
+.quotation-mark{
+  text-align: center;
+    height: 150px;
+    font-weight: bold;
+    font-size:40px;
+    color:white;
+    font-family: "Times New Roman", Georgia, Serif;
+}
+
+.quote-text{
+    margin-top: -70px;
+    padding-bottom: 30px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.on_the_spot_editing form{
+  font-size: 0.3em;
+  color: black;
+  background-color: red;
+}
+.on_the_spot_editing button{
+  visibility: hidden;
+  display:none;
+}
+
+/* items with no value */
+.itsBlank{background-color: #ff6060; opacity: 0.5;}
+.itsBlank:hover{background-color: #46c4b4; opacity: 0.7;}
+
+.budgetDetails{
+  position: absolute;
+  float: left;
+  text-align: center;
+}
+.budgetDetails h4{
+  font-weight: 600;
+}
+#money_i_have, #weekNum{
+  background-color: #7b69eb;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.3em;
+}
+#weekNum{
+  background-color: #79aafc;
+  margin-top: 100px;
+}
+</style>
+<p id="notice"><%= notice %></p>
+
+
+<!-- excludes nil columns (will exclude created_and other defaults too ) And excludes money_i_have, week  --> 
+<!-- <div class="col-md-2" style="background-color: orange;">
+  <h5 id="weekNum">This budget is for week: 3</h5>
+  <h5>Money I have to spend on this budget: €188</h5>
+</div> -->
+<div class="col-md-10 col-md-push-2">
+   <%= pie_chart @budget.dup.attributes.keep_if{|k,v| 
+        !v.nil? && !(k ==  "money_i_have" || k ==  "week" ) },
+        width: "800px",
+        height: "400px",
+        legend: "bottom" %>
+</div>
+
+<% @num_columns.times do |budget| %>
+<% col_name = comebacktonameme[budget] %>
+  <% col_name %>
+  <% if col_name == 'money_i_have' %>
+    <div id="money_i_have" class="col-md-2 budgetDetails">
+      Money I have to spend on this budget: 
+      <h4>€<%= @budget.public_send(col_name) if @budget.respond_to? col_name  %></h4>
+    </div>
+    <% elsif col_name == 'week' %>
+    <div id="weekNum" class="col-md-2 budgetDetails">
+      This budget is for week: 
+      <h4><%= @budget.public_send(col_name) if @budget.respond_to? col_name  %></h4>  
+    </div>
+    <% else %>
+    <% otherval = @budget.public_send(col_name) if @budget.respond_to? col_name  %>
+    <!-- check which ones are not filled in to give it a different css class -->
+    <%# is_blank =  otherval < 1 ? 'itsBlank' :  'notBlank'  %> 
+    <!-- render the partial and pass it parameters (column name and its value) -->
+    <%= render 'shared/budget_item',  :val1 =>  col_name, :val2 =>  otherval, :val3 =>  "is_blank" %>
+  <% end %>
+<% end %>
+
+
+
+
+<% link_to 'Edit all at the same time', edit_budget_path(@budget) %> 
+<% link_to 'Back', budgets_path %>
+
+
+
+
+<script>
+  $(".on_the_spot_editing").focus(function(){
+    //$(".on_the_spot_editing span").css("color", "red");
+      alert("ddddddd")
+  })
+
+
+  function fieldChanged(){
+
+  }
+
+  $('span').change(function(e) {
+    $(this).closest( "blockquote" ).removeClass( "itsBlank" );
+});
+
+
+</script>

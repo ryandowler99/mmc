@@ -1,0 +1,208 @@
+	/*#submitBtn{display: none;}*/
+	#list{display: none;} /*hide the section that holds the list and continue btn*/
+	#left-defaults li{
+		background-color: #7b69eb;
+		border: 3px solid white;
+		border-radius: 15px;
+		text-align: center;
+		font-size: 24pt;
+		padding:5px;
+		height: auto;
+		color: white;
+	}
+	/* Pretty list css*/
+    .event-list {
+		list-style: none;
+		font-family: 'Lato', sans-serif;
+		margin: 0px;
+		padding: 0px;
+	}
+	.event-list > li {
+		background-color: rgb(255, 255, 255);
+		box-shadow: 0px 0px 5px rgb(51, 51, 51);
+		box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+		padding: 0px;
+		margin: 0px 0px 20px;
+	}
+	.event-list > li > time {
+		display: inline-block;
+		width: 100%;
+		color: rgb(255, 255, 255);
+		background-color: rgb(197, 44, 102);
+		padding: 5px;
+		text-align: center;
+		text-transform: uppercase;
+	}
+	.event-list > li:nth-child(even) > time {
+		background-color: rgb(165, 82, 167);
+	}
+	.event-list > li > time > span {
+		display: none;
+	}
+	.event-list > li > time > .day {
+		display: block;
+		font-size: 80pt;
+		font-weight: 100;
+		line-height: 1;
+		padding-top: 10px;
+	}
+	.event-list > li > .info > .title {
+		font-size: 17pt;
+		font-weight: 700;
+		margin: 0px;
+	}
+	@media (min-width: 768px) {
+		.event-list > li {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 120px;
+			padding: 0px;
+		}
+		.event-list > li > time,
+		.event-list > li > img {
+			width: 120px;
+			float: left;
+		}
+		.event-list > li > .info {
+			background-color: rgb(245, 245, 245);
+			overflow: hidden;
+		}
+		.event-list > li > time,
+		.event-list > li > img {
+			width: 120px;
+			height: 120px;
+			padding: 0px;
+			margin: 0px;
+		}
+		.event-list > li > .info {
+			position: relative;
+			height: 120px;
+			padding-top: 45px;
+			text-align: center;
+			vertical-align: text-top;
+		}	
+	}
+	/*#prettyList{visibility: hidden;}*/
+	/* ./ Pretty list css */
+/* bounce */
+.bounce {
+  position:fixed;
+  left:90%;
+  bottom:0;
+  margin-top:-25px;
+  margin-left:-25px;
+  height:70px;
+  background:#4ECDC4;
+  -webkit-animation:bounce 1s infinite;
+  color: white;
+  font-size: 20pt;
+  padding: 15px;
+  text-decoration: none;
+}
+#submitBtn{text-decoration : none}
+
+@-webkit-keyframes bounce {
+  0%       { bottom:5px; }
+  25%, 75% { bottom:15px; }
+  50%      { bottom:20px; }
+  100%     {bottom:0;}
+}
+/* ./bounce */
+
+/* sticky button */
+.stickyBtn{
+  display: none;
+  position: relative;
+  vertical-align: center;
+  top:-10px;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #62b1d0;
+  border: 0;
+  border-bottom: 3px solid #9FE8EF;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 -3px #9FE8EF;
+  box-shadow: inset 0 -3px #9FE8EF;
+}
+.stickyBtn:active {
+  top: 2px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.stickyBtn:hover {
+  background: #45E1E8;
+}
+
+/* ./sticky button */
+
+#right-defaults li { 
+	background-color: #F7CA18; 
+	text-align: center;
+	border: 3px solid white;
+	border-radius: 24px;
+	font-size: 2vw; /* adjusts text tize to fit viewport */
+	height: auto;
+	padding: 5px;
+}
+
+
+.listIsEmpty{ display: none; }
+#emptyListMessage{ margin-top: 50px; }
+
+#changeSomethingBtn{
+	height: 50px;
+    background-color: #EC644B;
+    color: white;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    margin: 13px;
+    font-weight: 600;
+    border-radius: 5px;
+    position:relative;
+    bottom:0;
+}
+
+#changeSomethingBtn:hover{
+background-color: white;
+border: 1px solid #EC644B;
+color:#EC644B;;
+}
+
+.helpBtn{
+	position: fixed;
+	right: 0;
+	float: right;
+	margin-right: 20px;
+	margin-top: -40px;
+	font-size: 1.6em;
+}
+/*overwrite bootsrap for help modal */
+.modal-title {
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.modal-dialog {
+    top: 1%;
+    left: 10%;
+    width: 80%;
+    max-height: 80%;
+}
+/* ./ overwrite bootsrap for help modal */
+
+.help_before_new_img{
+	width: 90%;
+	height: 90%;
+	border-radius: 6px;
+}
+.close{
+	font-size: 2em;
+	color: red;
+	font-weight: 800;
+}

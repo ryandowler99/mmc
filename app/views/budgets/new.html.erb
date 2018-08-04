@@ -1,0 +1,44 @@
+<!-- tidy this whole file when finished -->
+<%= stylesheet_link_tag "new" %>
+<%= javascript_include_tag "http://www.gerardolarios.com/plugins-and-tools/jqmeter/js/jqmeter.min.js" %>
+<h1 id="progressbarMoney_in"></h1>
+<div id="myProgress" class="row">
+	<div id="myBar" class="col-md-1" style="background-color: #019875;"> </div>
+	<div id="myBar2" class="col-md-1"> </div>
+  <!-- <div id="barEnd" class="col-md-1" style="background-color: #EF4836; float: right; padding: 20px;"> -->
+	<!-- <div class="col-md-1 halfCircleRight"></div> -->
+
+	<!-- <div id="barEndText" class="col-md-10"></div>
+  </div> -->
+  <div class="circlediv" style="max-height: 100%;">
+  	<div id="circledivText" class="col-md-11 col-md-push-1"></div>
+  </div>
+</div>
+<div id="wheelContainer">
+<h1 id="title">Name of Budget</h1>
+<div class="spinWheel cursor" >
+    <div class="first"><input id="currentField1" type="text" class="rq-form-element"><i></i></div>
+    <div class="second"><input id="currentField3" type="text" ></div>
+    <div class="third"><input id="currentField2" type="text" ></div>
+</div>
+</div>
+<%# button_tag "Next", onclick: 'spinWheel();'%>
+
+<!-- get the fields that the user wishes to populate, split the recieved string up and left with array -->
+<% chosen_fields = params['chosen_fields'] %>
+<div class="recievedParams" style="margin-top: 100px; display: none;"><%= chosen_fields %></div>
+
+<!-- count number of items revieved -->
+<div class="hidden numParams">
+	<% if chosen_fields %>
+		<%= chosen_fields.split.size %>
+	<% end %>
+</div>
+
+<%= javascript_include_tag "new" %>
+
+<%= render 'form' %>
+
+<%# link_to 'Back', budgets_path %>
+
+

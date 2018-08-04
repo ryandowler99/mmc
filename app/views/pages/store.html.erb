@@ -1,0 +1,26 @@
+<!-- some sites for more learning games 
+	 http://www.teachingmoney.co.uk/eurosite/euroindex.html 
+	 http://www.edtech.ie/details.asp?id=16032&ptid=20124 - too expensive
+	 https://www.gynzy.com/teachers/publishers/mathematics/  free
+-->
+<% stylesheet_link_tag "store" %>
+
+ <% @iframe_games.each do |iframe_game| %>
+     <%= link_to iframe_game do %>
+ 		<div class="col-md-6 gameDiv">       
+			<div class="ssb-icon"><i class="fa fa-gamepad" aria-hidden="true"></i></div>
+			<h2 class="ssb-title"><%= iframe_game.title %></h2>       
+    	</div>
+    <% end %>
+<% end %>
+
+<iframe width="480" height="355" src="//www.gynzy.com/embed/655" frameborder="0" allowfullscreen></iframe>
+
+   
+
+
+   
+
+
+
+
