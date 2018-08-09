@@ -35,3 +35,16 @@
       })();
     </script>
 <% end %>
+
+<%= render 'shared/mobilePhoneKeyBInput' %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#doneInput').click(function (e) {
+      e.preventDefault();
+      var telNumberFin = $('#telNumber').val();
+      $('#authy-token').val(telNumberFin);
+      $(":submit")[0].click();
+    });
+    });
+</script>

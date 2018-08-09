@@ -31,6 +31,10 @@
 	                            <text><%= time_ago_in_words(@user.created_at) %></text> ago
 	                            <br />
 	                            <i class="glyphicon glyphicon-gift"></i> You signed in <text><%= @user.sign_in_count %> </text> times
+                                <br /><br />
+                                 <i class="glyphicon glyphicon-flash yellowFont"></i>
+                                    <%= link_to "Enable fast login", user_enable_authy_path, class: "redFont ul" %>
+                                 <i class="glyphicon glyphicon-flash yellowFont"></i>
                             </div>
                     </div>
                 </div>

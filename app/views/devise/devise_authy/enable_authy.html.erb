@@ -1,7 +1,20 @@
-<h2><%= I18n.t('authy_register_title', {:scope => 'devise'}) %></h2>
+<h2>Turn on Fast Login</h2>
 
 <%= enable_authy_form do %>
-  <%= text_field_tag :country_code, '', :autocomplete => :off, :placeholder => I18n.t('devise.country'), :id => "authy-countries"%>
-  <%= text_field_tag :cellphone, '', :autocomplete => :off, :placeholder => I18n.t('devise.cellphone'), :id => "authy-cellphone"%>
+  <%= text_field_tag :country_code, '', :autocomplete => :off, :id => "authy-countries"%>
+  <%= text_field_tag :cellphone, '', :autocomplete => :off, :id => "authy-cellphone", :style => "display: none"%>
   <p><%= submit_tag I18n.t('enable_authy', {:scope => 'devise'}) %></p>
 <% end %>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#doneInput').click(function (e) {
+			e.preventDefault();
+			var telNumberFin = $('#telNumber').val();
+			$('#authy-cellphone').val(telNumberFin);
+			$(":submit")[0].click();
+		});
+    });
+</script>
+
+
+ <%= render 'shared/mobilePhoneKeyBInput' %>
