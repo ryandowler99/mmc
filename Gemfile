@@ -37,6 +37,7 @@ gem 'bcrypt' #, '~> 3.1.11'
 
 gem "chartkick"
 gem "devise"
+gem "devise-authy"
 gem "on_the_spot"
 #gem 'rack-cors', :require => 'rack/cors'
 
@@ -51,6 +52,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 	gem 'byebug'
 	#gem 'dotenv-rails' #env vars
+	gem "figaro"
 end
 
 group :development do
