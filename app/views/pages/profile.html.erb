@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "profile" %>
+<%= render 'shared/assistant',  :val1 =>  'fffffff2' %>
 
 <% if !user_signed_in? %>
 	You are not Logged in yet. <br><br>
@@ -22,7 +23,8 @@
                     <div class=" col-sm-6 col-md-8">
                         <h4 class="profile_name col-md-8"><%= @user.first_name %> <%= @user.last_name %></h4> 
                         	<%= link_to edit_user_registration_path do %>
-                        	  <%= button_tag "Change This", class: "profile_updateBtn btn btn-primary btn-responsive col-md-4" %>
+                        	  <%= button_tag "Change This", id: "chnageThisBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-md-4" %> 
+                              <%= button_tag "Change That", id: "chnageThatBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-md-4" %>
                         	<% end %>
                         	<div class="profileDetails col-md-12">
                         		 <i class="glyphicon glyphicon-globe"></i> Your Email: <text> <%= @user.email %> </text>
@@ -44,11 +46,11 @@
   
 	<div class="row" style="margin-left: 50px;">
         <div class="col-md-4">
-            <button class="myBudgetsBtn btn btn-default orange-circle-button" href="">My<br />Budgets<br /></button>
+            <button id="myBudgetsBtn" class="myBudgetsBtn btn btn-default orange-circle-button" href="">My<br />Budgets<br /></button>
             <div id="myBudgetsContainer">
                 <div class="row" id="myBudgetsInfoBox" >
                     <h1 class="purpleFont col-md-8">Your Budgets</h1>
-                    <button class="col-md-3 myBudgetsHideBtn">Hide This</button>
+                    <button id="myBudgetsHideBtn" class="col-md-3 myBudgetsHideBtn">Hide This</button>
                 </div> 
                 <div class="myBudgets">
                     <% @budgets.each_with_index do |budget, index| %>
@@ -58,7 +60,7 @@
             </div>
         </div>
         <div class="col-md-4 col-md-push-4">
-            <button class="btn btn-default orange-circle-button" href="">My<br />Games / Modules<br /></button> 
+            <button id="myGamesBtn" class="btn btn-default orange-circle-button" href="">My<br />Games / Modules<br /></button> 
         </div>
 	</div>
 </div>

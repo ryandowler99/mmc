@@ -1,0 +1,153 @@
+.testclass{
+	 background-color: yellow;
+	}
+	.body{
+		background-color: #7b69eb;
+	}
+	.panel, .panel-default>.panel-heading{
+		border-radius: 40px 40px 0px 0px;
+	}
+	.panel-default>.panel-heading{
+		background: linear-gradient(-120deg, #021B79, #0575E6, #205E9B);
+		opacity: .9;
+	}
+	.panel-body{
+		background: linear-gradient(-9deg, rgba(46, 160, 226, 0.6), rgba(32, 151, 222, 0.8), rgba(32, 94, 155, 0.4));
+	}
+	.top-bar {
+	  background: #666;
+	  color: white;
+	  padding: 10px;
+	  position: relative;
+	  overflow: hidden;
+	  padding-right:5px;
+	}
+	.box-position{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+	}
+	/* assistant */
+		.assistantMenu{
+			visibility: hidden;
+		}
+		#offsetImage{
+			height: 50px;
+			width: 50px;
+		}
+		.assistantQuestion{
+			background: linear-gradient(100deg, rgba(255, 155, 46, 0.6), orange, rgba(255, 155, 46, 0.6));
+			color: whitesmoke;
+			font-size: 2em;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+			border-radius: 8px;
+		}
+		
+		/* buttons for assistant */
+		.assistntButton {
+		  padding-top: 30px;
+		  padding-bottom: 30px;
+		  text-align: center;
+		  color: #000;
+		  text-transform: uppercase;
+		  font-weight: 600;
+		  margin-left: 30px;
+		  margin-bottom: 30px;
+		  cursor: pointer;
+		  display: inline-block;
+		  font-size: 2em;
+		}
+
+		.button-3 {
+		  border: 2px solid #fff;
+		  background-color:  rgba(153, 189, 255, 0.3);
+		  border-radius: 20px;
+		  color: #fff;
+		  transition: .3s;
+		}
+		.button-3:hover {
+		  box-shadow: 8px 8px #0575E6; 
+		  transition: .3s;
+		  background-color: #205E9B;
+		  font-size: 2.5em;
+		  color: white;
+		}
+		.assYesBtn{color: green; }
+		.assNoBtn{ color: orange; }
+		
+/* ./button for assistant */
+
+.sidenav {
+    width: 130px;
+    position: fixed;
+    z-index: 1;
+    top: 250px;
+    right: 10px;
+    background: linear-gradient(142deg, rgba(46, 160, 226, 0.6), rgba(32, 151, 194, 0.8), rgba(32, 94, 155, 0.4));
+    overflow-x: hidden;
+    padding: 8px ;
+	border-radius: 5px;
+}
+.clippy:active > .sidenav{
+    background: #ccc
+	border: 5px solid black;
+}
+
+/* assistant hint bubble */
+.speech-bubble {
+	position: relative;
+	background: #00aabb;
+	border-radius: .4em;
+}
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 64px solid transparent;
+	border-top-color: #00aabb;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -32px;
+	margin-bottom: -64px;
+}
+.visHidden{ visibility: hidden; }
+
+/* pulse animation */
+.pulse {
+  width: inherit;
+  height: inherit;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(43, 255, 237, 0.5);
+  animation: pulse 1s infinite;
+}
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.5);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(43, 255, 237, 0.5));
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(43, 255, 237, 0.5);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(43, 255, 237, 0.5);
+    box-shadow: 0 0 0 0 rgba(43, 255, 237, 0.5);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(43, 255, 237, 0.2);
+      box-shadow: 0 0 0 10px rgba(43, 255, 237, 0.2);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(43, 255, 237, 0.1);
+  }
+}
+/* ./ pulse animation */
