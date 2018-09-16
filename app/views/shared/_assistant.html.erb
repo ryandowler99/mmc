@@ -1,149 +1,350 @@
 <%= stylesheet_link_tag "assistant" %>
-
-<div id="valuesBox" style="width: 250px; height: 100px; border: 2px solid purple; padding: 30px; position: fixed; right: 10; bottom:20;"> im a div after buttons </div>
-<div id="valuesBox2" style="width: 250px; height: 100px; border: 2px solid lime; padding: 30px; position: fixed; right: 10; bottom:130;"> im a div after buttons </div>
+<%= javascript_include_tag "assistant_core" %>
+<!-- for testing
+<div id="valuesBox" style="width: 250px; height: 100px; border: 2px solid purple; padding: 30px; position: fixed; right: 10; bottom:20;"> Test - closent element value </div>
+<div id="valuesBox2" style="width: 250px; height: 100px; border: 2px solid lime; padding: 30px; position: fixed; right: 10; bottom:130;"> Test - click pos </div>
 <ul id="valuesBox3" style="width: 270px; height: 300px; border: 2px solid orange; padding: 15px; position: fixed; right: 10; bottom:250; overflow: auto;" >  </ul>
+<div style="position: absolute; top: 80; left: 80;">
+	<input id="theNewButton2" type="button" style="width: 100px; height: 100px;" > new button2 </input>
+	<input id="theOtherButton" type="button"> theOtherButton</input>
+	<input id="boomButton" type="button"> boom btn </input>
+</div>
+-->
 
-<input id="theNewButton2" type="button"> new button2 </input>
-<input id="theOtherButton" type="button"> theOtherButton wong </input>
-<input id="boomButton" type="button"> boom btn </input>
-<hgroup id="assistantBubbleHint" class="speech-bubble col-md-2 visHidden">
-	<h2>CSS speech bubbles made easy!</h2>
+<!-- sidebar -->
+<aside id="sidebar">
+	<%= image_tag "assistantIn", class: "img img-responsive assistantImgSidebar" %>
+    <ul class="sidebarItems">
+        <li class="new-label"><span>Help</span><span class="animateSpan1"></span></li>
+        <li class="new-label" onclick="toggleHighlightedTts2();"><span>Read the text out loud</span><span class="animateSpan2"></span></li>
+        <li><span>Fun</span><span class="animateSpan3"></span></li>
+    </ul>
+</aside>
+
+<!-- assistant bubble hint -->
+<hgroup id="assistantBubbleHint" class="pulse bubble col-md-2 visHidden">
+	<h2>Assistant hint here</h2>
 </hgroup>
+
+<!-- WU -inline makes sense in this situation (call one file get the assistant and dont have to pass variables twice down -->
 <script type="text/javascript">
-	$( document ).ready(function() {
-		//alert("ready");
-		//missed click
-		var shortestDist = 10000;
-		var closestElm = "---";
-		var clickableElm = []; //holds clickable elements and their x & y pos 99 rename with s
-		var count = 0; //
+	var assistant;
+	var goHome;
+	var tts_highlightedTextOn = false; //toggle feature(highlight text, assistant speaks it)
+	var toggleHighlightedTts2;
+	var allowedSpeak;
+	function toggleHighlightedTts(val){
+		alert("i got: " + val + " ( the var is : " + tts_highlightedTextOn);
+		tts_highlightedTextOn = val;
+		alert("i got: " + val + " ( noww the var is : " + tts_highlightedTextOn);
+	}
+$( document ).ready(function() {
+	/**  ASSISTANT SET UP **/
+		/* set up assistant avatar */
+		//change - this doesnt work first go, give chance for clippy to load first
+		// doc may be ready but that file isnt it!!!
+			clippy.load('Genie', function(agent){    
+			  const animations = agent.animations();    
+			  //$('.js-states').text(animations.join(', '));
+			  agent.show();
+			  assistant = agent;
+			  setTimeout(animate.bind(null, assistant, animations), 8000);        
+			});
 
-		//issue/error detection - page variables 
-		var taskElems = ['theNewButton2', 'boomButton']; //holds the elements that need to be interacted with to do the pages's task (create budget etc)
-		var numOfErrorsSoFar = 0;
-		var numOfOrderErrors = 0; //tracks the humber of times user clicks a correct elm but in wrong order (user given feedback on this)
+			function animate(assistant, animations){ 
+				//move assistant to beside his 'home' in the sidebar
+				var sidebarPos = $('.assistantImgSidebar').offset();
+			  	assistant.moveTo((sidebarPos['left'] - 60), (sidebarPos['top'] - 80)); 
 
-		//check for missed clicks & ux issues
-		$(document).click(function(event) { 
-			//does have id - tell issue detection func to see if its an elm user should be clicking to complete task
-			if (event.target.id){
-				var id = event.target.id;
-				var numOfErrorsAllowed = 1; //number of errors that will be tolerated before executing
-				//$('#valuesBox').text("id: " + event.target.id + "  ");
-				checkForIssues(id, numOfErrorsAllowed, true); //check if clicked elm is one of the needed elms to complete the task at hand (int, int, boolean)
+				function doneCallback(animation){
+					console.log('done ' + animation);
+				}
+
+				let statesText = animations.join(' '),
+					$state = $('.js-state'),
+					$states = $('.js-states');
 			}
-			//missed click - if the clicked elm has no id (must be a miss click)
-			if (!event.target.id){
-				//alert("click on no id");
-				$('#valuesBox').text("X: " + event.clientX + "  " + "Y:" + event.clientY);
-				findClosestClickable(event.clientX, event.clientY); 
+
+			goHome = function (){
+				var assistantDock = $('.assistantImgSidebar');
+				var position = assistantDock.offset(); //position of genie dock
+				assistant.moveTo(position["left"],(position["top"] - 100))
+				checkAssistantPosUntil(); //check if assistant is near dock for a period then stop looking
+				
+				//shake it
+				setTimeout(() => {
+					assistantDock.effect( "shake");
+				}, 500)
 			}
-		});
+					
+			//check if assistant is near dock for a period then stop looking
+			function checkAssistantPosUntil(){
+				var counter = 10; // number of iterations
+				var countdown = setInterval(function(){
+					var position = $('.clippy').offset(); 
+					if(position["left"] > 1100){
+						alert('hide');
+						counter = 0; //set counter to 0 so next if statement breks execution
+					}
+					counter--
+					if (counter < 1) { clearInterval(countdown); }
+				}, 1000);
+			}
+		/* ./ assistant avatar */
 
-		/*  Missed clicks */
-
-		//check dist beteen clickable elms and mouse click position
-		function checkDist(elmId, x1,y1, x2, y2){
-			//alert(4);
-			var elm = $('#'+elmId);//construct a selector
-			var elmWidth = elm.outerWidth();
-			var elmHeight = elm.outerHeight();
-			console.log(elmId + " x1: " + x1 + " y1: " + y1);
-			var xDist = (x1 + elmWidth/2) - x2;
-			var yDist = (y1 + elmHeight/2) - y2;
-			var currentDist; //current one being iterated
-			var distance = Math.sqrt( xDist*xDist + yDist*yDist ); //distance (float) between mouse and elm
-			currentDist = distance;
+		/* Assistant text to speech */
 			
-			if(currentDist < shortestDist){
-				shortestDist = currentDist;
-				closestElm = elmId;
+			 //speaks aloud any hightlighted text (users mouse)
+			 function getSelectionText(tts_highlightedTextOn) {
+			 	//alert(tts_highlightedTextOn);
+			    var text = "";
+			    if (window.getSelection) {
+			        text = window.getSelection().toString();
+			    //for Internet Explorer 8 and below.
+			    } else if (document.selection && document.selection.type != "Control") { 
+			        text = document.selection.createRange().text;
+			    }
+			    return text;
 			}
-			//return distance;
-			return closestElm;
-		}
+			
+			//toggles tts when text is highlighted
+			toggleHighlightedTts2 = function(){
+				tts_highlightedTextOn = !tts_highlightedTextOn; //change boolean val
 
-		function getPosition( element ) {
-			//alert(3);
-		   var rect = element.getBoundingClientRect();
-		   return {x:rect.left,y:rect.top};
-		}
+				if (tts_highlightedTextOn == true){
+				   $(document).mouseup(function (e){ // attach the mouseup event for all div and pre tags
+				     /* When clicking on a highlighted area, the value stays highlighted until after the mouseup event, and would therefore stil be captured by getSelection. This micro-timeout solves the issue. */
+				      setTimeout(function() {  
+				         responsiveVoice.cancel(); // stop anything currently being spoken
+				         responsiveVoice.speak(getSelectionText(tts_highlightedTextOn)); //speak the text as returned by getSelectionText
+				      }, 1);
+				   });
+				}else{
+					$(document).unbind( "mouseup" ); //remove the event listener
+					tts_highlightedTextOn = false;
+				}
+			}
 
-		//gets all clickable elements (buttons and soon links)
-		function getClickableItems(){
-			//alert(2);
-			//reset variables for next use
-			shortestDist = 10000; 
-			closestElm = "---"; //999 dont think i need because checkDist returns closestClickable
+			/* Auto TTS - read out its contents on interaction  */
+				//element listeners
+				/* change -  make this pollymorphic and accepts in an elm,
+					searches for text within it and reads them out just like its doing now for
+					spans in sidebar
+				*/
+				//mouse enter
+				$( "#sidebar" ).hover(function() {
+					allowedSpeak = true;
+					console.log("val in:" + allowedSpeak);
+					var text;
+					var textsArray = [];
+					var theElms = $(this).children('ul').children('li');
+					var elmWithText;
 
-			$(":button").each(function() {
-				var $this = $(this); // 999 visit this link to talk about why u put this here and to comment here too -> https://stackoverflow.com/questions/36722979/this-offset-is-not-a-function-within-a-click-function
-				//var pos = $this.offset(); //get position of elm (x,y) -- old way margin messes with
-				var pos = getPosition( this );
-				var theId = this.id.toString(); 
+					theElms.each(function(index, value) {
+						text = this.innerText.trim();
+						textsArray.push(text);
+						elmWithText = $(value).find("span:last-child");
+						//speak the link text
+						if(allowedSpeak){
+							responsiveVoice.speak(text + ",");
+						}
+					});
+				}, 
+				//mouse exit
+				function(){
+					allowedSpeak = false;
+					responsiveVoice.cancel(); // stop anything currently being spoken
+					console.log("val out:" + allowedSpeak);
+				});
+				
+		    /* ./ Auto TTS */
+		/* ./ Assistant text to speech */
+	/** ./ ASSISTANT SET UP **/
 
-				//add clickable elem's id and position to the array (no blank values)
-				if(theId){ clickableElm[clickableElm.length] = { id: theId, x: pos.x, y: pos.y}; }
-				if(clickableElm[0]){
-					//console.log("obj is  -   " + clickableElm[count].id + " x: " + clickableElm[count].x + " y: " + clickableElm[count].y  + "        |       len  " + clickableElm.length + "  count: " + count);
-					//count ++;
-					//alert(999);
+	/** ASSISTANT FEATURES **/
+		/* Missed click detection */
+			var shortestDist = 10000;
+			var closestElm = "---";
+			var clickableElm = []; //holds clickable elements and their x & y pos 99 rename with s
+			var count = 0; // do i need change
+
+			// Issue/Error Detection - page variables 
+			var taskElems = <%= raw taskElems %>; //recieved as partial param
+			var numOfErrorsSoFar = 0; //num of 
+			var numOfOrderErrors = 0; //num of clicks on correct elm but in wrong order
+
+			//all other vars
+			var taskModeOn = false; // to be used when major task is being completed
+
+			//check for missed clicks & ux issues
+			$(document).click(function(event) { 
+				//use later for activating a mode for major taks like creating a budget to prevent buttons bringing user away mid task!
+				if (taskModeOn){event.preventDefault();}
+
+				//if elem has an id (is a clickable) - change to be a clickable AND has id - this will casue probs
+				if (event.target.id){
+					var id = event.target.id; //elm id
+					var numOfErrorsAllowed = 1; //number of errors that will be tolerated before interfeering
+					/*  Check if elm is one of the needed elms to complete the task at hand 
+						(int, int, boolean)  */
+					checkForIssues(id, numOfErrorsAllowed, true); 
+				}
+				//missed click - if the clicked elm has no id (must be a miss click)
+				else{
+					$('#valuesBox').text("X: " + event.clientX + " Y:" + event.clientY);
+					//find the closest clickable to the miss click
+					findClosestClickable(event.clientX, event.clientY); 
 				}
 			});
-			return clickableElm;
-		}
 
-
-
-
-		//compares an elements pos to mouse click pos
-		function findClosestClickable(mouseX,mouseY){
-			//alert(1);
-			var clickableElms = getClickableItems(); //all page clickable elms 999 chnage to callback so executes in correct order
-			//console.log("1: " + clickableElm[0].y);
-			
-			$.each(clickableElms , function (index, value){
-				var x1 = clickableElm[index].x; //iterated elm x
-				//var x1 = getPosition( clickableElm[index] );
-				var y1 = clickableElm[index].y; //iterated elm y
-				console.log(clickableElm.id + "- x is: " + x1 + " the y is: " + y1);
-				var elmId = clickableElm[index].id;
-				var closestClickable = checkDist(elmId, x1,y1, mouseX, mouseY); //check distance beteen the mouse xy and the current clickable being iterated	
-			    console.log(" CLOSEST element is " + closestClickable + " - with a distance of: " + shortestDist);
-				$('#valuesBox2').text("closest elm is " + closestElm + " and it was this far away: " + shortestDist );
-				var textInBox3 = $('#valuesBox3').text();
+			//check dist beteen clickable elms and mouse click position
+			function checkDist(elmId, x1,y1, x2, y2){
+				//alert(4);
+				var elm = $('#'+elmId);//construct a selector
+				var elmWidth = elm.outerWidth();
+				var elmHeight = elm.outerHeight();
+				var xDist = (x1 + elmWidth/2) - x2;
+				var yDist = (y1 + elmHeight/2) - y2;
+				var currentDist; //current one being iterated
+				var distance = Math.sqrt( xDist*xDist + yDist*yDist ); //distance (float) between mouse and elm
+				currentDist = distance;
 				
-				$('#valuesBox3').append('<li>' + elmId + " x: " + x1 + "  y " + y1 + '</li><br/>');
-			});
-			//do the callback list thoing so the funcs execute after the prev finnishes so the vals are def availible and stuff
-			//reset array
-			clickableElms.length = 0;
-		}
-		/*  ./ Missed clicks */
-			
+				if(currentDist < shortestDist){
+					shortestDist = currentDist;
+					closestElm = elmId;
+				}
+				//return distance;
+				return closestElm;
+			}
 
+			function getPosition(element) {
+			   var rect = element.getBoundingClientRect();
+			   return {x:rect.left,y:rect.top};
+			}
 
+			//gets all clickable elements (buttons and soon links)
+			function getClickableItems(){
+				//reset variables for next use
+				shortestDist = 10000; 
+				closestElm = "---"; //999 dont think i need because checkDist returns closestClickable
+
+				$(":button").each(function() {
+					var $this = $(this); // 999 visit this link to talk about why u put this here and to comment here too -> https://stackoverflow.com/questions/36722979/this-offset-is-not-a-function-within-a-click-function
+					//var pos = $this.offset(); //get position of elm (x,y) -- old way margin messes with
+					var pos = getPosition( this );
+					var theId = this.id.toString(); 
+
+					//add clickable elem's id and position to the array (no blank values)
+					if(theId && (pos.x >0 || pos.y >0 )){
+						clickableElm[clickableElm.length] = { id: theId, x: pos.x, y: pos.y}; 
+					}
+				});
+				return clickableElm;
+			}
+
+			//compares an elements pos to mouse click pos
+			function findClosestClickable(mouseX,mouseY){
+				var clickableElms = getClickableItems(); 
+				
+				$.each(clickableElms , function (index, value){
+					var x1 = clickableElm[index].x; //iterated elm x
+					//var x1 = getPosition( clickableElm[index] );
+					var y1 = clickableElm[index].y; //iterated elm y
+					console.log(clickableElm.id + "- x is: " + x1 + " the y is: " + y1);
+					var elmId = clickableElm[index].id;
+					var closestClickable = checkDist(elmId, x1,y1, mouseX, mouseY); //check distance beteen the mouse xy and the current clickable being iterated	
+					$('#valuesBox2').text("closest elm is " + closestElm + " and it was this far away: " + shortestDist);
+					var textInBox3 = $('#valuesBox3').text();
+					$('#valuesBox3').append('<li>' + elmId + " x: " + x1 + "  y " + y1 + '</li><br/>');
+				});
+				clickableElms.length = 0; //reset array
+			}
+		/*  ./ Missed clicks detection */
 
 
 		/*  Error/issue detection */
-		/* (used by checkForIssues func). Places a bubble near a specified element with a specified message
+		// removes any class that starts with "bubble_" (used by createBubbleElm func)
+		function removeOldBubbleClasses(theElm){
+			theElm.removeClass(function (index, css) {
+				return (css.match (/\bbubble_\S+/g) || []).join(' '); 
+			});
+		}
+		
+		function createBubbleElm(quadrant, theElm, closestElm_x, closestElm_y, closestElmWidth, closestElmHeight, bubbleWidth, bubbleHeight, offset_x, offset_y){
+			removeOldBubbleClasses(theElm); //ensure bubble is using correct css class
+
+			//work out positioning of help bubble relative to the target element
+			let topVal = closestElm_y + ((bubbleHeight + closestElmHeight) * offset_y);
+			let leftVal = closestElm_x + ((bubbleWidth + closestElmWidth) * offset_x);
+
+			theElm.addClass('bubble_' + quadrant).offset({
+				top: (topVal),
+				left: (leftVal)
+			});
+		}
+
+		/* (used by checkForIssues func). Places a bubble near a specified element with a message
 		and coordinates (bubble points to the elem & makes it pulse) */
 		function elemPointerBubble(closestElm, closestElmPos, bubbleHeight, bubbleWidth, message){
 			alert("your clicking the wrong elems - you must be lost, you first need to use: " + closestElm);
 			var theMessage = message ? message : 'fallback message here that is generic';
-			$("#assistantBubbleHint h2").text(theMessage)
-				.parent().toggleClass('visHidden')
-				.offset({ top: (closestElmPos['top'] - bubbleHeight*2 ),
-							left: (closestElmPos['left'] - bubbleWidth*.3) });
-			closestElm.toggleClass('pulse');
+
+			// screen divided into 4 quadrants to determin what direction to point bubble
+			var windowWidth = $(window).width();
+			var windowHeight = $(window).height();
+			var q1_xlimit = (windowWidth /2);	
+			var q1_ylimit = (windowHeight /2);	
+
+			var theElm = $("#assistantBubbleHint h2").text(theMessage)
+				.parent().toggleClass('visHidden');
+			var closestElm_x = closestElmPos['left'];
+			var closestElm_y = closestElmPos['top'];
+			var closestElmHeight = closestElm.height();
+			var closestElmWidth = closestElm.width();
+			var offset_x = 1; // used as a multiplyer so 1 is default
+			var offset_y = 1; // used as a multiplyer so 1 is default
+			//alert("yep the closestElmWidth is: " + closestElmWidth + " and height is " + closestElmHeight);
+
+			//top two quadrants
+			if(closestElmPos['top'] < q1_ylimit){
+				if(closestElmPos['left'] < q1_xlimit){
+					//its q1
+					offset_x = .5;
+					offset_y = .5;
+					//closestElm_x = closestElm_x *
+					createBubbleElm('q1', theElm, closestElm_x ,closestElm_y, closestElmWidth, closestElmHeight, bubbleWidth, bubbleHeight, offset_x, offset_y);
+				}
+				else{
+					//q2
+					offset_x = -1;
+					offset_y = .5;
+					createBubbleElm('q2', theElm, closestElm_x ,closestElm_y, closestElmWidth, closestElmHeight, bubbleWidth, bubbleHeight, offset_x, offset_y);
+				}
+			}//bottom two quadrants
+			else{
+				if(closestElmPos['left'] < q1_xlimit){
+					//its q3
+					offset_x = 0.5;
+					offset_y = -0.5;
+					createBubbleElm('q3', theElm, closestElm_x ,closestElm_y, closestElmWidth, closestElmHeight, bubbleWidth, bubbleHeight, offset_x, offset_y);
+				}
+				else{
+					//q4
+					offset_x = -0.5;
+					offset_y = -0.5;
+					createBubbleElm('q4', theElm, closestElm_x ,closestElm_y, closestElmWidth, closestElmHeight, bubbleWidth, bubbleHeight, offset_x, offset_y);
+				}
+			}	
+			closestElm.toggleClass('pulse'); //add visual effect to the correct elem(change closest to corect)
+
 			//add event listener for btn 
 			$(closestElm).click(function() {
 				$(closestElm).unbind('click'); //remove event listener
 				closestElm.toggleClass('pulse'); //stop pulsing 
 				$("#assistantBubbleHint").toggleClass('visHidden'); //remove annotation bubble
 			});	
-		}
+		}	
+
 		//checks if the user is completing the main task of a screen (steps to create a budget etc)
 		function checkForIssues(id, numOfErrorsAllowed, executeInOrder){ //int, int, boolean
 			//stops code being ran after all task elems are used
@@ -200,5 +401,7 @@
 				}
 			}
 		}// checkForIssues func
-	}); //doc ready
+	/** ./ ASSISTANT FEATURES **/
+}); //doc ready
 </script>
+

@@ -204,7 +204,7 @@
 
 
 /* sidebar -*/
-#sidebar > ul li, #sidebar > ul li span:last-child, .animateHov{
+#sidebar > ul li, #sidebar > ul li span:last-child {
     transition:all 1200ms;
 }
 #sidebar {
@@ -264,7 +264,7 @@
     bottom:0;
 }
 #sidebar > ul li span:first-child:before {
-    /*content: counter(li);*/
+    content:"";
     counter-increment:li;
 }
 #sidebar > ul li span:first-child {
@@ -287,22 +287,6 @@
 #sidebar > ul li:hover > span:last-child {
     left:0;
    /* top:0; use for animate downward*/
-}
-
-#sidebar:hover ul li > .animateSpan1{
-	 left:0;
-	 background-color: pink;
-	 transition-delay: 0.5s;
-}
-#sidebar:hover ul li > .animateSpan2{
-	 left:0;
-	 background-color: pink;
-	 transition-delay: 1.5s;
-}
-#sidebar:hover ul li > .animateSpan3{
-	 left:0;
-	 background-color: pink;
-	 transition-delay: 2.5s;
 }
 
 .assistantImgSidebar{

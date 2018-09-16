@@ -1,5 +1,4 @@
 <%= stylesheet_link_tag "profile" %>
-<%= render 'shared/assistant',  :val1 =>  'fffffff2' %>
 
 <% if !user_signed_in? %>
 	You are not Logged in yet. <br><br>
@@ -66,3 +65,5 @@
 </div>
 
 <%= javascript_include_tag "profile" %>
+<!-- Nessesary elements to copmplete page task (in order of usage) -->
+<%= render 'shared/assistant',  :taskElems =>  ['theNewButton2', 'chnageThisBtn', 'myGamesBtn','booButton', 'myBudgetsBtn' ] %>
