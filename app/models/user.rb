@@ -5,5 +5,7 @@ class User < ActiveRecord::Base
   devise :authy_authenticatable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  
+  mount_uploader :profileimage, ProfileImageUploader
 end
+
+

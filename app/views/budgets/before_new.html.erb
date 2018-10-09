@@ -7,28 +7,28 @@
 <button href="#" class="btn stickyBtn" onclick="showDragAndDrop();" data-toggle="tooltip" title="Hide or Show the Drag & Drop box"><i id="stickyBtnIcon" class=" fa fa-chevron-down fa-5x" ></i></button>
 
 <div class= "examples" style="margin-left:10px;">
-	<button type="button" class="btn helpBtn" data-toggle="modal" data-target="#helpModal">
+	<button id="helpBtn" type="button" class="btn helpBtn" data-toggle="modal" data-target="#helpModal">
 		Help <span class="glyphicon glyphicon-question-sign"></span>
 	</button>
 	<div class='parent'>
 		<h1 style="text-align: center;">What categories are you <u>Budgeting</u> for this week:</h1>
 		<ul id='right-defaults' class='col-md-10 col-md-push-1' style="border: 2px dashed #7b69eb; min-height:200px; padding: 10px;"> </ul>
 		<div class='wrapper col-md-12'>
-			<ul id='left-defaults' class='col-md-12' style=" min-height: 200px;">
-			    <li class="col-md-4">Savings <%= image_tag "savings", class: "img img-responsive col-md-3" %> </li>
-			    <li class="col-md-4">Bills <%= image_tag "bills", class: "img img-responsive col-md-3" %></li>
-			    <li class="col-md-4">Lunches <%= image_tag "lunches", class: "img img-responsive col-md-3" %></li>
-			    <li class="col-md-4">Phone <%= image_tag "phone", class: "img img-responsive col-md-3" %></li>
-			    <li class="col-md-4">Travel <%= image_tag "travel", class: "img img-responsive col-md-3" %></li>
-			    <li class="col-md-4">Clothing <%= image_tag "clothing", class: "img img-responsive col-md-3" %></li>
-				<li class="col-md-4">Activities <%= image_tag "activities", class: "img img-responsive col-md-3" %></li>
-			    <li class="col-md-4">Entertainment <%= image_tag "entertainment", class: "img img-responsive col-md-3" %></li>
-			    <li class="col-md-4" style="font-size: 2em; line-height: 23px;">Emergency fund <%= image_tag "emergency", class: "img img-responsive col-md-3" %></li>
-			    <div class="col-md-12"><li class="col-md-6 col-md-push-3 whiteFont font600 marginTop20">Make up my own <br><%= image_tag "idea", class: "img img-responsive col-md-2 col-md-push-5 centered" %></li></div>
+			<ul id='left-defaults' assistantHint="Drag these things up to the box" 		class='col-md-12' style=" min-height: 200px;">
+			    <li class="taskElement col-xs-6 col-md-4">Savings <%= image_tag "savings", class: "img img-responsive col-md-3" %> </li>
+			    <li class="taskElement col-xs-6 col-md-4">Bills <%= image_tag "bills", class: "img img-responsive col-md-3" %></li>
+			    <li class="taskElement col-xs-6 col-md-4">Lunches <%= image_tag "lunches", class: "img img-responsive col-md-3" %></li>
+			    <li class="taskElement col-xs-6 col-md-4">Phone <%= image_tag "phone", class: "img img-responsive col-md-3" %></li>
+			    <li class="taskElement col-xs-6 col-md-4">Travel <%= image_tag "travel", class: "img img-responsive col-md-3" %></li>
+			    <li class="taskElement col-xs-6 col-md-4">Clothing <%= image_tag "clothing", class: "img img-responsive col-md-3" %></li>
+				<li class="taskElement col-xs-6 col-md-4">Activities <%= image_tag "activities", class: "img img-responsive col-md-3" %></li>
+			    <li class="taskElement col-xs-6 col-md-4">Entertainment <%= image_tag "entertainment", class: "img img-responsive col-md-3" %></li>
+			    <li class="taskElement col-xs-6 col-md-4" style="font-size: 2em; line-height: 23px;">Emergency fund <%= image_tag "emergency", class: "img img-responsive col-md-3" %></li>
+			    <div class="col-md-12 hidden"><li class="col-md-6 col-md-push-3 whiteFont font600 marginTop20">Make up my own <br><%= image_tag "idea", class: "img img-responsive col-md-2 col-md-push-5 centered" %></li></div>
 			</ul>
 		</div>  
 	</div>
-	<button class="btn btn-lg greenBG whiteFont" onclick="submitClicked();" style="margin-top: 50px; margin-right: 10px; float: right; margin-bottom: 5px;"> I'm ready to make my budget </button>
+	<button id="continueWithBudgetBtn" class="btn btn-lg greenBG whiteFont" onclick="submitClicked();" style="margin-top: 50px; margin-right: 10px; float: right; margin-bottom: 5px; display: none;"> I'm ready to make my budget </button>
   </div>
 <!-- list -->
 <div id="list">
@@ -84,7 +84,36 @@
  <!-- render the Error partial and pass it parameters (column name and its value) -->
  <%= render 'shared/errorModal',  :val1 =>  errorMessage,  :val2 =>  yesPath1,  :val3 =>  yesPath2 %>
 
+<%= render 'shared/assistant',  :taskMode => true, :missedClickMode => false, :taskElems =>  ['left-defaults'] %>
 
-
+<style type="text/css">
+	/* Extra Small Devices, Phones */ 
+	#assistantBubbleHint{
+		transform: scale(2);
+		position: absolute;
+	    top: 150 !important;
+	    left: 220!important;
+	     background-color: orange;
+	}
+	@media only screen and (max-width : 992px) {
+		#assistantBubbleHint{
+			transform: scale(1.6);
+			position: absolute;
+		    top: 150 !important;
+		    left: 180!important;
+		    background-color: pink;
+		}
+	}
+	@media only screen and (max-width : 760px) {
+		#assistantBubbleHint{
+			transform: scale(1.2);
+			position: absolute;
+		    top: 75 !important;
+		    left: 90!important;
+		    background-color: yellow;
+		}
+	}
+	
+</style>
 
 

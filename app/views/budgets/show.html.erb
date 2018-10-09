@@ -76,7 +76,7 @@
 </div> -->
 <div class="col-md-10 col-md-push-2">
    <%= pie_chart @budget.dup.attributes.keep_if{|k,v| 
-        !v.nil? && !(k ==  "money_i_have" || k ==  "week" ) },
+        !v.nil? && !(k ==  "money_i_have" || k ==  "week" || k ==  "user_id" ) },
         width: "800px",
         height: "400px",
         legend: "bottom" %>
@@ -124,9 +124,10 @@
 
   }
 
-  $('span').change(function(e) {
-    $(this).closest( "blockquote" ).removeClass( "itsBlank" );
-});
+//   $('span').change(function(e) {
+//     alert("dda");
+//     $(this).closest( "blockquote" ).removeClass( "itsBlank" );
+// });
 
 
 </script>

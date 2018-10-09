@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+ root 'pages#front'
   resources :iframe_games
   resources :videos
 get 'budgets/before_new'
@@ -23,12 +23,12 @@ get 'pages/ux_testing_view'
 
 
 #devise_for :users
-devise_for :users, :controllers => { registrations: 'registrations' }, :path_names => {:sign_up => "register"}
+#devise_for :user, :controllers => { registrations: 'registrations' }
+devise_for :user, :controllers => { registrations: 'registrations' }
+#post '/user/request-sms' => 'devise/devise_authy#request_sms', :as => 'authysmslink'
+#match "/user/request-sms" => "devise/devise_authy#request_sms", as: :authysmslinkky, via: [:post]
 # The priority is based upon order of creation: first created -> highest priority.
 # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  root 'pages#front'
 
   # Example of regular route:
  

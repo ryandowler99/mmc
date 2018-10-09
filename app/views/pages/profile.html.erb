@@ -8,24 +8,27 @@
 <% end %>
 
 <% @users_budgets.each do |o| %>
-	<div style="border: 1px solid black"><%= o.title %></div>
+	<!-- <div style="border: 1px solid black"><%= o.title %></div>-->
 <% end  %>
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8 col-md-push-2">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-push-1 col-md-push-2">
             <div class="well well-sm">
                 <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <%=image_tag "profile_mmc", class: "img-rounded img-responsive" %>
+                    <div class="col-xs-5 col-sm-4 ">
+                        <%=image_tag (@user.profileimage), class: "img-rounded img-responsive" if @user.profileimage? %>
                     </div>
-                    <div class=" col-sm-6 col-md-8">
-                        <h4 class="profile_name col-md-8"><%= @user.first_name %> <%= @user.last_name %></h4> 
+                    <div class="col-sm-8">
+                        <h4 class="profile_name col-sm-8"><%= @user.first_name %> <%= @user.last_name %></h4> 
+                        <%= button_tag "Change This", id: "chnageThisBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-sm-4" %>
+                        <br/>
+                        <br/>
                         	<%= link_to edit_user_registration_path do %>
-                        	  <%= button_tag "Change This", id: "chnageThisBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-md-4" %> 
-                              <%= button_tag "Change That", id: "chnageThatBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-md-4" %>
+                        	  <%# button_tag "Change This", id: "chnageThisBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-sm-4" %> 
+                              <%# button_tag "Change That", id: "chnageThatBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-sm-4" %>
                         	<% end %>
-                        	<div class="profileDetails col-md-12">
+                        	<div class="profileDetails col-sm-12">
                         		 <i class="glyphicon glyphicon-globe"></i> Your Email: <text> <%= @user.email %> </text>
 	                            <br />
 	                            <i class="glyphicon glyphicon-time"></i> You joined 
@@ -44,12 +47,12 @@
     </div>
   
 	<div class="row" style="margin-left: 50px;">
-        <div class="col-md-4">
+        <div class="col-sm-4 col-sm-pull-2 col-md-pull-0">
             <button id="myBudgetsBtn" class="myBudgetsBtn btn btn-default orange-circle-button" href="">My<br />Budgets<br /></button>
             <div id="myBudgetsContainer">
                 <div class="row" id="myBudgetsInfoBox" >
-                    <h1 class="purpleFont col-md-8">Your Budgets</h1>
-                    <button id="myBudgetsHideBtn" class="col-md-3 myBudgetsHideBtn">Hide This</button>
+                    <h1 class="purpleFont col-sm-8">Your Budgets</h1>
+                    <button id="myBudgetsHideBtn" class="col-xs-4 col-xs-push-4 col-sm-3 col-sm-push-0 myBudgetsHideBtn">Hide This</button>
                 </div> 
                 <div class="myBudgets">
                     <% @budgets.each_with_index do |budget, index| %>
@@ -58,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-md-push-4">
+        <div class="col-sm-4 col-sm-push-4 pushDown40">
             <button id="myGamesBtn" class="btn btn-default orange-circle-button" href="">My<br />Games / Modules<br /></button> 
         </div>
 	</div>
@@ -66,4 +69,9 @@
 
 <%= javascript_include_tag "profile" %>
 <!-- Nessesary elements to copmplete page task (in order of usage) -->
-<%= render 'shared/assistant',  :taskElems =>  ['theNewButton2', 'chnageThisBtn', 'myGamesBtn','booButton', 'myBudgetsBtn' ] %>
+<%= render 'shared/assistant',  :taskMode => true, :missedClickMode => false, :taskElems =>  ['myGamesBtn','booButton', 'myBudgetsBtn' ] %>
+
+<style type="text/css">
+    /* There is no task on this page s*/
+    #pageIntroduceBtn{visibility: hidden;}
+</style>

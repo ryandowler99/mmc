@@ -11,8 +11,13 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
 //= require chartkick
 //= require turbolinks
 //= require on_the_spot
 // require_tree .
+
+//add clases to elems, to be used for inline onClicks to reduce duplication
+function addClassToElm(theId, theClass){
+	console.log("theId is: " + theId + "theClass is: " + theClass);
+	document.getElementById(theId).classList.add(theClass);
+}

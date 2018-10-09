@@ -77,9 +77,7 @@
 		.assYesBtn{color: green; }
 		.assNoBtn{ color: orange; }
 
-		#assistantBubbleHint{
-			z-index: 10000;
-		}
+		#assistantBubbleHint{ z-index: 10000; }
 		
 /* ./button for assistant */
 
@@ -118,7 +116,7 @@
 	border-top: 0;
 	margin-top: -1.203em;
 	margin-left: -2.406em;
-	background-color: pink;
+	
 }
 .bubble_q2:after {
 	content: '';
@@ -133,7 +131,6 @@
 	border-top: 0;
 	margin-top: -1.281em;
 	margin-right: -2.562em;
-	background-color: orange;
 }
 .bubble_q3:after {
 	content: '';
@@ -148,7 +145,6 @@
 	border-left: 0;
 	margin-left: -1.562em;
 	margin-bottom: -3.125em;
-	background-color: yellow;
 }
 .bubble_q4:after {
 	content: '';
@@ -163,7 +159,6 @@
 	border-right: 0;
 	margin-left: -1.562em;
 	margin-bottom: -3.125em;
-	background-color: aqua;
 }
 .visHidden{ visibility: hidden; }
 
@@ -322,7 +317,102 @@
     border-style: none;
     border-left-style: solid;
 }
+	/* flip switch */
+		.switch {
+		  position: relative;
+		  display: inline-block;
+		  width: 60px;
+		  height: 34px;
+		  margin-left: 2.5em;
+		}
+
+		.switch input {display:none;}
+
+		.slider {
+		  position: absolute;
+		  cursor: pointer;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  background-color: #ccc;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+
+		.slider:before {
+		  position: absolute;
+		  content: "";
+		  height: 26px;
+		  width: 26px;
+		  left: 4px;
+		  bottom: 4px;
+		  background-color: white;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+
+		input:checked + .slider {
+		  background-color: #2196F3;
+		}
+
+		input:focus + .slider {
+		  box-shadow: 0 0 1px #2196F3;
+		}
+
+		input:checked + .slider:before {
+		  -webkit-transform: translateX(26px);
+		  -ms-transform: translateX(26px);
+		  transform: translateX(26px);
+		}
+
+		/* Rounded sliders */
+		.slider.round {
+		  border-radius: 34px;
+		}
+
+		.slider.round:before {
+		  border-radius: 50%;
+		}
+	/* ./flip switch */
+		.hhqqqq, .assistantMenuItemActive{
+			overflow: visible;
+		    height: fit-content;
+		    min-height: 8em;
+		}
+		.assistantMenuItemTableActive{
+			display: block;
+			margin-top: 2em;
+			color: white;
+		}
 /* ./ sidebar */
+
+#pageIntroduceBtn{
+	display: none;
+	position: fixed;
+	top: 70px;
+	left: 20px;
+	background-color: orange;
+	height: fit-content;
+    padding: 25px;
+    color: white;
+    font-size: 1.4em;
+    font-weight: 600;
+	border: 2px solid #7b69eb;
+    border-radius: 5px;
+}
+
+#pageIntroduceBtn:hover{
+	background-color: #7b69eb; 
+    border: 10px solid orange; 
+}
+#pageIntroduceBtn > .glyphicon{
+	font-size: 2em;
+	display: block;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
 
 .clippy{
 	position: absolute;

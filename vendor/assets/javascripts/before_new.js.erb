@@ -2,6 +2,7 @@ var array = [];
   		var finalArray = [];
   		var listItem; //holds the html for list item
 
+
 		function get_chosen_fields(){
 			 console.log("array is:" + array);
 			 array = [];
@@ -23,7 +24,7 @@ var array = [];
 
 		//MAKE THE FOLLOWING TwO FUNCTIONS MORE POLYMORPHIC !!!!!!!!!!!!!!
 		function submitClicked(){
-
+			taskMode = !taskMode; //user would have sucessfully interacted with task if they clicked this btn
 			get_chosen_fields();
 			createLink();
 			$('#prettyList').empty(); //
@@ -35,7 +36,10 @@ var array = [];
 			//iterate through each chosen filds and output a list item for each
 			$.each(array, function(index, value) {
 				//change the html to have the values of each chosen field
-				listItem = '<div class="row"><div class="col-md-6 col-md-pull-2" style="margin-left: 30px;"><ul class="event-list"><li><time datetime="2014-07-20"><span class="day">' + (index +1) + '</span></time><div class="info"><h2 class="title">' + value + '</h2></div></li></ul></div>';
+				var baseUrl = "http://localhost:3000/assets/" //CHANGE - no desc needed just change it befoee prod
+				var linkPrep = baseUrl + (value.toLowerCase()).trim();
+				var imageLink = linkPrep.replace(/\s/g, '');
+				listItem = '<div class="row"><div class="col-md-8" style="margin-left: 30px;"><ul class="event-list"><li><time><span class="day">' + (index +1) + '</span></time><div class="info"><h2 class="title">' + value + '</h2></div><img src=" ' + imageLink + '" /></li></ul></div>';
 
 			$('#prettyList').append(listItem);//output item
 		    });
@@ -92,3 +96,27 @@ var array = [];
 		    	$('#changeSomethingBtn').hide();
 			}
 		}
+
+// -- watches the dropzone for items added and removed --
+// elem will be observed for mutations (changes to dom)
+var theDropZone = document.getElementById('right-defaults');
+
+// Options for the observer (which mutations to observe)
+var config = { attributes: false, childList: true, subtree: false };
+
+// Callback function to execute when mutations are observed
+var callback = function(mutationsList, observer) {
+    for(var mutation of mutationsList) {
+        if (mutation.type == 'childList') {
+            console.log('A child node has been added or removed.');
+            $('#assistantBubbleHint').addClass('visHidden'); //ensure error message gone
+        	$('#continueWithBudgetBtn').css("display", "block"); //show the continue button
+        }
+    }
+};
+
+// Create an observer instance linked to the callback function
+var observer = new MutationObserver(callback);
+
+// Start observing the target node for configured mutations
+observer.observe(theDropZone, config);

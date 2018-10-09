@@ -51,10 +51,10 @@
 		font-weight: 700;
 		margin: 0px;
 	}
-	@media (min-width: 768px) {
+	
 		.event-list > li {
 			position: relative;
-			display: block;
+			display: inline-flex;
 			width: 100%;
 			height: 120px;
 			padding: 0px;
@@ -78,11 +78,12 @@
 		.event-list > li > .info {
 			position: relative;
 			height: 120px;
+			width: 57%;
 			padding-top: 45px;
 			text-align: center;
 			vertical-align: text-top;
 		}	
-	}
+	
 	/*#prettyList{visibility: hidden;}*/
 	/* ./ Pretty list css */
 /* bounce */
@@ -91,7 +92,7 @@
   left:90%;
   bottom:0;
   margin-top:-25px;
-  margin-left:-25px;
+  margin-left:-100px;
   height:70px;
   background:#4ECDC4;
   -webkit-animation:bounce 1s infinite;

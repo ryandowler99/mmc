@@ -1,28 +1,69 @@
 <%= stylesheet_link_tag "assistant" %>
 <%= javascript_include_tag "assistant_core" %>
-<!-- for testing
+
 <div id="valuesBox" style="width: 250px; height: 100px; border: 2px solid purple; padding: 30px; position: fixed; right: 10; bottom:20;"> Test - closent element value </div>
 <div id="valuesBox2" style="width: 250px; height: 100px; border: 2px solid lime; padding: 30px; position: fixed; right: 10; bottom:130;"> Test - click pos </div>
 <ul id="valuesBox3" style="width: 270px; height: 300px; border: 2px solid orange; padding: 15px; position: fixed; right: 10; bottom:250; overflow: auto;" >  </ul>
 <div style="position: absolute; top: 80; left: 80;">
 	<input id="theNewButton2" type="button" style="width: 100px; height: 100px;" > new button2 </input>
 	<input id="theOtherButton" type="button"> theOtherButton</input>
-	<input id="boomButton" type="button"> boom btn </input>
+	<input id="boomButton" type="button" class="ignoreThisElem"> boom btn </input>
 </div>
--->
+<div class="js-states"></div>
 
+<div id="pageIntroduceBtn">
+	<span id="pib" class="glyphicon glyphicon-question-sign"></span>Show me what to do
+</div>
 <!-- sidebar -->
-<aside id="sidebar">
+<aside id="sidebar" class="hidden-xs">
 	<%= image_tag "assistantIn", class: "img img-responsive assistantImgSidebar" %>
     <ul class="sidebarItems">
-        <li class="new-label"><span>Help</span><span class="animateSpan1"></span></li>
-        <li class="new-label" onclick="toggleHighlightedTts2();"><span>Read the text out loud</span><span class="animateSpan2"></span></li>
-        <li><span>Fun</span><span class="animateSpan3"></span></li>
+        <li id="assistantBtn1" class="new-label" onclick="addClassToElm(this.id, 'assistantMenuItemActive')">
+        	<span><vistext1>Help</vistext1>
+        		<table class="assistantMenuItemTableActive">
+				  <tr>
+				    <td><vistext2>Missed click mode:</vistext2></td>
+				    <td>
+				    	<label class="switch">
+						  <input id="missedClickModeBtn" type="checkbox" unchecked 			onclick="missedClickMode = !missedClickMode;">
+						  <div class="slider round"></div>
+						</label>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>Task mode: </td>
+				    <td>
+				    	<label class="switch">
+						  <input type="checkbox" unchecked
+						  		onclick="taskMode = !taskMode;">
+						  <div class="slider round"></div>
+						</label>
+				    </td>
+				  </tr>
+				  <tr>
+				    <td>What is this? mode: </td>
+				    <td>
+				    	<label class="switch">
+						  <input type="checkbox" checked>
+						  <div class="slider round"></div>
+						</label>
+				    </td>
+				  </tr>
+				</table>
+        	</span><span class="animateSpan1"></span>
+
+        </li>
+        <li class="new-label" onclick="toggleHighlightedTts2();"><span><vistext1>Read the text out loud</vistext1></span><span class="animateSpan2"></span></li>
+        <li><span><vistext1>Fun</vistext1></span><span class="animateSpan3"></span></li>
     </ul>
 </aside>
 
 <!-- assistant bubble hint -->
-<hgroup id="assistantBubbleHint" class="pulse bubble col-md-2 visHidden">
+<hgroup id="assistantBubbleHint" class="pulse bubble col-md-2 visHidden" onclick="hideShowBubble();">
+	<div id="extraBubbleBtns" style="display: none;">
+		<div id="showMeBubbleBtn" onclick="animateBudgetTask();">Show me</div>
+		<div id="hideBubbleBtn">Hide X</div>
+	</div>
 	<h2>Assistant hint here</h2>
 </hgroup>
 
@@ -33,27 +74,93 @@
 	var tts_highlightedTextOn = false; //toggle feature(highlight text, assistant speaks it)
 	var toggleHighlightedTts2;
 	var allowedSpeak;
+	var missedClickMode = <%= raw missedClickMode %>;
+	var taskMode = <%= raw taskMode %>;
+	var sidebarPos = $('.assistantImgSidebar').offset();
+	function hideShowBubble(){
+		//alert('clicked hint box');
+		//$('#assistantBubbleHint').toggleClass('visHidden');
+		$('#extraBubbleBtns').css("display", "block");
+	}
+
+	//visually simulates te dradding motion needed to complete budget creation
+	function animateBudgetTask(){
+		var budgetItemToAnimate = $('#left-defaults li')[1];
+		$( "#right-defaults" ).effect( "highlight", {}, 2000 );
+		budgetItemToAnimate.animate([
+		  // keyframes
+		  { transform: 'translateY(0px)' }, 
+		  { transform: 'translateY(-200px)' }
+		], { 
+		  // timing options
+		  duration: 1500,
+		  iterations: 1
+		});
+		$( "#right-defaults" ).effect( "highlight", {}, 4000 );
+	}
+
+	function statusOfModes(){
+		console.log("missedClickMode: " + missedClickMode);
+		console.log("taskMode: " + taskMode);
+	}
+
 	function toggleHighlightedTts(val){
 		alert("i got: " + val + " ( the var is : " + tts_highlightedTextOn);
 		tts_highlightedTextOn = val;
 		alert("i got: " + val + " ( noww the var is : " + tts_highlightedTextOn);
 	}
-$( document ).ready(function() {
+$(document).ready(function() {
+	//alert("missedClickMode: " + missedClickMode + " taskMode: " + taskMode  );
 	/**  ASSISTANT SET UP **/
 		/* set up assistant avatar */
-		//change - this doesnt work first go, give chance for clippy to load first
-		// doc may be ready but that file isnt it!!!
-			clippy.load('Genie', function(agent){    
-			  const animations = agent.animations();    
-			  //$('.js-states').text(animations.join(', '));
-			  agent.show();
-			  assistant = agent;
-			  setTimeout(animate.bind(null, assistant, animations), 8000);        
-			});
+			//chance for assistant to load 
+			setTimeout(function(){
+				clippy.load('Genie', function(agent){    
+				  const animations = agent.animations();    
+				  //$('.js-states').text(animations.join(', '));
+				  agent.show();
+				  assistant = agent;
+				  //setTimeout(animate.bind(null, assistant, animations), 8000);        
+				});
+			}, 500);
+			var testttttttttt = $('#left-defaults li')[1];
+			var testttttttttt2 = $('#right-defaults');
+		function assistantPageIntroduce(elmToFlyTo, secondElmToFlyTo){
+			//setTimeout(function(){
+				//alert("assistant starting feature - " + testttttttttt);
+				
+				var message = "To create a budget, drag these things";
+				var message2 = "And then, Bring them up here";
+				var elmToFlyToPos = $(elmToFlyTo).offset(); 
+				var secondElmToFlyToPos = $(secondElmToFlyTo).offset(); 
+				if(!elmToFlyToPos || elmToFlyToPos == null){
+					//selector might be a class so access it in here [0]
+				}
 
+
+				assistant.moveTo(elmToFlyToPos['left'],elmToFlyToPos['top']); 
+				//do animation then speak after it
+				setTimeout(function(){
+					responsiveVoice.speak(message);
+					$("#left-defaults li").effect( "shake", {}, 4000 );
+				}, 1500);
+
+				
+				setTimeout(function(){
+					assistant.moveTo(secondElmToFlyToPos['left'],secondElmToFlyToPos['top']); 
+					responsiveVoice.speak(message2);
+					animateBudgetTask();
+				}, 6000);
+
+
+				//setTimeout(function(){
+					//responsiveVoice.speak(message2);
+				//}, 1000);
+			//}, 3000);
+		}
 			function animate(assistant, animations){ 
 				//move assistant to beside his 'home' in the sidebar
-				var sidebarPos = $('.assistantImgSidebar').offset();
+				//var sidebarPos = $('.assistantImgSidebar').offset(); at top now 
 			  	assistant.moveTo((sidebarPos['left'] - 60), (sidebarPos['top'] - 80)); 
 
 				function doneCallback(animation){
@@ -127,6 +234,40 @@ $( document ).ready(function() {
 
 			/* Auto TTS - read out its contents on interaction  */
 				//element listeners
+
+				//reads aloud the texts within an elem (can specify how deep to go and weather to read all levels or just the one specified)
+				// numOfLevels = how far down to go
+				// excludeParents = false will include all levels of text down to the specified level
+				function autoTTS(elem, numOfLevels, excludeParents){
+					var tagName = ' vistext';
+					var textsArray = [];
+					if(excludeParents == true){
+				        var selector = elem + tagName + numOfLevels;
+						console.log("if/  selector is:  " +  selector );
+				    }else{
+						var allLevelSelector = "";
+							console.log("getting here");
+						for(i = 1; i <= numOfLevels; i++){
+							console.log("forrrrr");
+							allLevelSelector += ' vistext'+ i
+							if(i != numOfLevels){
+							 allLevelSelector += ',';
+			                }
+						}
+						var selector = elem + allLevelSelector;
+						console.log("el/  selector is:  " +  selector );
+					}
+					$('#' + selector).each(function(i,v){
+						console.log("selector at bottom");
+				        console.log("v:   " + v);
+				        textsArray.push(v.innerHTML);
+				        console.log("array:   " + textsArray[i]);
+				    })
+				    console.log("return, array to follow");
+				    console.log(textsArray);
+				    return textsArray;
+				}
+
 				/* change -  make this pollymorphic and accepts in an elm,
 					searches for text within it and reads them out just like its doing now for
 					spans in sidebar
@@ -139,8 +280,19 @@ $( document ).ready(function() {
 					var textsArray = [];
 					var theElms = $(this).children('ul').children('li');
 					var elmWithText;
+					var elmsToSpeak = [];
+					elmsToSpeak = autoTTS(this.id, 1, true);
+					console.log("in the final func nowwwwwww . .. . ");
+					console.log(elmsToSpeak);
+					//autoTTS(this.id, 1, true);
 
-					theElms.each(function(index, value) {
+					elmsToSpeak.forEach(function(v,i){
+						console.log("final destttttt");
+						responsiveVoice.speak(elmsToSpeak[i]);
+						console.log("speaking ->     " + elmsToSpeak[i]);
+					})
+
+					/*theElms.each(function(index, value) {
 						text = this.innerText.trim();
 						textsArray.push(text);
 						elmWithText = $(value).find("span:last-child");
@@ -148,13 +300,14 @@ $( document ).ready(function() {
 						if(allowedSpeak){
 							responsiveVoice.speak(text + ",");
 						}
-					});
+					});*/
 				}, 
 				//mouse exit
 				function(){
 					allowedSpeak = false;
 					responsiveVoice.cancel(); // stop anything currently being spoken
 					console.log("val out:" + allowedSpeak);
+					$( "#assistantBtn1" ).removeClass('assistantMenuItemActive');
 				});
 				
 		    /* ./ Auto TTS */
@@ -173,27 +326,38 @@ $( document ).ready(function() {
 			var numOfErrorsSoFar = 0; //num of 
 			var numOfOrderErrors = 0; //num of clicks on correct elm but in wrong order
 
-			//all other vars
-			var taskModeOn = false; // to be used when major task is being completed
+			//all other vars its at top ofpage now 
+			//var taskModeOn = false; // to be used when major task is being completed
 
 			//check for missed clicks & ux issues
 			$(document).click(function(event) { 
-				//use later for activating a mode for major taks like creating a budget to prevent buttons bringing user away mid task!
-				if (taskModeOn){event.preventDefault();}
+				//use later for activating a mode for major tasks like creating a budget to prevent buttons bringing user away mid task!
+				//if (taskMode){event.preventDefault();}
 
-				//if elem has an id (is a clickable) - change to be a clickable AND has id - this will casue probs
-				if (event.target.id){
+				//if elem has an id (is a clickable) - change to be a clickable AND has id - this will cause probs
+				let theTarget = event.target;
+				let targetElmByClass = ((theTarget.className.indexOf("taskElement")) == 0); //true = is a task elem
+				let ignoreThisElem = ((theTarget.className.indexOf("ignoreThisElem")) == 0); //true = ignore this elem for task mode and clicks
+alert(ignoreThisElem);
+				if ((theTarget.id || targetElmByClass) && taskMode && !ignoreThisElem){
+					console.log("has id  " + theTarget.className);
 					var id = event.target.id; //elm id
 					var numOfErrorsAllowed = 1; //number of errors that will be tolerated before interfeering
 					/*  Check if elm is one of the needed elms to complete the task at hand 
 						(int, int, boolean)  */
-					checkForIssues(id, numOfErrorsAllowed, true); 
+						alert(1);
+						//retrieve hint from the elements attribute
+						var theMessage = $('#'+taskElems[0]).attr("assistantHint");
+						console.log(theMessage);
+					checkForIssues(id, numOfErrorsAllowed, true, theMessage); 
 				}
 				//missed click - if the clicked elm has no id (must be a miss click)
 				else{
-					$('#valuesBox').text("X: " + event.clientX + " Y:" + event.clientY);
-					//find the closest clickable to the miss click
-					findClosestClickable(event.clientX, event.clientY); 
+					if(missedClickMode){
+						$('#valuesBox').text("X: " + event.clientX + " Y:" + event.clientY);
+						//find the closest clickable to the miss click
+						findClosestClickable(event.clientX, event.clientY); 
+					}
 				}
 			});
 
@@ -272,7 +436,6 @@ $( document ).ready(function() {
 		
 		function createBubbleElm(quadrant, theElm, closestElm_x, closestElm_y, closestElmWidth, closestElmHeight, bubbleWidth, bubbleHeight, offset_x, offset_y){
 			removeOldBubbleClasses(theElm); //ensure bubble is using correct css class
-
 			//work out positioning of help bubble relative to the target element
 			let topVal = closestElm_y + ((bubbleHeight + closestElmHeight) * offset_y);
 			let leftVal = closestElm_x + ((bubbleWidth + closestElmWidth) * offset_x);
@@ -286,7 +449,7 @@ $( document ).ready(function() {
 		/* (used by checkForIssues func). Places a bubble near a specified element with a message
 		and coordinates (bubble points to the elem & makes it pulse) */
 		function elemPointerBubble(closestElm, closestElmPos, bubbleHeight, bubbleWidth, message){
-			alert("your clicking the wrong elems - you must be lost, you first need to use: " + closestElm);
+			//alert("your clicking the wrong elems - you must be lost, you first need to use: " + closestElm);
 			var theMessage = message ? message : 'fallback message here that is generic';
 
 			// screen divided into 4 quadrants to determin what direction to point bubble
@@ -294,7 +457,7 @@ $( document ).ready(function() {
 			var windowHeight = $(window).height();
 			var q1_xlimit = (windowWidth /2);	
 			var q1_ylimit = (windowHeight /2);	
-
+			console.log("heree0");
 			var theElm = $("#assistantBubbleHint h2").text(theMessage)
 				.parent().toggleClass('visHidden');
 			var closestElm_x = closestElmPos['left'];
@@ -341,12 +504,14 @@ $( document ).ready(function() {
 			$(closestElm).click(function() {
 				$(closestElm).unbind('click'); //remove event listener
 				closestElm.toggleClass('pulse'); //stop pulsing 
-				$("#assistantBubbleHint").toggleClass('visHidden'); //remove annotation bubble
+				console.log("heree1111");
+				//$("#assistantBubbleHint").toggleClass('visHidden'); //remove annotation bubble
 			});	
 		}	
 
 		//checks if the user is completing the main task of a screen (steps to create a budget etc)
-		function checkForIssues(id, numOfErrorsAllowed, executeInOrder){ //int, int, boolean
+		function checkForIssues(id, numOfErrorsAllowed, executeInOrder, theMessage){ //int, int, boolean, string
+			alert(2);
 			//stops code being ran after all task elems are used
 			if(taskElems.length){
 				//alert("recieved id: " + id + " and numOfErrorsAllowed = " + numOfErrorsAllowed);
@@ -355,14 +520,14 @@ $( document ).ready(function() {
 				var closestElmPos = closestElm.offset(); // x & y
 				var bubbleHeight = $('#assistantBubbleHint').height();
 				var bubbleWidth = $('#assistantBubbleHint').width();
-				var BubbleMessage = "default message to be changed";
+				var BubbleMessage = (theMessage) ? theMessage : "default message";;
 				//clicked elem was a correct one (part of the task at hand)
 				if(ItemPosInArray!== -1){
 					//if order of execution is specified when callling func
 					if(executeInOrder){
 						//if its the correct elem (first in array)
 						if(ItemPosInArray == 0){
-							alert("Thats the one " + ItemPosInArray);
+							//alert("Thats the one " + ItemPosInArray);
 							taskElems.splice(ItemPosInArray, 1);
 							$('#valuesBox').text("arry is: " + taskElems + "  ");
 							numOfErrorsSoFar = 0; //reset error count after a sucessful click
@@ -370,7 +535,7 @@ $( document ).ready(function() {
 						//else - clicked elem was not the first one in array - so its noit the next to be clicked
 						else{
 							numOfOrderErrors++;
-							alert("its in there alright " + ItemPosInArray + " but it needs to be clicked later. After this one at least: " + closestElm + " num of ordererro: " + numOfOrderErrors);
+							//alert("its in there alright " + ItemPosInArray + " but it needs to be clicked later. After this one at least: " + closestElm + " num of ordererro: " + numOfOrderErrors);
 							$('#valuesBox').text("arry is still: " + taskElems + "  ");
 						}
 					//order doesnt matter	
@@ -391,7 +556,7 @@ $( document ).ready(function() {
 				}else{
 					$('#valuesBox').text("else arry is: " + taskElems + "  ");
 					numOfErrorsSoFar ++; //record this error/issue
-					alert("numOfErrorsSoFar" + numOfErrorsSoFar);
+					//alert("numOfErrorsSoFar" + numOfErrorsSoFar);
 					
 					//numOfErrorsAllowed instread of 1
 					if(numOfErrorsSoFar > numOfErrorsAllowed){
@@ -401,7 +566,51 @@ $( document ).ready(function() {
 				}
 			}
 		}// checkForIssues func
+		//--assistant page introduce 
+			//(runs when page loaded for first time)
+			if (localStorage.getItem("hasCodeRunBefore") === null) {
+		        /** Your code here. **/
+		        alert(2229);
+		        setTimeout(assistantPageIntroduce, 3000, testttttttttt, testttttttttt2);
+		        localStorage.setItem("hasCodeRunBefore", true);
+	    	}else{
+	    		 //alert("every load after yo");
+	    		$('#pageIntroduceBtn').show();
+	    	}
+	    	//clicks button to start page introduce
+	    	$( "#pageIntroduceBtn" ).click(function() {
+				$(this).hide();
+				assistantPageIntroduce(testttttttttt, testttttttttt2);
+			});
+		// ./assistant page introduce
 	/** ./ ASSISTANT FEATURES **/
 }); //doc ready
+
 </script>
 
+<style type="text/css">
+	/*button on hint bubble*/
+#extraBubbleBtns, #showMeBubbleBtn, #hideBubbleBtn {
+    color: white;
+    /*width: unset;*/
+    width: 100%;
+    padding: 5px;
+    border: 2px dashed rgba(255, 255, 255, 0.7);
+    margin: 10px;
+    border-radius: 5px;
+    font-weight: 900;
+}
+#showMeBubbleBtn{
+	background-color: #21c3ff;
+	display: inline-block;
+	border: 3px solid white;
+	width: max-content;
+}
+#hideBubbleBtn{
+	background-color: #ff9811;
+	display: inline-block;
+	border: 3px solid white;
+	width: max-content;
+	float: right;
+}
+</style>

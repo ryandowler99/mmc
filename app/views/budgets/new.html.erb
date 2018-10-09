@@ -1,25 +1,35 @@
 <!-- tidy this whole file when finished -->
+
 <%= stylesheet_link_tag "new" %>
 <%= javascript_include_tag "http://www.gerardolarios.com/plugins-and-tools/jqmeter/js/jqmeter.min.js" %>
+
 <h1 id="progressbarMoney_in"></h1>
 <div id="myProgress" class="row">
-	<div id="myBar" class="col-md-1" style="background-color: #019875;"> </div>
-	<div id="myBar2" class="col-md-1"> </div>
+	<div id="myBar" class="col-xs-1" style="background-color: #019875;"> </div>
+	<div id="myBar2" class="col-xs-1"> </div>
   <!-- <div id="barEnd" class="col-md-1" style="background-color: #EF4836; float: right; padding: 20px;"> -->
 	<!-- <div class="col-md-1 halfCircleRight"></div> -->
 
 	<!-- <div id="barEndText" class="col-md-10"></div>
   </div> -->
   <div class="circlediv" style="max-height: 100%;">
-  	<div id="circledivText" class="col-md-11 col-md-push-1"></div>
+  	<div id="circledivText" class="col-xs-11 col-xs-push-1"></div>
   </div>
 </div>
+
+
+<h4 class="visible-lg"> large </h4>
+      <h4 class="visible-md"> medium </h4>
+      <h4 class="visible-sm"> small </h4>
+      <h4 class="visible-xs"> x small </h4>
+
+
 <div id="wheelContainer">
 <h1 id="title">Name of Budget</h1>
 <div class="spinWheel cursor" >
     <div class="first"><input id="currentField1" type="text" class="rq-form-element"><i></i></div>
-    <div class="second"><input id="currentField3" type="text" ></div>
-    <div class="third"><input id="currentField2" type="text" ></div>
+    <div class="second blurWheelItem"><input id="currentField3" type="text" ></div>
+    <div class="third blurWheelItem"><input id="currentField2" type="text" ></div>
 </div>
 </div>
 <%# button_tag "Next", onclick: 'spinWheel();'%>
@@ -39,6 +49,21 @@
 
 <%= render 'form' %>
 
+<style type="text/css">
+  #overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+</style>
 <%# link_to 'Back', budgets_path %>
 
 

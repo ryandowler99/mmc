@@ -107,6 +107,12 @@
   font-weight: 600;
   height: 90%;
 }
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+  #myBar{ width: 20%; }
+  .circlediv{ width:20% !important; }
+  .spinWheel{ margin-left: -20%; }
+}
 #myBar2{
     background-color: #26C281; 
     width: 0%; 
@@ -124,6 +130,7 @@
   width: 100px;
   height: 100px;
   background-color: #ccc;
+  opacity: 0.3;
 }
 
 #submitBudgetBtn{
@@ -148,11 +155,11 @@
 
 .circlediv{
     width:9%;
-    height:15%;
+    height:inherit;
     position:fixed;
     overflow:hidden;
     right: 0;
-
+    top: 145px;
 }
 .circlediv:before{
     content:'';
