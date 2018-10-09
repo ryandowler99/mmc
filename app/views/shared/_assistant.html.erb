@@ -338,14 +338,14 @@ $(document).ready(function() {
 				let theTarget = event.target;
 				let targetElmByClass = ((theTarget.className.indexOf("taskElement")) == 0); //true = is a task elem
 				let ignoreThisElem = ((theTarget.className.indexOf("ignoreThisElem")) == 0); //true = ignore this elem for task mode and clicks
-alert(ignoreThisElem);
+//alert(ignoreThisElem);
 				if ((theTarget.id || targetElmByClass) && taskMode && !ignoreThisElem){
 					console.log("has id  " + theTarget.className);
 					var id = event.target.id; //elm id
 					var numOfErrorsAllowed = 1; //number of errors that will be tolerated before interfeering
 					/*  Check if elm is one of the needed elms to complete the task at hand 
 						(int, int, boolean)  */
-						alert(1);
+						//alert(1);
 						//retrieve hint from the elements attribute
 						var theMessage = $('#'+taskElems[0]).attr("assistantHint");
 						console.log(theMessage);
@@ -511,7 +511,7 @@ alert(ignoreThisElem);
 
 		//checks if the user is completing the main task of a screen (steps to create a budget etc)
 		function checkForIssues(id, numOfErrorsAllowed, executeInOrder, theMessage){ //int, int, boolean, string
-			alert(2);
+			//alert(2);
 			//stops code being ran after all task elems are used
 			if(taskElems.length){
 				//alert("recieved id: " + id + " and numOfErrorsAllowed = " + numOfErrorsAllowed);
@@ -570,7 +570,7 @@ alert(ignoreThisElem);
 			//(runs when page loaded for first time)
 			if (localStorage.getItem("hasCodeRunBefore") === null) {
 		        /** Your code here. **/
-		        alert(2229);
+		        alert("first time page loading");
 		        setTimeout(assistantPageIntroduce, 3000, testttttttttt, testttttttttt2);
 		        localStorage.setItem("hasCodeRunBefore", true);
 	    	}else{
