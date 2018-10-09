@@ -93,7 +93,7 @@
 	border-radius: 5px;
 }
 .clippy:active > .sidenav{
-    background: #ccc
+    background: #ccc;
 	border: 5px solid black;
 }
 
