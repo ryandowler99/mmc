@@ -6,6 +6,8 @@
 	  	<meta charset="utf-8">
 	  	<%= csrf_meta_tags %>
 	  	
+  		<%= javascript_include_tag "jquery-ui.min" %> <!-- Change this!  -->
+  		
   		<%=javascript_include_tag "https://code.responsivevoice.org/responsivevoice.js" %>
   		
 	  	<!-- bootstrap css  -->
@@ -19,8 +21,6 @@
 		<%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Raleway:400,300,700", rel: "stylesheet", type: "text/css" %> 
 		<!-- application js -->
   		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-
-  		<%= javascript_include_tag "jquery-ui.min" %> <!-- Change this!  -->
   		<!-- Bootstrap js -->
   		<%= javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity: "sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin: "anonymous" %>
   		<!-- charts on show  -->
