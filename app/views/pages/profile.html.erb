@@ -69,7 +69,11 @@
 
 <%= javascript_include_tag "profile" %>
 <!-- Nessesary elements to copmplete page task (in order of usage) -->
-<%= render 'shared/assistant',  :taskMode => true, :missedClickMode => false, :taskElems =>  ['myGamesBtn','booButton', 'myBudgetsBtn' ] %>
+<%= render 'shared/assistant', 
+    :taskMode => true,
+    :missedClickMode => false,
+    :taskElems =>  ['myGamesBtn','booButton', 'myBudgetsBtn' ],
+    :pageIntroduce => false %>
 
 <style type="text/css">
     /* There is no task on this page s*/

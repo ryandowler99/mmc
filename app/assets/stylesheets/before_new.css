@@ -207,3 +207,7 @@ color:#EC644B;;
 	color: red;
 	font-weight: 800;
 }
+
+body.noScroll { /* ...or body.dialogShowing */
+  overflow: hidden;
+}

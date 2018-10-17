@@ -1,10 +1,10 @@
 <%= stylesheet_link_tag "videos" %>
-<h1 id="title">Videos</h1>
+<!-- <h1 id="title">Videos</h1>
 <div class="container">
-  <div class="row mar-top-30">
+  <div id="videoContainer" class="row mar-top-30">
     <% @videos.each do |video| %>
-    <!-- video item -->
-      <div class="col-sm-6">
+    <!- video item --
+      <div class="col-sm-6 videoElm">
           <div id="testBox" class="box text-center">
             <div class="video hidden">
               <iframe src="<%= video.link %>?version=3&enablejsapi=1" class="testVidClass" heightframeborder="0" allowfullscreen></iframe>
@@ -21,14 +21,163 @@
     <% end %>
   </div>
 </div>
+-->
 <% link_to 'New Video', new_video_path %>
 
+<%= stylesheet_link_tag "filterPanelReset" %>
+<%= stylesheet_link_tag "filterPanelStyle" %>
+<!-- Modernizr here -->
+    
+
+
+
+<!--
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+<ul id="myUL">
+  <li><a href="#">Adele</a></li>
+  <li><a href="#">Agnes</a></li>
+
+  <li><a href="#">Billy</a></li>
+  <li><a href="#">Bob</a></li>
+
+  <li><a href="#">Calvin</a></li>
+  <li><a href="#">Christina</a></li>
+  <li><a href="#">Cindy</a></li>
+</ul>
+-->
+<header class="cd-header">
+    <h1>Videos</h1>
+  </header>
+
+  <main id="filterPanelContainer" class="cd-main-content">
+    <div class="cd-tab-filter-wrapper">
+      <div class="cd-tab-filter">
+        <ul class="cd-filters">
+          <li class="placeholder"> 
+            <a data-type="all" href="#0">All</a> <!-- selected option on mobile -->
+          </li> 
+          <li class="filter"><a class="selected" href="#0" data-type="all">All</a></li>
+          <li class="filter" data-filter=".category-money"><a href="#0" data-type="category-money">Money</a></li>
+          <li class="filter" data-filter=".category-budgets"><a href="#0" data-type="category-budgets">Budgets</a></li>
+        </ul> <!-- cd-filters -->
+      </div> <!-- cd-tab-filter -->
+    </div> <!-- cd-tab-filter-wrapper -->
+
+    <section class="cd-gallery">
+      <ul>
+        <li class="mix category-money check1 radio2 option3"><img src="" alt="Image 1"></li>
+        <li class="mix category-budgets check2 radio2 option2"><img src="" alt="Image 2"></li>
+
+        <% @videos.each do |video| %>
+    <!-- video item -->
+    
+      <li class="col-sm-6 videoElm mix category-<%= video.category %>">
+          <div id="testBox" class="box text-center">
+            <div class="video hidden">
+              <iframe src="<%= video.link %>?version=3&enablejsapi=1" class="testVidClass" heightframeborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="videoDescCard">
+                <div class="incon-box">
+                    <i class="fa <%= video.icon %>" aria-hidden="true"></i>
+                </div>
+                <h3 class="box-tittle"><%= video.title %> </h3>
+                <p class="box-text"><%= video.description %></p>
+            </div>
+          </div>
+      </li>
+    
+    <% end %>
+     <!--    <li class="mix category-money check3 radio3 option1"><img src="" alt="Image 3"></li>
+        <li class="mix category-money check3 radio2 option4"><img src="" alt="Image 4"></li>
+        <li class="mix category-money check1 radio3 option2"><img src="" alt="Image 5"></li>
+        <li class="mix category-budgets check2 radio3 option3"><img src="" alt="Image 6"></li>
+        <li class="mix category-budgets check2 radio2 option1"><img src="" alt="Image 7"></li>
+        <li class="mix category-money check1 radio3 option4"><img src="" alt="Image 8"></li>
+        <li class="mix category-budgets check1 radio2 option3"><img src="" alt="Image 9"></li>
+        <li class="mix category-money check3 radio2 option4"><img src="" alt="Image 10"></li>
+        <li class="mix category-money check3 radio3 option2"><img src="" alt="Image 11"></li>
+        <li class="mix category-budgets check1 radio3 option1"><img src="" alt="Image 12"></li> -->
+        <li class="gap"></li>
+        <li class="gap"></li>
+        <li class="gap"></li>
+      </ul>
+      <div class="cd-fail-message">No results found</div>
+    </section> <!-- cd-gallery -->
+
+    <div class="cd-filter">
+      <form>
+        <div class="cd-filter-block">
+          <h4>Check boxes</h4>
+
+          <ul class="cd-filter-content cd-filters list">
+            <li>
+              <input class="filter" data-filter=".check1" type="checkbox" id="checkbox1">
+                <label class="checkbox-label" for="checkbox1">Money</label>
+            </li>
+
+            <li>
+              <input class="filter" data-filter=".check2" type="checkbox" id="checkbox2">
+              <label class="checkbox-label" for="checkbox2">Budgets</label>
+            </li>
+
+            <li>
+              <input class="filter" data-filter=".check3" type="checkbox" id="checkbox3">
+              <label class="checkbox-label" for="checkbox3">Option 3 here</label>
+            </li>
+          </ul> <!-- cd-filter-content -->
+        </div> <!-- cd-filter-block -->
+
+        <div class="cd-filter-block">
+          <h4>Select</h4>
+          
+          <div class="cd-filter-content">
+            <div class="cd-select cd-filters">
+              <select class="filter" name="selectThis" id="selectThis">
+                <option value="">Choose an option</option>
+                <option value=".option1">Option 1</option>
+                <option value=".option2">Option 2</option>
+                <option value=".option3">Option 3</option>
+                <option value=".option4">Option 4</option>
+              </select>
+            </div> <!-- cd-select -->
+          </div> <!-- cd-filter-content -->
+        </div> <!-- cd-filter-block -->
+      </form>
+
+      <a href="#0" class="cd-close">Close</a>
+    </div> <!-- cd-filter -->
+
+   <!-- keep for app store  <a href="#0" class="cd-filter-trigger">Filters</a> -->
+  </main> <!-- cd-main-content -->
+
+
+
+
 <script>
-   $(document).ready( function() {
+  $(document).ready( function() {
     //click on the video div to show video(iframe)
     $('.box').on('click', function(){
-    $(this).closest('div').children(".video").toggleClass('hidden');
-   });
-});
+      $(this).closest('div').children(".video").toggleClass('hidden');
+    });
+  });
+
+  function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("videoContainer");
+    li = ul.getElementsByClassName("videoElm");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("h3")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 </script>
 
+<%= javascript_include_tag "jquery.mixitup.min" %>
+<%= javascript_include_tag "filterPanelMain" %>

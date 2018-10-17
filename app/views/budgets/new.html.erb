@@ -26,7 +26,7 @@
 
 <div id="wheelContainer">
 <h1 id="title">Name of Budget</h1>
-<div class="spinWheel cursor" >
+<div id="spinWheel" class="spinWheel cursor" >
     <div class="first"><input id="currentField1" type="text" class="rq-form-element"><i></i></div>
     <div class="second blurWheelItem"><input id="currentField3" type="text" ></div>
     <div class="third blurWheelItem"><input id="currentField2" type="text" ></div>
@@ -66,4 +66,13 @@
 </style>
 <%# link_to 'Back', budgets_path %>
 
+<%= render 'shared/assistant',
+    :taskMode => true,
+    :missedClickMode => false,
+    :taskElems =>  ['spinWheel'],
+    :pageIntroduce => ['#title',
+                        '#spinWheel',
+                        "word 1",
+                        "And then, word2"] %>
 
+          

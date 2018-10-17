@@ -84,8 +84,16 @@
  <!-- render the Error partial and pass it parameters (column name and its value) -->
  <%= render 'shared/errorModal',  :val1 =>  errorMessage,  :val2 =>  yesPath1,  :val3 =>  yesPath2 %>
 
-<%= render 'shared/assistant',  :taskMode => true, :missedClickMode => false, :taskElems =>  ['left-defaults'] %>
-
+<%= render 'shared/assistant',
+		:taskMode => true,
+		:missedClickMode => false,
+		:taskElems =>  ['left-defaults'],
+		:pageIntroduce => ['#left-defaults',
+							'#right-defaults',
+							"To create a budget, drag these things",
+							"And then, Bring them up here"
+							] %>
+		<%# pageIntroduce params - 1.elm1 to fly to, 2.elm2 to fly to, 3.message1, 4.message2  %>
 <style type="text/css">
 	/* Extra Small Devices, Phones */ 
 	#assistantBubbleHint{

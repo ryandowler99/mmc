@@ -24,7 +24,8 @@ var array = [];
 
 		//MAKE THE FOLLOWING TwO FUNCTIONS MORE POLYMORPHIC !!!!!!!!!!!!!!
 		function submitClicked(){
-			taskMode = !taskMode; //user would have sucessfully interacted with task if they clicked this btn
+			//taskMode = !taskMode; //user would have sucessfully interacted with task if they clicked this btn
+			taskMode = false; //user would have sucessfully interacted with task if they clicked this btn
 			get_chosen_fields();
 			createLink();
 			$('#prettyList').empty(); //
@@ -43,7 +44,7 @@ var array = [];
 
 			$('#prettyList').append(listItem);//output item
 		    });
-
+			$('#pageIntroduceBtn').css("display", "none"); //hide page introduce button
 		    //$('#list').css("display", "block"); //show the list and continue button
 
 		    finalListIsEmpty(); //checks if final list is emoty and displays error message
@@ -120,3 +121,47 @@ var observer = new MutationObserver(callback);
 
 // Start observing the target node for configured mutations
 observer.observe(theDropZone, config);
+// --
+
+var el = document.getElementById("left-defaults");
+el.addEventListener("touchstart", budgetItemTouch, false);
+function budgetItemTouch() {
+  //alert( "Handler for .click() called." );
+  $('body').addClass("noScroll");
+}
+
+el.addEventListener("touchmove", myFunction7);
+
+function myFunction7() {
+//show brick moving with finger in here
+//also dont forget remove show me whatb to do button when click continue
+ //alert(888); 
+ }
+
+
+//dont need the bellow becase of the above - wu
+function touchHandler(event) {
+    var touch = event.changedTouches[0];
+
+    var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent({
+        touchstart: "mousedown",
+        touchmove: "mousemove",
+        touchend: "mouseup"
+    }[event.type], true, true, window, 1,
+        touch.screenX, touch.screenY,
+        touch.clientX, touch.clientY, false,
+        false, false, false, 0, null);
+
+    touch.target.dispatchEvent(simulatedEvent);
+    event.preventDefault();
+}
+
+function init() {
+	alert("runnn");
+    document.addEventListener("touchstart", touchHandler, true);
+    document.addEventListener("touchmove", touchHandler, true);
+    document.addEventListener("touchend", touchHandler, true);
+    document.addEventListener("touchcancel", touchHandler, true);
+}
+// .///dont need the above becase of budgetItemTouch

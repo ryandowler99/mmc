@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag "assistant" %>
 <%= javascript_include_tag "assistant_core" %>
-
+<!-- 
 <div id="valuesBox" style="width: 250px; height: 100px; border: 2px solid purple; padding: 30px; position: fixed; right: 10; bottom:20;"> Test - closent element value </div>
 <div id="valuesBox2" style="width: 250px; height: 100px; border: 2px solid lime; padding: 30px; position: fixed; right: 10; bottom:130;"> Test - click pos </div>
 <ul id="valuesBox3" style="width: 270px; height: 300px; border: 2px solid orange; padding: 15px; position: fixed; right: 10; bottom:250; overflow: auto;" >  </ul>
@@ -10,9 +10,9 @@
 	<input id="boomButton" type="button" class="ignoreThisElem"> boom btn </input>
 </div>
 <div class="js-states"></div>
-
-<div id="pageIntroduceBtn">
-	<span id="pib" class="glyphicon glyphicon-question-sign"></span>Show me what to do
+ -->
+<div id="pageIntroduceBtn" class="ignoreThisElem">
+	<span id="pib" class="glyphicon glyphicon-question-sign ignoreThisElem"></span>Show me what to do
 </div>
 <!-- sidebar -->
 <aside id="sidebar" class="hidden-xs">
@@ -61,7 +61,7 @@
 <!-- assistant bubble hint -->
 <hgroup id="assistantBubbleHint" class="pulse bubble col-md-2 visHidden" onclick="hideShowBubble();">
 	<div id="extraBubbleBtns" style="display: none;">
-		<div id="showMeBubbleBtn" onclick="animateBudgetTask();">Show me</div>
+		<div id="showMeBubbleBtn" onclick="animateElemPageIntro();">Show me</div>
 		<div id="hideBubbleBtn">Hide X</div>
 	</div>
 	<h2>Assistant hint here</h2>
@@ -77,17 +77,19 @@
 	var missedClickMode = <%= raw missedClickMode %>;
 	var taskMode = <%= raw taskMode %>;
 	var sidebarPos = $('.assistantImgSidebar').offset();
+	var pageIntroduceValues = <%= raw pageIntroduce %>;
 	function hideShowBubble(){
 		//alert('clicked hint box');
 		//$('#assistantBubbleHint').toggleClass('visHidden');
 		$('#extraBubbleBtns').css("display", "block");
 	}
 
-	//visually simulates te dradding motion needed to complete budget creation
-	function animateBudgetTask(){
-		var budgetItemToAnimate = $('#left-defaults li')[1];
-		$( "#right-defaults" ).effect( "highlight", {}, 2000 );
-		budgetItemToAnimate.animate([
+	//second elem in page intro flashes using this func
+	function animateElemPageIntro(){
+		var itemToAnimate = $(pageIntroduceValues[1]);
+
+		itemToAnimate.effect( "highlight", {}, 2000 );
+		itemToAnimate.animate([
 		  // keyframes
 		  { transform: 'translateY(0px)' }, 
 		  { transform: 'translateY(-200px)' }
@@ -96,7 +98,7 @@
 		  duration: 1500,
 		  iterations: 1
 		});
-		$( "#right-defaults" ).effect( "highlight", {}, 4000 );
+		itemToAnimate.effect( "highlight", {}, 4000 );
 	}
 
 	function statusOfModes(){
@@ -123,33 +125,34 @@ $(document).ready(function() {
 				  //setTimeout(animate.bind(null, assistant, animations), 8000);        
 				});
 			}, 500);
-			var testttttttttt = $('#left-defaults li')[1];
-			var testttttttttt2 = $('#right-defaults');
-		function assistantPageIntroduce(elmToFlyTo, secondElmToFlyTo){
+			//var testttttttttt = $('#left-defaults');
+			//var testttttttttt2 = $('#right-defaults');
+		function assistantPageIntroduce(){
 			//setTimeout(function(){
-				//alert("assistant starting feature - " + testttttttttt);
-				
-				var message = "To create a budget, drag these things";
-				var message2 = "And then, Bring them up here";
-				var elmToFlyToPos = $(elmToFlyTo).offset(); 
-				var secondElmToFlyToPos = $(secondElmToFlyTo).offset(); 
+				var message = pageIntroduceValues[2];
+				var message2 = pageIntroduceValues[3];
+
+				var elmToFlyTo = $(pageIntroduceValues[0]);
+				var elmToFlyToPos2 = $(pageIntroduceValues[1]);
+
+				var elmToFlyToPos = elmToFlyTo.offset(); 
+				var elmToFlyToPos2 = elmToFlyToPos2.offset();
+
 				if(!elmToFlyToPos || elmToFlyToPos == null){
 					//selector might be a class so access it in here [0]
 				}
-
 
 				assistant.moveTo(elmToFlyToPos['left'],elmToFlyToPos['top']); 
 				//do animation then speak after it
 				setTimeout(function(){
 					responsiveVoice.speak(message);
-					$("#left-defaults li").effect( "shake", {}, 4000 );
+					$(elmToFlyTo).effect( "shake", {}, 4000 );
 				}, 1500);
 
-				
 				setTimeout(function(){
-					assistant.moveTo(secondElmToFlyToPos['left'],secondElmToFlyToPos['top']); 
+					assistant.moveTo(elmToFlyToPos2['left'],elmToFlyToPos2['top']); 
 					responsiveVoice.speak(message2);
-					animateBudgetTask();
+					animateElemPageIntro();
 				}, 6000);
 
 
@@ -571,7 +574,7 @@ $(document).ready(function() {
 			if (localStorage.getItem("hasCodeRunBefore") === null) {
 		        /** Your code here. **/
 		        alert("first time page loading");
-		        setTimeout(assistantPageIntroduce, 3000, testttttttttt, testttttttttt2);
+		        setTimeout(assistantPageIntroduce, 3000);
 		        localStorage.setItem("hasCodeRunBefore", true);
 	    	}else{
 	    		 //alert("every load after yo");
@@ -580,7 +583,7 @@ $(document).ready(function() {
 	    	//clicks button to start page introduce
 	    	$( "#pageIntroduceBtn" ).click(function() {
 				$(this).hide();
-				assistantPageIntroduce(testttttttttt, testttttttttt2);
+				assistantPageIntroduce();
 			});
 		// ./assistant page introduce
 	/** ./ ASSISTANT FEATURES **/
