@@ -10,7 +10,9 @@
 	var first  = $('.first'); //item (field) on wheel
 	var second = $('.second');//item (field) on wheel
 	var third  = $('.third'); //item (field) on wheel
-
+	var elemId; // current field - active field
+	var weekNumHelperFinished = false;
+	
 	// ** get params and output needed fields **
 	$(document).ready(function() {    //DO I NEED TO THIS 1/2
 		var array = [];
@@ -40,13 +42,9 @@
 
 	//spin the wheel
 	function spinWheel(){ degrees+=120; $('.spinWheel').css('transform', 'rotate(' + degrees + 'deg)'); }
-
-	//check if enter is pressed in .spinWheel input then call spinWheel();
-	$('.spinWheel').on("keypress", function(e) {
-		
-        if (e.keyCode == 13) {
-        	var elemId = "#currentField" + numSpinTimes;
-        	//alert(elemId);
+	
+	function wheelCycle(){
+	 	elemId = "#currentField" + numSpinTimes;
         	var nextElemId = "#currentField" + (numSpinTimes + 1);
         	var value = $(elemId).val();
         	//alert(elemId + " has the value of: " + value );
@@ -65,6 +63,17 @@
             $(elemId).val("");	// reset the field value to blank
             $(nextElemId).focus();	// focus the cursor on the next field spinning around
             return false; // prevent the button click from happening
+	 }
+	//check if enter is pressed in .spinWheel input then call spinWheel();
+	$('.spinWheel').on("keypress", function(e) {
+		
+        if (e.keyCode == 13) {
+        	if (curIteration != 2){
+        		wheelCycle();
+        	}//is on weeknum (2) and helper has finished
+        	else if(weekNumHelperFinished){
+        		wheelCycle();
+        	}
         }
 	});
 var tempCount = 0; //temp store how  many times user input less than 15 on items
@@ -91,6 +100,48 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 		if(curIteration == 2){
 			purse = theValue;
 			total = theValue;
+			//hide other help button for the moment to reduce confusion
+			$('#pageIntroduceBtn').css("display", "none");
+			$('#wheelContainer').addClass("overlay");
+			$( "#currentField3" ).blur();
+			//add a button to exit the week helper when the user clicks outside of the helper
+			$( "#wheelContainer" ).click(function(){
+				//find and remove old button before append it again
+				$("#closeWeekHelperBtn").remove();
+			    var $div = $("<div>", {id: "closeWeekHelperBtn", "class": "blrhhhhh"});
+			    $div.text("DONE");
+			    $div.click(function(){  
+			        $( ".weekNumHelper" ).css("display", "none");
+			        $( "#wheelContainer" ).removeClass("overlay");
+					
+					setTimeout(function() {
+						$("#closeWeekHelperBtn").css("display", "none");//hide button
+						$("#wheelContainer").unbind( "click" );
+						$(".weekNumHelper").remove();
+						showGenieQuickButtons();
+					}, 500);
+				});
+			    $("#wheelContainer").append($div);
+			});
+		
+			setTimeout(function(){
+				let theElem = $('.weekNumHelper1');
+				theElem.css("display", "block");
+				let messageToSpeak = theElem.text().trim();
+				setTimeout(function(){
+					theElem.addClass("scale_1point4");
+					highlightElem('.weekNumHelper1', messageToSpeak);
+				}, 1500);
+				//highlightElem('.weekNumHelper', messageToSpeak);
+			}, 1500);
+			
+			// add in the "or if you want to fill it out click this button "
+			setTimeout(function(){
+				let theElem = $('.weekNumHelper2');
+				theElem.css("display", "block");
+				let messageToSpeak = theElem.find("p").text().trim();
+				highlightElem('.weekNumHelper2', messageToSpeak);
+			}, 9000);
 		}//start retrieving values after 'week' 
 		else if(curIteration == 3){
 			$('#myBar').text("You have €" + purse);
@@ -142,4 +193,145 @@ function focusWheelItem(itemToFocus){
 	        break;
 	}
 }
+$( ".weekNumHelper1" ).click(function() {
+	$('.weekNumHelper1').remove();
+	$('.weekNumHelper2').remove();
+	var date = new Date();
+	var weekNum = date.getWeek();
+	var selector = "currentField" + (curIteration + 1);
+	$('#' + selector).val(weekNum);
+	weekNumHelperFinished = true;
+	wheelCycle();
+	$('#wheelContainer').removeClass("overlay");
+});
+
+$( ".weekNumHelper2" ).click(function() {
+	$(this).unbind( "click" );
+	$(this).finish();
+	$('.weekNumHelper1').toggle( "slide" );
+	$('.weekNumHelper2').animate({
+	    left: "-=300",
+		top: "-=280",
+		height: "+=150"
+	  }, 2000, function() {
+	    // Animation 1 complete.
+	    $('.weekNumHelper2').animate({
+	    	left: "-=250",
+			width: "+=500"
+		  }, 2000, function() {
+		  	// Animation 2 complete.
+		  	$('.weekNumHelper2 p').css("opacity", 0);
+		    $('#weekHelperBtns').css("display", "block");
+		  });
+	  });
+});
+
+//what is this question
+$( "#weekHelperBtn1" ).click(function() {
+	$("#weekHelperBtn1").css("pointer-events", "none"); //nice way to remove click event
+	$("#closeHelperBtnLeft").css("display", "none");
+	$("#closeHelperBtn").css("display", "block");
+	$("#weekHelperBtn3").fadeOut(2000);
+	$('#weekHelperBtn1').animate({
+		left: "-=10",
+		top: "-=80"
+		}, 2000, function() {
+		$('#weekHelperBtn1').addClass("weekHelperBtnAfter");
+		typeWriterTxt = "This question wants to know when will this budget be used? is it for christmas? or a summer holiday?";
+		typeWriter();
+	});
+});
+
+//what is a week number
+$( "#weekHelperBtn3" ).click(function() {
+	$("#weekHelperBtn3").css("pointer-events", "none"); //nice way to remove click event
+	$("#closeHelperBtn").css("display", "none");
+	$("#closeHelperBtnLeft").css("display", "block");
+	$("#weekHelperBtn1").fadeOut(2000);
+	$('#weekHelperBtn3').animate({
+		right: "-=10",
+		top: "-=80"
+		}, 2000, function() {
+		$('#weekHelperBtn3').addClass("weekHelperBtnAfter");
+		$('#weekHelperBtn3').css("margin-left", "30%");
+		typeWriterTxt = "A week number is a blah blah blah";
+		typeWriter();
+	});
+});
+
+// x - close button 1
+$( "#closeHelperBtn" ).click(function() {
+	$("#weekHelperBtn1").css("pointer-events", "all"); //nice way to re-add click event
+	//animate button back into its position
+	showHelperBtn1Again();
+	$('#typingText').text(""); //reset the typing text
+	setTimeout(function() { $(this).hide()}, 500);
+	$( "#closeHelperBtn" ).css("display", "none")
+});
+
+// x - close button 2
+$( "#closeHelperBtnLeft" ).click(function() {
+	$("#weekHelperBtn3").css("pointer-events", "all"); //nice way to re-add click event
+	$('#weekHelperBtn3').css("margin-left", "0");
+	//animate button back into its position
+	showHelperBtn3Again();
+	$('#typingText').text(""); //reset the typing text
+	 $( "#closeHelperBtnLeft" ).css("display", "none")
+});
+
+
+function showHelperBtn1Again(){
+	//animate button back into its position
+	$('#weekHelperBtn1').animate({
+		left: "+=10",
+		top: "+=80"
+		}, 2000, function() {
+		$('#weekHelperBtn1').removeClass("weekHelperBtnAfter");
+		$("#weekHelperBtn3").fadeIn(2000);
+	});
+}
+
+function showHelperBtn3Again(){
+	//animate button back into its position
+	$('#weekHelperBtn3').animate({
+		right: "+=10",
+		top: "+=80"
+		}, 2000, function() {
+		$('#weekHelperBtn3').removeClass("weekHelperBtnAfter");
+		$("#weekHelperBtn1").fadeIn(2000);
+	});
+}
+//this func is very very very messy - change
+function showGenieQuickButtons(){
+	//speak - introduce the elem
+	responsiveVoice.speak("Here are some quick buttons, you can use them to help with this question", "UK English Male");
+	//slowly show it
+	setTimeout(function() {
+		$("#genieQuickButtons").fadeIn(3000);//show quick buttons
+	}, 2000);
+
+	//highlight elem
+		var timer = 1500;
+		$( ".ttsOnHover" ).mouseover(function() {
+			let theText = $(this).text();
+			console.log(theText);
+			//if needed so the above voice doesnt get interupted
+			if(true){
+				//speak - each elem
+				responsiveVoice.speak(theText, "UK English Male");
+			}
+		});
+		$( ".ttsOnHover" ).mouseleave(function() {
+			responsiveVoice.cancel(); // stop anything currently being spoken
+		});
+	//move assistant to the helper buttons
+	setTimeout(function() {
+		var elmToFlyToPos = $('#genieQuickButtons').offset(); 
+		console.log("thissssssss :" + elmToFlyToPos['top']);
+		assistant.moveTo(elmToFlyToPos['left'],(elmToFlyToPos['top'] - 100));
+	}, 2500);
+}
+
+
+
 

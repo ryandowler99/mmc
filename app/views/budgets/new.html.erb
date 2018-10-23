@@ -25,6 +25,31 @@
 
 
 <div id="wheelContainer">
+  <div id="genieQuickButtons" class="ttsOnHover">
+    <div class="ttsElem ttsE1">Skip this Question</div>
+    <div class="ttsElem ttsE2">Help me with this Question</div>
+  </div>
+  <div id="weekNumberHelpAnswer" class="ttsOnHover">
+    <div class="ttsElem ttsE1">This week</div>
+    <div class="ttsElem ttsE2">Next week</div>
+  </div>
+  <div class="weekNumHelper weekNumHelper1"><p>Click this button to skip this question
+    <span class="glyphicon glyphicon-remove ignoreThisElem newLineGlyph"> </span>
+  </p>
+  </div>
+  <div class="weekNumHelper weekNumHelper2"><p>Or if you want to answer it, click this button
+    <span class="glyphicon glyphicon-ok ignoreThisElem newLineGlyph"> </span>
+  </p>
+  <div id="weekHelperBtns">
+    <div id="weekHelperBtn1" class="col-sm-4 ignoreThisElem">What is this question?</div>
+      <h3 id="typingText"></h3>
+      <div id="weekHelperBtn2" class="col-sm-4 visHidden ignoreThisElem">Help me with this question</div>
+    <div id="weekHelperBtn3" class="col-sm-4 ignoreThisElem">What is a week number?</div>
+  </div>
+  <span id="closeHelperBtn" class="glyphicon glyphicon-remove ignoreThisElem"></span>
+  <span id="closeHelperBtnLeft" class="glyphicon glyphicon-remove ignoreThisElem"></span>
+  </div>
+
 <h1 id="title">Name of Budget</h1>
 <div id="spinWheel" class="spinWheel cursor" >
     <div class="first"><input id="currentField1" type="text" class="rq-form-element"><i></i></div>
@@ -67,12 +92,13 @@
 <%# link_to 'Back', budgets_path %>
 
 <%= render 'shared/assistant',
-    :taskMode => true,
+    :taskMode => false,
     :missedClickMode => false,
     :taskElems =>  ['spinWheel'],
     :pageIntroduce => ['#title',
-                        '#spinWheel',
-                        "word 1",
-                        "And then, word2"] %>
+                        '#spinWheel div',
+                        "This tells you what you have to type",
+                        "And then..... put the answer in here",
+                        true] %>
 
           

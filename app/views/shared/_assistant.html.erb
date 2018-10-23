@@ -61,7 +61,7 @@
 <!-- assistant bubble hint -->
 <hgroup id="assistantBubbleHint" class="pulse bubble col-md-2 visHidden" onclick="hideShowBubble();">
 	<div id="extraBubbleBtns" style="display: none;">
-		<div id="showMeBubbleBtn" onclick="animateElemPageIntro();">Show me</div>
+		<div id="showMeBubbleBtn" onclick="highlightElem(pageIntroduceValues[1], 'type your answers in here', false);">Show me</div>
 		<div id="hideBubbleBtn">Hide X</div>
 	</div>
 	<h2>Assistant hint here</h2>
@@ -85,8 +85,10 @@
 	}
 
 	//second elem in page intro flashes using this func
-	function animateElemPageIntro(){
-		var itemToAnimate = $(pageIntroduceValues[1]);
+	function highlightElem(theElm, theMessage){
+		responsiveVoice.speak(theMessage, "UK English Male");
+		var itemToAnimate = $(theElm);
+		//$(pageIntroduceValues[1]);pageIntroduceValues[1]
 
 		itemToAnimate.effect( "highlight", {}, 2000 );
 		itemToAnimate.animate([
@@ -99,6 +101,14 @@
 		  iterations: 1
 		});
 		itemToAnimate.effect( "highlight", {}, 4000 );
+		if(theMessage != null){
+			if(!theMessage){
+				theMessage = "Try using this";
+			}
+			/*setTimeout(function(){
+				responsiveVoice.speak(theMessage);
+			}, 1500);*/
+		}
 	}
 
 	function statusOfModes(){
@@ -138,6 +148,8 @@ $(document).ready(function() {
 				var elmToFlyToPos = elmToFlyTo.offset(); 
 				var elmToFlyToPos2 = elmToFlyToPos2.offset();
 
+				var goHomeAfterAnimation = pageIntroduceValues[4]; //true = go home
+
 				if(!elmToFlyToPos || elmToFlyToPos == null){
 					//selector might be a class so access it in here [0]
 				}
@@ -145,17 +157,23 @@ $(document).ready(function() {
 				assistant.moveTo(elmToFlyToPos['left'],elmToFlyToPos['top']); 
 				//do animation then speak after it
 				setTimeout(function(){
-					responsiveVoice.speak(message);
+					responsiveVoice.speak(message, "UK English Male");
 					$(elmToFlyTo).effect( "shake", {}, 4000 );
 				}, 1500);
 
 				setTimeout(function(){
 					assistant.moveTo(elmToFlyToPos2['left'],elmToFlyToPos2['top']); 
-					responsiveVoice.speak(message2);
-					animateElemPageIntro();
-				}, 6000);
+					responsiveVoice.speak(message2, "UK English Male");
+					highlightElem(pageIntroduceValues[1], null);
+				}, 7000);
 
-
+				//check if assistant should go home after animation
+				if(goHomeAfterAnimation){
+					console.log(goHomeAfterAnimation);
+					setTimeout(function(){
+						goHome();
+					}, 12000);	
+				}			
 				//setTimeout(function(){
 					//responsiveVoice.speak(message2);
 				//}, 1000);
@@ -193,7 +211,7 @@ $(document).ready(function() {
 				var countdown = setInterval(function(){
 					var position = $('.clippy').offset(); 
 					if(position["left"] > 1100){
-						alert('hide');
+						//alert('hide');
 						counter = 0; //set counter to 0 so next if statement breks execution
 					}
 					counter--
@@ -226,7 +244,7 @@ $(document).ready(function() {
 				     /* When clicking on a highlighted area, the value stays highlighted until after the mouseup event, and would therefore stil be captured by getSelection. This micro-timeout solves the issue. */
 				      setTimeout(function() {  
 				         responsiveVoice.cancel(); // stop anything currently being spoken
-				         responsiveVoice.speak(getSelectionText(tts_highlightedTextOn)); //speak the text as returned by getSelectionText
+				         responsiveVoice.speak(getSelectionText(tts_highlightedTextOn), "UK English Male"); //speak the text as returned by getSelectionText
 				      }, 1);
 				   });
 				}else{
@@ -291,7 +309,7 @@ $(document).ready(function() {
 
 					elmsToSpeak.forEach(function(v,i){
 						console.log("final destttttt");
-						responsiveVoice.speak(elmsToSpeak[i]);
+						responsiveVoice.speak(elmsToSpeak[i], "UK English Male");
 						console.log("speaking ->     " + elmsToSpeak[i]);
 					})
 

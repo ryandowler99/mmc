@@ -176,5 +176,180 @@
     text-align: center;
 }
 
+.weekNumHelper{
+  display: none;
+  width: max-content;
+  padding: 20px;
+  border: 4px dotted yellow;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
+  position: fixed;
+  top: 60%;
+  font-size: 1.4em;
+  text-align: center;
+  margin-top: 10px; 
+  z-index: 10;
+}
+.weekNumHelper1{
+  background-color: #47cad1;
+  left: 10%;
+}
+.weekNumHelper2{
+  background-color: #e2d14f;
+  left: 55%;
+}
+#weekHelperBtns{display: none;}
+#weekHelperBtn1{
+    background: aqua;
+    padding: 30px;
+    border: 3px solid white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+}
+#weekHelperBtn1:hover{background: orange;}
+#weekHelperBtn3{
+    background: purple;
+    padding: 30px;
+    border: 3px solid white;
+    border-radius: 15px;
+}
+#weekHelperBtn3:hover{ background: red; }
+.weekHelperBtnAfter{
+  color: aqua;
+  background: none !important;
+  padding: 10px !important;
+  border-radius: 10px !important;
+}
+@media only screen and (max-width : 1130px) {
+  .weekNumHelper1{
+    left: 32%;
+  }
+  .weekNumHelper2{
+    left: 28%;
+    top: 82%
+  }
+}
+@media only screen and (max-width : 1000px) {
+  .weekNumHelper{
+    font-size: 1em;
+    padding: 8px;
+    left: 28%;
+  }
+  .weekNumHelper .glyphicon{
+    font-size: 1.3em;
+  }
+
+  .weekNumHelper1{
+    width: 44%;
+  }
+  .weekNumHelper2{
+    width: 40%;
+    top: 78%;
+  }
+}
 
 
+.scale_1point4{
+  -ms-transform: scale(1.4, 1.4); /* IE 9 */
+  -webkit-transform: scale(1.4, 1.4); /* Safari */
+  transform: scale(1.4, 1.4);
+}
+
+.newLineGlyph{
+  color: green;
+  display: block;
+  text-align: center;
+  font-size: 2em;
+}
+
+#typingText{
+  position: absolute;
+  left: 10;
+  font-size: xx-large;
+  font-weight: bold;
+  color: black;
+}
+#closeHelperBtn {
+    display: none;
+    position: absolute;
+    right: 15;
+    top: 15;
+    color: #ff3a96;
+    font-size: xx-large;
+}
+#closeHelperBtnLeft {
+    display: none;
+    position: absolute;
+    left: 15;
+    top: 15;
+    color: #ff3a96;
+    font-size: xx-large;
+}
+
+#closeWeekHelperBtn:hover {
+    background-color: #ff2846;
+    font-weight: bolder;
+    border: 5px solid;
+    padding: 20px;
+}
+
+#closeWeekHelperBtn {
+    position: fixed;
+    right: 46%;
+    bottom: -4px;
+    background-color: #ff4962;
+    padding: 15px;
+    border: 3px solid black;
+    border-radius: 10px;
+    font-size: x-large;
+    font-weight: bold;
+    border-bottom: none;
+    text-align: center;
+}
+
+#genieQuickButtons {
+    display: none;
+    background-color: rgba(119, 255, 125, 0.8);
+    position: absolute;
+    width: max-content;
+    padding: 30px;
+    left: 20px;
+    top: 45%;
+    border: 6px solid skyblue;
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+    z-index: 10;
+}
+#genieQuickButtons div {
+    background-color: orange;
+    padding: 5px;
+    margin: 20px;
+    border: 2px solid;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+.ttsE1{
+  transition: 0s background-color;
+  transition-delay:0.2s;
+}
+.ttsE2{
+  transition: 0s background-color;
+  transition-delay:0.5s;
+}
+#genieQuickButtons:hover .ttsElem {
+    background-color: pink;
+}
+
+#weekNumberHelpAnswer{
+
+}
+
+.ttsOnHover {
+    cursor: url("autottsCursor2.png"), auto;
+
+}
