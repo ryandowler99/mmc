@@ -27,11 +27,11 @@
 <div id="wheelContainer">
   <div id="genieQuickButtons" class="ttsOnHover">
     <div class="ttsElem ttsE1">Skip this Question</div>
-    <div class="ttsElem ttsE2">Help me with this Question</div>
+    <div class="ttsElem ttsE2" onclick="$('#weekNumberHelpAnswer').css('display', 'block');">Help me with this Question</div>
   </div>
-  <div id="weekNumberHelpAnswer" class="ttsOnHover">
-    <div class="ttsElem ttsE1">This week</div>
-    <div class="ttsElem ttsE2">Next week</div>
+  <div id="weekNumberHelpAnswer" class="ttsOnHover col-xs-12">
+    <div class="ttsElem ttsE1 weekNumberHelpAnswerBtn1 col-xs-5">This week</div>
+    <div class="ttsElem ttsE2 weekNumberHelpAnswerBtn2 col-xs-5 col-xs-push-1">Next week</div>
   </div>
   <div class="weekNumHelper weekNumHelper1"><p>Click this button to skip this question
     <span class="glyphicon glyphicon-remove ignoreThisElem newLineGlyph"> </span>

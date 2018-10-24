@@ -12,7 +12,7 @@
 	var third  = $('.third'); //item (field) on wheel
 	var elemId; // current field - active field
 	var weekNumHelperFinished = false;
-	
+	var skipTheWeekField = false;
 	// ** get params and output needed fields **
 	$(document).ready(function() {    //DO I NEED TO THIS 1/2
 		var array = [];
@@ -96,52 +96,69 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 
 		$('#title').text(label); //change the title above wheel 
 
+		function skipWeekField(){
+			$('.weekNumHelper1').remove();
+			$('.weekNumHelper2').remove();
+			var date = new Date();
+			var weekNum = date.getWeek();
+			var selector = "currentField" + (curIteration + 1);
+			$('#' + selector).val(weekNum);
+			weekNumHelperFinished = true;
+			wheelCycle();
+			$('#wheelContainer').removeClass("overlay");
+			$('#closeWeekHelperBtn').remove();
+		}
+
 		//change to switch statement
 		if(curIteration == 2){
 			purse = theValue;
 			total = theValue;
-			//hide other help button for the moment to reduce confusion
-			$('#pageIntroduceBtn').css("display", "none");
-			$('#wheelContainer').addClass("overlay");
-			$( "#currentField3" ).blur();
-			//add a button to exit the week helper when the user clicks outside of the helper
-			$( "#wheelContainer" ).click(function(){
-				//find and remove old button before append it again
-				$("#closeWeekHelperBtn").remove();
-			    var $div = $("<div>", {id: "closeWeekHelperBtn", "class": "blrhhhhh"});
-			    $div.text("DONE");
-			    $div.click(function(){  
-			        $( ".weekNumHelper" ).css("display", "none");
-			        $( "#wheelContainer" ).removeClass("overlay");
-					
-					setTimeout(function() {
-						$("#closeWeekHelperBtn").css("display", "none");//hide button
-						$("#wheelContainer").unbind( "click" );
-						$(".weekNumHelper").remove();
-						showGenieQuickButtons();
-					}, 500);
+			//profile attr - if true will skip the field all together
+			if(!skipTheWeekField){
+				$('#pageIntroduceBtn').css("display", "none");
+				$('#wheelContainer').addClass("overlay");
+				$( "#currentField3" ).blur();
+				//add a button to exit the week helper when the user clicks outside of the helper
+				$( "#wheelContainer" ).click(function(){
+					//find and remove old button before append it again
+					$("#closeWeekHelperBtn").remove();
+				    var $div = $("<div>", {id: "closeWeekHelperBtn"});
+				    $div.text("DONE");
+				    $div.click(function(){  
+				        $( ".weekNumHelper" ).css("display", "none");
+				        $( "#wheelContainer" ).removeClass("overlay");
+						
+						setTimeout(function() {
+							$("#closeWeekHelperBtn").css("display", "none");//hide button
+							$("#wheelContainer").unbind( "click" );
+							$(".weekNumHelper").remove();
+							showGenieQuickButtons();
+						}, 500);
+					});
+				    $("#wheelContainer").append($div);
 				});
-			    $("#wheelContainer").append($div);
-			});
-		
-			setTimeout(function(){
-				let theElem = $('.weekNumHelper1');
-				theElem.css("display", "block");
-				let messageToSpeak = theElem.text().trim();
-				setTimeout(function(){
-					theElem.addClass("scale_1point4");
-					highlightElem('.weekNumHelper1', messageToSpeak);
-				}, 1500);
-				//highlightElem('.weekNumHelper', messageToSpeak);
-			}, 1500);
 			
-			// add in the "or if you want to fill it out click this button "
-			setTimeout(function(){
-				let theElem = $('.weekNumHelper2');
-				theElem.css("display", "block");
-				let messageToSpeak = theElem.find("p").text().trim();
-				highlightElem('.weekNumHelper2', messageToSpeak);
-			}, 9000);
+				setTimeout(function(){
+					let theElem = $('.weekNumHelper1');
+					theElem.css("display", "block");
+					let messageToSpeak = theElem.text().trim();
+					setTimeout(function(){
+						theElem.addClass("scale_1point4");
+						highlightElem('.weekNumHelper1', messageToSpeak);
+					}, 1500);
+					//highlightElem('.weekNumHelper', messageToSpeak);
+				}, 1500);
+				
+				// add in the "or if you want to fill it out click this button "
+				setTimeout(function(){
+					let theElem = $('.weekNumHelper2');
+					theElem.css("display", "block");
+					let messageToSpeak = theElem.find("p").text().trim();
+					highlightElem('.weekNumHelper2', messageToSpeak);
+				}, 9000);
+			}else{
+				skipWeekField();
+			}
 		}//start retrieving values after 'week' 
 		else if(curIteration == 3){
 			$('#myBar').text("You have €" + purse);
@@ -193,17 +210,6 @@ function focusWheelItem(itemToFocus){
 	        break;
 	}
 }
-$( ".weekNumHelper1" ).click(function() {
-	$('.weekNumHelper1').remove();
-	$('.weekNumHelper2').remove();
-	var date = new Date();
-	var weekNum = date.getWeek();
-	var selector = "currentField" + (curIteration + 1);
-	$('#' + selector).val(weekNum);
-	weekNumHelperFinished = true;
-	wheelCycle();
-	$('#wheelContainer').removeClass("overlay");
-});
 
 $( ".weekNumHelper2" ).click(function() {
 	$(this).unbind( "click" );
@@ -331,6 +337,10 @@ function showGenieQuickButtons(){
 		assistant.moveTo(elmToFlyToPos['left'],(elmToFlyToPos['top'] - 100));
 	}, 2500);
 }
+
+$( ".weekNumHelper1" ).click(function() {
+	skipWeekField();
+});
 
 
 

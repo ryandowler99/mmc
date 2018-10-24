@@ -307,6 +307,7 @@
     font-weight: bold;
     border-bottom: none;
     text-align: center;
+    z-index: 100;
 }
 
 #genieQuickButtons {
@@ -341,15 +342,34 @@
   transition: 0s background-color;
   transition-delay:0.5s;
 }
-#genieQuickButtons:hover .ttsElem {
-    background-color: pink;
+.ttsE2:hover{
+  background-color: yellow;
 }
+.ttsE1:hover{
+  background-color: orange;
+}
+#genieQuickButtons:hover .ttsElem { background-color: pink; }
+.ttsOnHover:hover .ttsElem { background-color: pink; }
 
 #weekNumberHelpAnswer{
-
+  display: none;
+  background-color: red;
+  width: max-content;
+  padding: 30px;
+  border: 2px solid green;
+  border-radius: 10px;
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
 }
 
 .ttsOnHover {
     cursor: url("autottsCursor2.png"), auto;
+}
 
+.weekNumberHelpAnswerBtn1, .weekNumberHelpAnswerBtn2{
+    background-color: green;
+    text-align: center;
+    border: 3px solid black;
+    border-radius: 50%;
 }
