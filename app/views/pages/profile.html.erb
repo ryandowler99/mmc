@@ -29,7 +29,7 @@
                               <%# button_tag "Change That", id: "chnageThatBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-sm-4" %>
                         	<% end %>
                         	<div class="profileDetails col-sm-12">
-                        		 <i class="glyphicon glyphicon-globe"></i> Your Email: <text> <%= @user.email %> </text>
+                        		 <i class="glyphicon glyphicon-globe"></i> Your Username: <text> <%= @user.email.gsub('@mmc.ie', "") %> </text>
 	                            <br />
 	                            <i class="glyphicon glyphicon-time"></i> You joined 
 	                            <text><%= time_ago_in_words(@user.created_at) %></text> ago

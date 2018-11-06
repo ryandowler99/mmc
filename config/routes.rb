@@ -13,6 +13,7 @@ end
 
 get 'pages/home'
 get 'pages/about'
+get 'pages/aboutcopy'
 get 'pages/front'
 get 'pages/profile'
 get 'pages/store'

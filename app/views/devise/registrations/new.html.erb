@@ -1,44 +1,134 @@
-<h2>Sign up</h2>
-<!-- multipart: true -->
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%# render "devise/shared/links" %>
+<style type="text/css">
+  body{
+    background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
+}
+.contact-form{
+    background: #fff;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    width: 70%;
+    height: -webkit-fill-available;
+}
+.contact-form .form-control{
+    border-radius:1rem;
+}
+.contact-image{
+    text-align: center;
+}
+.contact-image img{
+    border-radius: 6rem;
+    width: 11%;
+    margin-top: -7%;
+}
+.contact-form form{
+    padding: 14%;
+}
+.contact-form form .row{
+    margin-bottom: -7%;
+}
+.contact-form h3{
+    margin-bottom: 8%;
+    margin-top: 5%;
+    text-align: center;
+    color: #0062cc;
+}
+.contact-form .btnContact {
+    width: 50%;
+    border: none;
+    border-radius: 1rem;
+    padding: 1.5%;
+    background: #dc3545;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+.btnContactSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+    background-color: #0062cc;
+    border: none;
+    cursor: pointer;
+}
+</style>
+<!-- --------- HTML -->
+<%= form_for(resource, as: resource_name,
+      url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field  :first_name, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field  :last_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    image here <br/>
-    <%= f.file_field :profileimage %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="container contact-form">
+    <div class="contact-image">
+        <%= image_tag "avatar" %>
+    </div>
+      <h3>Join My Money Counts</h3>
+      <div class="row">
+        <div id="formPart1" class="col-sm-8 col-sm-push-2">
+            <div class="form-group">
+                <%= f.text_field  :first_name, autofocus: true, class: "form-control", required: "required", placeholder: "what is your NAME?" %> 
+            </div>
+            <div class="form-group pushDown40">
+                <%= f.text_field :email, class: "form-control", required: "required", placeholder: "make up a USERNAME for this app" %>
+            </div>
+            <div class="form-group hidden">
+               <%= f.password_field :password, class: "form-control", required: "required", placeholder: "Password" %>
+            </div>
+            <div class="form-group hidden">
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", required: "required", placeholder: "Password 2" %>
+            </div>
+            <div class="form-group pushDown80">
+               <!--  <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" /> -->
+            <div id="nextRegBtn" class="modal-footer">
+              <%= image_tag "next" %>
+            </div>
+            <div id="newUserRegBtn" class="modal-footer hidden">
+              <%= image_tag "next" %>
+            </div>
+            </div>
+        </div>
+        <div id="formPart2" class="col-sm-8 col-sm-push-2 hidden">
+          <%= render 'shared/pattern_unlock2' %>
+        </div>
+      </div>
   </div>
 <% end %>
+         
+   
+<script type="text/javascript">
+  function submitTheForm(){
+    let userName = $('input#user_email').val(); //get inputted username
+    let newUserName = userName + "@mmc.ie"; //append @mmc.ie to it
+    if(userName){
+      $('input#user_email').val(newUserName); //set new name to the field
+    }
+    setTimeout(function() {
+      $("#new_user").submit();
+      $('input#user_email').val(""); //empty field incase form needs to be used again
+    }, 2000);
+  }
 
-<%= render "devise/shared/links" %>
+  //user uses the button to submit form
+  $( "#newUserRegBtn" ).click(function() {
+    submitTheForm();
+    //alert("yo1");
+  });
+
+  //user presses enter to submit form
+  $('#user_email').keypress(function(e){
+      if(e.keyCode==13){
+        $('#formPart1').toggle( "slide" );
+    
+    $('#formPart2').removeClass('hidden');
+      }
+  });
+
+  //user uses the button to submit form
+  $( "#nextRegBtn" ).click(function() {
+    $('#formPart1').toggle( "slide" );
+    
+    $('#formPart2').removeClass('hidden');
+    //alert("yo1");
+  });
+  
+</script>                         

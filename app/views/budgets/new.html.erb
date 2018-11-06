@@ -3,6 +3,14 @@
 <%= stylesheet_link_tag "new" %>
 <%= javascript_include_tag "http://www.gerardolarios.com/plugins-and-tools/jqmeter/js/jqmeter.min.js" %>
 
+<script>
+// var skiptheweekfield = <%= @user.skiptheweekfield %>;
+ //alert("-> " + skiptheweekfield);
+
+  var skipTheWeekField = '<%= @user.skiptheweekfield %>';
+  alert("-> " + skipTheWeekField);
+</script>
+
 <h1 id="progressbarMoney_in"></h1>
 <div id="myProgress" class="row">
 	<div id="myBar" class="col-xs-1" style="background-color: #019875;"> </div>
@@ -24,7 +32,8 @@
       <h4 class="visible-xs"> x small </h4>
 
 
-<div id="wheelContainer">
+<div id="wheelContainer"><br><br><br><br>
+  <h1 id="userrrrr">its here: </h1>
   <div id="genieQuickButtons" class="ttsOnHover">
     <div class="ttsElem ttsE1">Skip this Question</div>
     <div class="ttsElem ttsE2" onclick="$('#weekNumberHelpAnswer').css('display', 'block');">Help me with this Question</div>

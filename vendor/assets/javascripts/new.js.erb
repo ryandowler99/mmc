@@ -12,7 +12,21 @@
 	var third  = $('.third'); //item (field) on wheel
 	var elemId; // current field - active field
 	var weekNumHelperFinished = false;
-	var skipTheWeekField = false;
+	var skipWeekField;
+
+		skipWeekField = function(){
+			$('.weekNumHelper1').remove();
+			$('.weekNumHelper2').remove();
+			var date = new Date();
+			var weekNum = date.getWeek();
+			var selector = "currentField" + (curIteration + 1);
+			$('#' + selector).val(weekNum);
+			weekNumHelperFinished = true;
+			wheelCycle();
+			$('#wheelContainer').removeClass("overlay");
+			$('#closeWeekHelperBtn').remove();
+		}
+
 	// ** get params and output needed fields **
 	$(document).ready(function() {    //DO I NEED TO THIS 1/2
 		var array = [];
@@ -45,6 +59,7 @@
 	
 	function wheelCycle(){
 	 	elemId = "#currentField" + numSpinTimes;
+	 	console.log("->>>>> :" + elemId);
         	var nextElemId = "#currentField" + (numSpinTimes + 1);
         	var value = $(elemId).val();
         	//alert(elemId + " has the value of: " + value );
@@ -96,25 +111,14 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 
 		$('#title').text(label); //change the title above wheel 
 
-		function skipWeekField(){
-			$('.weekNumHelper1').remove();
-			$('.weekNumHelper2').remove();
-			var date = new Date();
-			var weekNum = date.getWeek();
-			var selector = "currentField" + (curIteration + 1);
-			$('#' + selector).val(weekNum);
-			weekNumHelperFinished = true;
-			wheelCycle();
-			$('#wheelContainer').removeClass("overlay");
-			$('#closeWeekHelperBtn').remove();
-		}
 
 		//change to switch statement
 		if(curIteration == 2){
 			purse = theValue;
 			total = theValue;
 			//profile attr - if true will skip the field all together
-			if(!skipTheWeekField){
+			var isFalse = (skipTheWeekField === 'false');
+			if(isFalse){
 				$('#pageIntroduceBtn').css("display", "none");
 				$('#wheelContainer').addClass("overlay");
 				$( "#currentField3" ).blur();
@@ -157,7 +161,12 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 					highlightElem('.weekNumHelper2', messageToSpeak);
 				}, 9000);
 			}else{
-				skipWeekField();
+				$("#title").fadeOut(500);
+				setTimeout(function() {
+					skipWeekField();
+					$("#title").fadeIn(1000);	
+				}, 500);
+				
 			}
 		}//start retrieving values after 'week' 
 		else if(curIteration == 3){

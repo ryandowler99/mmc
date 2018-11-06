@@ -1,4 +1,8 @@
 <% content_for :title, "Login to MyMoneyCounts" %>
+<%= stylesheet_link_tag "patternlock", :cache => true %>
+<%= stylesheet_link_tag "new_login", :cache => true %>
+<%= javascript_include_tag "patternlock", :cache => true %>
+
 <!-- <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -23,44 +27,37 @@
     <%= f.submit "Log in" %>
   </div>
 <% end %> -->
-
+ <div id="errorMessage">
+   <%= devise_error_messages! %>
+ </div> 
 <% render "devise/shared/links" %>
+<div id="goBackArrow" class="ttsOnHover"><%= image_tag "goBack" %>
+  <h3 id="goBackWording" class="ttsElem ttsE1">Go Back</h3>
+</div>
+<div id="loginOptionsDiv" class="container">
+  <!-- heading -->
+  <div class="loginOptionsHeading col-sm-12">
+    <h1>You can use My Money Counts in 2 ways: </h1>
+  </div>
+  <!-- arrows -->
+  <div class="loginOptionsArrow1 col-sm-6">
+    <%= image_tag "arrow_purple_left" %>
+  </div>  
+  <div class="loginOptionsArrow2 col-sm-6">
+    <%= image_tag "arrow_purple_right"%>
+  </div>   
+  <!-- buttons -->
+  <div class="loginOptionBtn typePassBtn grad1 col-sm-5">
+    <h1>Use a password</h1>
+    <%= image_tag "passwordIcon", class: "img img-responsive col-sm-6 col-sm-push-3" %>
+  </div>  
+  <div class="loginOptionBtn drawPassBtn col-sm-5">
+    <h1>Draw a pattern</h1>
+    <%= image_tag "patternUnlock", class: "img img-responsive col-sm-5 col-sm-push-4" %>
+  </div> 
+</div>
 
-<style type="text/css">
-
-.loginContainer {
-    padding: 25px;
-    position: fixed;
-}
-
-.form-login {
-    background-color: #EDEDED;
-    padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 15px;
-    border-color:#d2d2d2;
-    border-width: 5px;
-    box-shadow:0 1px 0 #cfcfcf;
-}
-
-h4 { 
- border:0 solid #fff; 
- border-bottom-width:1px;
- padding-bottom:10px;
- text-align: center;
-}
-text{ color: #7b69eb; font-size: 1.3em; }
-.form-control { border-radius: 10px; }
-.wrapper { text-align: center; }
-
-form{ margin-top: 39px; }
-.loginBtn{
-  background-color: #7b69eb; color: white;
-}
-</style>
-<div class="container loginContainer">
+<div class="container loginContainer hidden">
     <div class="row">
         <div class="col-md-offset-4 col-md-6">
             <div class="form-login">
@@ -97,4 +94,151 @@ form{ margin-top: 39px; }
 <div class="actions">
   <%# f.submit "Log in" %>
 </div>
+
+<!-- pattern -->
+ <%= render 'shared/pattern_unlock' %>
+<div id="redoPattern" class="afterPatternBtn col-sm-2">
+  <%= image_tag "undo", class: "img img-responsive redoPatternBtn" %>
+</div>
+<div id="confirmPattern" class="afterPatternBtn col-sm-2">
+  <%= image_tag "checkGif2", class: "img img-responsive hidden confirmPatternBtn2" %>
+  <%= image_tag "confirmCircle", class: "img img-responsive confirmPatternBtn" %>
+</div>
+<div id="mmcNameLabel" class="hidden">
+  <h2>YOUR USERNAME HERE
+    <%= image_tag "smallDownArrow2", class: "img img-responsive" %>
+  </h2>
+</div>
+<input class="form-control hidden" id="mmcNameInput" type="text" autofocus />
+<%= image_tag "loadingIcon", class: "img img-responsive hidden col-sm-4 col-sm-push-4", id: "loadingIcon" %>
+    <script type="text/javascript">
+      $(function() {
+   
+        //pattern
+        var storedPattern = ""; //used to store a cached like version of the pattern
+        var lock = new PatternLock("#lock", {
+          onPattern: function(pattern) {
+            // Context is the pattern lock instance
+            if(pattern){
+              storedPattern = pattern;
+            }else{
+              $('#redoPattern').removeClass("hidden");
+            }
+            
+            //$('#patternlockDiv').toggle( "slide" );
+            if (lock.getPattern()){
+              console.log(pattern);
+              responsiveVoice.speak("Continue, or draw it again", "UK English Male");
+              $('#confirmPattern').fadeIn(3000);  
+              $('#redoPattern').fadeIn(6000);  
+            }
+            else{
+              console.log("are you havong trouble? show me how to do it")
+            }
+           }
+        });
+
+        //login options button 1 - type out password
+        $('.typePassBtn').click(function(){ 
+          $('#loginOptionsDiv').addClass('hidden');
+          $('.loginContainer').removeClass('hidden');
+          $('#goBackArrow').css('display', 'block');
+        });
+
+        //login options button 2 - pattern
+        $('.drawPassBtn').click(function(){ 
+          responsiveVoice.speak("Draw your secret pattern", "UK English Male");
+          $('#loginOptionsDiv').addClass('hidden');
+          $('#patternlockDiv').removeClass('hidden');
+          $('#goBackArrow').css('display', 'block');
+          $('#mmcNameInput').addClass('hidden');
+          //show buttons
+          $('#redoPattern').removeClass('hidden');
+          $('.confirmPatternBtn2').removeClass('hidden');
+          $('.confirmPatternBtn').removeClass('hidden');
+          $('#lock').css('display', 'block');
+        });
+
+        //back arrow
+        $('#goBackArrow').click(function(){ 
+          $('#loginOptionsDiv').removeClass('hidden');
+          $('.loginContainer').addClass('hidden');
+          $('#patternlockDiv').addClass('hidden');
+          $('#goBackArrow').css('display', 'none');
+          $('#redoPattern').addClass('hidden');
+          $('.confirmPatternBtn2').addClass('hidden');
+          $('.confirmPatternBtn').addClass('hidden');
+          $('#mmcNameLabel').addClass('hidden');
+          $('#mmcNameInput').addClass('hidden');
+          //clear the pattern
+          // $(".lock-actives").children().remove(); //remove select dots
+          // $("line").remove(); //remove line connecting them
+          lock.clear(); //empty lock
+          $('input#userName').val(""); //empty username field
+          $('input#userPassword').val(""); //empty password field
+        });
+
+        //confirm pattern button
+        $( ".confirmPatternBtn" ).click(function() {
+          $(this).addClass("hidden");
+          $( ".confirmPatternBtn2" ).removeClass("hidden");
+          $('#redoPattern').addClass("hidden");
+          //click the second continue button after a few seconds
+          setTimeout(function() {
+            confirmButton();
+          }, 2000);
+        });
+
+        //animated confirm pattern button (that shows up after click first confirm)
+        function confirmButton () {
+          $('#redoPattern').addClass("hidden");
+          $(this).addClass("hidden");
+          $( ".confirmPatternBtn2" ).removeClass("hidden");
+
+          //fill out the form
+          $('input#userName').val(""); //empty username field
+          $('input#userPassword').val(""); //empty password field
+          let thePattern = lock.getPattern(); //get the inputted pattern
+         
+          //use as password (username filled in elswhere)
+          if(thePattern){
+            $('input#userPassword').val(thePattern); 
+          }else{
+            $('input#userPassword').val(storedPattern); 
+          }
+          setTimeout(function() {
+            $('#lock').toggle( "slide" );
+            $('.redoPatternBtn').addClass("hidden");
+            $('.confirmPatternBtn2').addClass("hidden");
+            $('.confirmPatternBtn').addClass("hidden");
+            $('#patternlockDiv h3').text("What is your Username?");
+            $('#mmcNameInput').removeClass("hidden");
+            $('#mmcNameLabel').removeClass("hidden");
+          }, 1000);
+        }
+
+        //redo pattern button
+        $( ".redoPatternBtn" ).click(function() {
+          $('.confirmPatternBtn2').addClass("hidden");
+          $(this).addClass("hidden");
+          lock.clear();
+        });
+
+        //username input
+        $('#mmcNameInput').keypress(function(e){
+          if(e.keyCode==13){
+            $('#patternlockDiv').toggle( "slide" );
+            $('#mmcNameLabel').toggle( "slide" );
+            $('#mmcNameInput').toggle( "slide" );
+            $('#loadingIcon').removeClass( "hidden" );
+            let theUserName = $('input#mmcNameInput').val(); 
+            $('input#userName').val(theUserName + "@mmc.ie");
+            setTimeout(function() {
+              $("#new_user").submit();
+            }, 2000);
+          }
+            
+        });
+      }); 
+    </script>
 

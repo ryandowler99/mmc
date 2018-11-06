@@ -55,3 +55,42 @@ typeWriter = function () {
 		 -> typeWriter(); //dont pass as param
 */
 
+$(function() {//was here
+	$(".ttsOnHover").on('click mouseover', function(){//alert("llk");});
+//auto TTS
+	/*var timer = 1500;
+	$( ".ttsOnHover" ).mouseover(function() {
+		let theText = $(this).text();
+		console.log(theText);
+		//if needed so the above voice doesnt get interupted
+		if(true){
+			//speak - each elem
+			responsiveVoice.speak(theText, "UK English Male");
+		}
+	});
+	$( ".ttsOnHover" ).mouseleave(function() {
+		responsiveVoice.cancel(); // stop anything currently being spoken
+	});*/
+});
+
+/*
+
+$(function() {
+//auto TTS
+	var timer = 1500;
+	$( ".ttsOnHover" ).mouseover(function() {
+		let theText = $(this).text();
+		console.log(theText);
+		//if needed so the above voice doesnt get interupted
+		if(true){
+			//speak - each elem
+			responsiveVoice.speak(theText, "UK English Male");
+		}
+	});
+	$( ".ttsOnHover" ).mouseleave(function() {
+		responsiveVoice.cancel(); // stop anything currently being spoken
+	});
+});
+
+
+*/

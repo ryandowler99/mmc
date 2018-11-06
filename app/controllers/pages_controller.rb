@@ -7,13 +7,16 @@ class PagesController < ApplicationController
   def about
   end
 
+  def aboutcopy
+  end
+
   def front
   end
 
   def profile
   	 if user_signed_in?
       #get the orgs belloning to the user
-      @user = current_user
+      #@user = current_user - in app controlelr now
       @users_budgets = Budget.where(["user_id = ?", @user.id])
       @budgets = Budget.all
    end
