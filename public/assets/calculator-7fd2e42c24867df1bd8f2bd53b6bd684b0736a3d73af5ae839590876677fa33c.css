@@ -1,0 +1,139 @@
+/*structure around the calc*/
+
+	.typeOfCalcBtn{
+		 height: 100px;
+		 color: white;
+		 text-align: center;
+		 border: 3px solid white;
+		 border-radius: 15px 15px 0px 0px;
+	}
+	.typeOfCalcBtnArrow{
+		font-size: 4em;
+		text-align: center;
+		margin-top: -10px;
+	}
+	.calculatorMain{
+		border: 3px solid white;
+		border-radius: 10px;
+		min-height: 300px;
+		padding-bottom: 20px;
+	}
+/* ./structure around the calc*/
+
+/*calculator*/
+	.calculator {
+	    /*width: 170px;*/
+	    background-color: #484848;
+	    padding: 20px;
+	    margin-top: 10px;
+	    border-radius: 10px;
+	}
+
+	.coinBtn{
+		margin-left: 20%;
+	}
+
+	.result {
+	    width: 100%;
+	    height: 35px;
+	    background-color: #cddecc;
+	    border-radius: 5px;
+	    margin-bottom: 15px;
+	    text-align: right;
+	    line-height: 34px;
+	    font-family: digital;
+	    padding: 0px 5px 0px 5px;
+	    font-size: 25px;
+	    overflow: hidden;
+	    box-shadow: inset 0 0px 3px;
+	    text-align: center;
+    	font-weight: 800;
+    	color: #7b69eb;
+	}
+
+	.key {
+	    /*width: 35px;*/
+	    width: 20%;
+	    background-color: #eeeeee;
+	    display: inline-block;
+	    margin: 3px 0px 8px 3px;
+	    vertical-align: bottom;
+	    text-align: center;
+	    padding: 15px 0px 5px 0px;
+	    font-weight: bold;
+	    border-radius: 4px;
+	    cursor: pointer;
+	    box-shadow: 0 3px 0 #a1a1a1, 0 2px 5px rgba(0, 0, 0, .75) !important;
+	    font-size: 1.5em;
+	}
+
+	.equal-key {
+	    width: 99%;
+		background-color: #53f93e;
+		color: black;
+		font-weight: bolder;
+		font-size: 3.5em;
+		font-stretch: expanded;
+	}
+
+	.clear-key {
+	    /*background-color: #bb1c09;*/
+	    color: white;
+	}
+
+	.right-key{
+		width: 25%;
+	    margin-left: 13%;
+	    font-size: 2em;
+	    font-weight: 600;
+	}
+
+	.key:active {
+	    background-color: #a1a1a1;
+	    box-shadow: 0 5px #666;
+	    transform: translateY(4px);
+	}
+	/*moneyCalc*/
+	.key-money{
+		/*overwrite few things for money-key (from .key)*/
+		padding: 0px 0px 0px 0px;
+		box-shadow: 0 3px 0 #eeeeee, 0 2px 5px rgba(0, 0, 0, .75);
+	}
+	#calculator_money span img{height: 100%;}
+	#calculator_money span.key{
+		height: 70px;
+		max-height: 70px;
+	}
+
+.right-key h3 {
+    font-size: 2.7em;
+    font-weight: bold;
+    margin-top: -16%;
+    color: #c03aff;
+}
+
+.bottomKey{
+	margin-top: -7%;
+	min-height: 50px;
+}
+#calculator_number span h3 {
+    margin-top: 0% !important;
+}
+.clear-key img {
+    transform: scale(1.6);
+    margin-top: -4px;
+}
+#calculator_money, #calculator_number {
+    transform: scale(0.9);
+}
+#calculator_money { margin-top: -17px; }
+#calculator_number { margin-top: -2px; }
+
+dot{
+	font-size: 4em;
+	position: absolute;
+    bottom: -8%;
+    right: 42%;
+}
+
+

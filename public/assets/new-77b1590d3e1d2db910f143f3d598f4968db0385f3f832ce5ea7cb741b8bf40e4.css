@@ -1,0 +1,505 @@
+/*form, .hidden{visibility: hidden;}*/
+
+/* wheel */
+
+.spinWheel {
+    height: 490px;
+    margin: auto;
+    width: 600px;
+    position: relative;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+    -ms-transition: all 1s;
+    transition: all 1s;
+}
+.spinWheel div {
+    color: #fff;
+    font-size: 5em;
+    height: 150px;
+    line-height: 150px;
+    position: absolute;
+    text-align: center;
+    width: 300px;
+    border-radius: 12px;
+}
+.first { background: red; }
+.second { background: green; }
+.third { background: blue; }
+/*why is there a need for this -change*/
+.first {
+    left: 50%;
+    margin-left: -150px;
+    top: 0;
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+}
+.second {
+    bottom: 85px;
+    right: 0;
+    -webkit-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    -o-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    transform: rotate(120deg);
+}
+.third {
+    bottom: 85px;
+    left: 0;
+    -webkit-transform: rotate(240deg);
+    -moz-transform: rotate(240deg);
+    -o-transform: rotate(240deg);
+    -ms-transform: rotate(240deg);
+    transform: rotate(240deg);
+}
+/* ./wheel */
+
+/* wheel additional (after structure) */
+.spinWheel input{
+	width: 90%;
+    height: 90%;
+    color:red;
+}
+/* rest of page elements */
+#title{
+  font-size: 5em;
+  text-align: center;
+  display: inline-block;
+  margin-left: 40%;
+}
+
+/* cursor */
+.cursor { position: relative; }
+.cursor	i {
+	position: absolute;
+	width: 3px;
+	height: 80%;
+	background-color: red;
+	left: 10%;
+	top: 10%;
+	animation-name: blink;
+	animation-duration: 800ms;
+	animation-iteration-count: infinite;
+	opacity: 1;
+}
+.cursor input:focus + i {
+	display: none;
+}
+@keyframes blink {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+/* ./ cursor */
+
+/*progress bar*/
+#myProgress {
+  width: 100%;
+  height: 100px;
+  /*background-color: #ddd;*/
+/*  visibility: hidden; */
+  margin-left: 0px; 
+  margin-top: -60px;
+}
+#myBar, #barEnd, #myBar2 {
+  width: 10%;
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  font-weight: 600;
+  height: 90%;
+}
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+  #myBar{ width: 20%; }
+  .circlediv{ width:20% !important; }
+  .spinWheel{ margin-left: -20%; }
+}
+#myBar2{
+    background-color: #26C281; 
+    width: 0%; 
+    border-bottom-right-radius: 55px;
+    border-top-right-radius: 55px;
+}
+#wheelContainer{ position: fixed;background: rgba(123, 105, 235, 0.40); width: 100%; }
+
+.blurWheelItem {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  opacity: 0.3;
+}
+
+#submitBudgetBtn{
+  margin-top: 50px;
+}
+
+.circle:before {
+  content: ' \25CF';
+  font-size: 190px;
+  padding-right: 100px;
+}
+
+.halfCircleRight{
+     height:70px;
+     width:35px;
+     border-radius: 0 70px 70px 0;
+     background:white;
+     margin-left: -20px;
+    margin-top: -9px;
+}
+
+
+.circlediv{
+    width:9%;
+    height:inherit;
+    position:fixed;
+    overflow:hidden;
+    right: 0;
+    top: 70px;
+    z-index: 999;
+}
+.circlediv:before{
+    content:'';
+    position:absolute;
+    right:80%;
+    width:100%;
+    height:100%;
+    border-radius:100%;
+    box-shadow: 0px 200px 0px 320px #448CCB;
+}
+#circledivText{
+    color: white; 
+    font-weight:600;
+    text-align: center;
+}
+
+.weekNumHelper{
+  display: none;
+  width: max-content;
+  padding: 20px;
+  border: 4px dotted yellow;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
+  position: fixed;
+  top: 60%;
+  font-size: 1.4em;
+  text-align: center;
+  margin-top: 10px; 
+  z-index: 10;
+}
+.weekNumHelper1{
+  background-color: #47cad1;
+  left: 10%;
+}
+.weekNumHelper2{
+  background-color: #e2d14f;
+  left: 55%;
+}
+#weekHelperBtns{display: none;}
+#weekHelperBtn1{
+    background: aqua;
+    padding: 30px;
+    border: 3px solid white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+}
+#weekHelperBtn1:hover{background: orange;}
+#weekHelperBtn3{
+    background: purple;
+    padding: 30px;
+    border: 3px solid white;
+    border-radius: 15px;
+}
+#weekHelperBtn3:hover{ background: red; }
+.weekHelperBtnAfter{
+  color: aqua;
+  background: none !important;
+  padding: 10px !important;
+  border-radius: 10px !important;
+}
+@media only screen and (max-width : 1130px) {
+  .weekNumHelper1{
+    left: 32%;
+  }
+  .weekNumHelper2{
+    left: 28%;
+    top: 82%
+  }
+}
+@media only screen and (max-width : 1000px) {
+  .weekNumHelper{
+    font-size: 1em;
+    padding: 8px;
+    left: 28%;
+  }
+  .weekNumHelper .glyphicon{
+    font-size: 1.3em;
+  }
+
+  .weekNumHelper1{
+    width: 44%;
+  }
+  .weekNumHelper2{
+    width: 40%;
+    top: 78%;
+  }
+}
+
+
+.scale_1point4{
+  -ms-transform: scale(1.4, 1.4); /* IE 9 */
+  -webkit-transform: scale(1.4, 1.4); /* Safari */
+  transform: scale(1.4, 1.4);
+}
+
+.newLineGlyph{
+  color: green;
+  display: block;
+  text-align: center;
+  font-size: 2em;
+}
+
+#typingText{
+  position: absolute;
+  left: 10;
+  font-size: xx-large;
+  font-weight: bold;
+  color: black;
+}
+#closeHelperBtn {
+    display: none;
+    position: absolute;
+    right: 15;
+    top: 15;
+    color: #ff3a96;
+    font-size: xx-large;
+}
+#closeHelperBtnLeft {
+    display: none;
+    position: absolute;
+    left: 15;
+    top: 15;
+    color: #ff3a96;
+    font-size: xx-large;
+}
+
+#closeWeekHelperBtn:hover {
+    background-color: #ff2846;
+    font-weight: bolder;
+    border: 5px solid;
+    padding: 20px;
+}
+
+#closeWeekHelperBtn {
+    position: fixed;
+    right: 46%;
+    bottom: -4px;
+    background-color: #ff4962;
+    padding: 15px;
+    border: 3px solid black;
+    border-radius: 10px;
+    font-size: x-large;
+    font-weight: bold;
+    border-bottom: none;
+    text-align: center;
+    z-index: 100;
+}
+
+#genieQuickButtons {
+    display: none;
+    background-color: rgba(119, 255, 125, 0.8);
+    position: absolute;
+    width: max-content;
+    padding: 30px;
+    left: 20px;
+    top: 45%;
+    border: 6px solid skyblue;
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+    z-index: 10;
+}
+#genieQuickButtons div {
+    background-color: orange;
+    padding: 5px;
+    margin: 20px;
+    border: 2px solid;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+.ttsE1{
+  transition: 0s background-color;
+  transition-delay:0.2s;
+}
+.ttsE2{
+  transition: 0s background-color;
+  transition-delay:0.5s;
+}
+.ttsE2:hover{
+  background-color: yellow;
+}
+.ttsE1:hover{
+  background-color: orange;
+}
+#genieQuickButtons:hover .ttsElem { background-color: pink; }
+.ttsOnHover:hover .ttsElem { background-color: pink; }
+
+#weekNumberHelpAnswer{
+  display: none;
+  background-color: red;
+  width: max-content;
+  padding: 30px;
+  border: 2px solid green;
+  border-radius: 10px;
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.ttsOnHover {
+    cursor: url("autottsCursor2.png"), auto;
+}
+
+.weekNumberHelpAnswerBtn1, .weekNumberHelpAnswerBtn2{
+    background-color: green;
+    text-align: center;
+    border: 3px solid black;
+    border-radius: 50%;
+}
+
+#userrrrr{
+  font-size: xx-large;
+  position: fixed;
+  top: 200px
+  left: 200px;
+
+}
+#goBackArrow{
+  padding: 20px;
+  background-color: pink;
+}
+
+#wheelCycleBtn{
+  position: absolute;
+  right: 27%;
+  top: 28%;
+  transform: scale(1.5);
+  z-index: 90;
+}
+.rotateImg{
+  border: 2px solid;
+  border-radius: 15px;
+  box-shadow: 0px -1px 8px 2px black;
+  background-color: #fffa68;
+  padding: 13px;
+}
+.rotateImg:hover {
+    background-color: #00ffb8;
+    box-shadow: 3px 2px 6px 1px black;
+}
+
+#categoriesDock {
+    background-color: red;
+    width: max-content;
+    padding: 40px;
+    position: absolute;
+    left: 45%;
+    bottom: 0;
+}
+
+.dock {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0px;
+}
+.dock li a img {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+}
+.dock li {
+  transition: all 0.3s ease-out;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  display: table-cell;
+  padding: 0px;
+  position: relative;
+  top: 0;
+      padding: 0px 40px 0px 25px;
+      left: -66px
+}
+.dock li:hover {
+  transform: scale(2);
+  margin: 20px;
+  margin-top: -15px;
+  top: -10px;
+  position: relative;
+}
+#categoriesDock {
+    background-color: #7b69eb;
+    width: max-content;
+    padding: 40px;
+    padding-right: 100px;
+    position: fixed;
+    left: 2%;
+    bottom: 0px;
+    max-width: 22%;
+    max-height: 20%;
+    border-radius: 32px 32px 0px 0px;
+    border: 6px solid white;
+    border-top-left-radius: 0;
+}
+.activeCategoryDock{
+    transform: scale(2);
+    position: absolute;
+    bottom: 16%;
+    background-color: rgba(210, 100, 255, 0.8);
+    border-radius: 10px;
+    margin: 58%;
+}
+#genieCategoryShow{
+  position: absolute;
+  bottom: 100%;
+  left: -6px;
+  border: 7px solid white;
+  border-bottom: none; 
+  background-color: #7b69eb;
+}
+
+#currentCat{
+  position: absolute;
+  bottom: 175%;
+  left: 52%;
+}
+
+.catImg{
+  position: absolute;
+}
+
+.nextCategoryArrow {
+    position: absolute;
+    left: 20%;
+    z-index: 999;
+    top: 7%;
+}
+#titleImg_category {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    margin-left: 10px;
+}
