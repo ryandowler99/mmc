@@ -72,14 +72,14 @@
 <div id="categoriesDock" class="hidden">
 <ul class="dock">
   <%= image_tag "geniePoint", id: "genieCategoryShow" %>
-  <% firstCat = chosen_fields_as_array[-1] %>
+  <% firstCat = chosen_fields_as_array[0] %>
   <%= image_tag firstCat.downcase, id: "currentCat" %>
   <!-- set to js var to acces in js file -->
   <script type="text/javascript">
       var categoryArray = <%= raw chosen_fields_as_array %>;
   </script>
   <!-- all but last elem in array -->
-  <% chosen_fields_as_array[0...-1].each do |cat| %>
+  <% chosen_fields_as_array.each do |cat| %>
     <li>
     <div title="<%= cat.downcase %>">
      <%= image_tag cat.downcase, class: "#{cat.downcase}_categoryImg catImg" %> 

@@ -133,6 +133,12 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 			$('#submitBudgetBtn').removeClass("hidden");
 			$("#wheelCycleBtn").addClass("hidden");
 			$('body').css('background-color', 'rgba(123, 105, 235, 0.40)');
+			$('.nextCategoryArrow').addClass("hidden");
+			$('#titleImg_category').addClass("hidden");
+			$('#wheelCycleBtn').remove();
+			$('#categoriesDock').addClass("hidden");
+			$('#genieCategoryShow').remove(); //to delete its chil elems too
+			$('#pageIntroduceBtn').remove(); //to delete its chil elems too
 		}
 
 		$('#title').text(label); //change the title above wheel 
