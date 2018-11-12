@@ -54,7 +54,7 @@ form{ margin-top: 39px; }
 }
 .drawPassBtn:hover{
   background-color: pink;
-  background-image: linear-gradient(141deg, #ffbe47 0%, #d69d35 51%, #ffd996 85%)
+  background-image: linear-gradient(141deg, #ffbe47 0%, #d69d35 51%, #ffd996 85%);
   opacity: 1;
   border: 20px solid rgba(206, 211, 219, 0.9);
 }
