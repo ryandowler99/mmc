@@ -11,9 +11,10 @@
  * file per style scope.
  *
  * require_tree .
- *= require_self
- *= require on_the_spot
+
+
  */
+
 
 .whiteFont{ color: white;}
 .redFont{ color: red;}
@@ -22,7 +23,7 @@
 .font400{ font-weight: 400;}
 .font600{ font-weight: 600;}
 .marginTop20{ margin-top: 20px; }
-.greenBG{ background-color: #4ECDC4 }
+.greenBG{ background-color: #4ECDC4; }
 .pushDown20{margin-top: 20px;}
 .pushDown40{margin-top: 40px;}
 .pushDown80{margin-top: 80px;}
@@ -79,3 +80,4 @@ color: white;
     background-color: rgba(0,0,0,0.5) !important;
     z-index: 1000;
 }
+.on_the_spot_over { background: #EEF2A0; }
