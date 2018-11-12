@@ -24,6 +24,7 @@ var array = [];
 
 		//MAKE THE FOLLOWING TwO FUNCTIONS MORE POLYMORPHIC !!!!!!!!!!!!!!
 		function submitClicked(){
+			$('html').css("opacity", "0");
 			//taskMode = !taskMode; //user would have sucessfully interacted with task if they clicked this btn
 			taskMode = false; //user would have sucessfully interacted with task if they clicked this btn
 			get_chosen_fields();
@@ -53,8 +54,10 @@ var array = [];
 		    setTimeout(function() {
 		    	$('#submitBtn')[0].click();
 		    }, 500);
-		}
-
+		    setTimeout(function() {
+		    	$('html').css("opacity", "1");
+			}, 800);
+	}
 		function updateFinalList(){
 			get_chosen_fields();
 			createLink();

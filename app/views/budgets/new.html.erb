@@ -4,7 +4,7 @@
 <%= javascript_include_tag "http://www.gerardolarios.com/plugins-and-tools/jqmeter/js/jqmeter.min.js" %>
 <!-- get the fields that the user wishes to populate -->
 <% chosen_fields = params['chosen_fields'] %>
-<%= chosen_fields_as_array = chosen_fields.gsub(/\s+/m, ' ').strip.split(" ") %>
+<% chosen_fields_as_array = chosen_fields.gsub(/\s+/m, ' ').strip.split(" ") %>
 <script>
 // var skiptheweekfield = <%= @user.skiptheweekfield %>;
  //alert("-> " + skiptheweekfield);
