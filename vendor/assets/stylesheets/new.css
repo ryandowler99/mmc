@@ -383,7 +383,7 @@
 #userrrrr{
   font-size: xx-large;
   position: fixed;
-  top: 200px
+  top: 200px;
   left: 200px;
 
 }
@@ -440,7 +440,7 @@
   position: relative;
   top: 0;
       padding: 0px 40px 0px 25px;
-      left: -66px
+      left: -66px;
 }
 .dock li:hover {
   transform: scale(2);
