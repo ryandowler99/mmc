@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181024142743) do
+ActiveRecord::Schema.define(version: 20181107122440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,9 @@ ActiveRecord::Schema.define(version: 20181024142743) do
     t.boolean  "authy_enabled",           default: false
     t.string   "profileimage"
     t.boolean  "skiptheweekfield"
+    t.integer  "failed_attempts",         default: 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
   end
 
   add_index "users", ["authy_id"], name: "index_users_on_authy_id", using: :btree

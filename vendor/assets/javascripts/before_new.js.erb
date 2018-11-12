@@ -48,6 +48,11 @@ var array = [];
 		    //$('#list').css("display", "block"); //show the list and continue button
 
 		    finalListIsEmpty(); //checks if final list is emoty and displays error message
+
+		    //click the second button - remved from ui
+		    setTimeout(function() {
+		    	$('#submitBtn')[0].click();
+		    }, 500);
 		}
 
 		function updateFinalList(){

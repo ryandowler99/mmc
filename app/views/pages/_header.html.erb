@@ -1,3 +1,40 @@
+<style type="text/css">
+  .navbar-default{
+    border: 3px solid #7b69eb;
+    border-radius: 15px;
+    width: 98%;
+    margin-left: 1%;
+    margin-top: 1%;
+    background-color: #8b7aecad;
+    font-weight: bold;
+  }
+
+  .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover{
+        background-color: transparent;
+    text-decoration: overline;
+    font-size: 1.3em;
+        color: #ffb471;
+    font-weight: bolder;
+  }
+
+  .navbar-default .navbar-nav > .active > a{
+    background-color: rgba(245, 245, 245, 0.5);
+  }
+  .navbar-default .navbar-nav > .active > a:hover{
+    background: none;
+  }
+  .navbar-default .navbar-nav > li > a {
+    color: white;
+}
+
+
+.navbar-brand b{
+  color: #030006fa;
+    font-weight: 900;
+    margin-left: -150px;
+    padding-right: 100px;
+}
+</style>
 <div id="navigation" class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -10,21 +47,20 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/" class="smothscroll">About the app</a></li>
+        <li class="<%= 'active' if current_page?(root_path) %>"><a href="/" class="smothscroll">About the app</a></li>
         <% if !user_signed_in? %>
-              <li> <%= link_to('Login', new_user_session_path)  %> </li>
-              <li> <%= link_to('Sign up', new_user_registration_path)  %> </li>    
+              <li class="<%= 'active' if current_page?(new_user_session_path) %>"> <%= link_to('Login', new_user_session_path)  %> </li>
+              <li class="<%= 'active' if current_page?(new_user_registration_path) %>"> <%= link_to('Sign up', new_user_registration_path)  %> </li>    
         <% else %>
-               <li><a href="/pages/profile">My Profile</a></li>
+               <li class="<%= 'active' if current_page?(pages_profile_path) %>"><a href="/pages/profile">My Profile</a></li>
               <!-- <li><a href="/pages/profile">My Budgets</a></li> -->
-              <li><a href="/budgets/before_new">Create a Budget now</a></li>    
+              <li class="<%= 'active' if current_page?(budgets_before_new_path) %>"><a href="/budgets/before_new">Create a Budget now</a></li>    
           </ul>
           <ul class="nav navbar-nav" style="float: right;">
-              <li><a href="/pages/store">App Store</a></li> 
-              <button id="booButton"> boo!</button>
-              <li><%= link_to "Calculator", pages_calculator_path %> </li>
-              <li><%= link_to "Videos", videos_path %> </li>
-              <li><%= link_to('Logout', destroy_user_session_path) %></li>   
+              <li class="<%= 'active' if current_page?(pages_store_path) %>"><a href="/pages/store">App Store</a></li> 
+              <li class="<%= 'active' if current_page?(pages_calculator_path) %>"><%= link_to "Calculator", pages_calculator_path %> </li>
+              <li class="<%= 'active' if current_page?(videos_path) %>"><%= link_to "Videos", videos_path %> </li>
+              <li ><%= link_to('Logout', destroy_user_session_path) %></li>   
           </ul>
         <% end %>
     </div><!--/.nav-collapse -->

@@ -390,7 +390,7 @@
 #pageIntroduceBtn{
 	display: none;
 	position: fixed;
-	top: 110px;
+	top: 35%;
 	left: 10px;
 	background-color: orange;
 	height: fit-content;

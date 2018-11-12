@@ -3,11 +3,15 @@
 
 <!-- Ruby variables -->
 <% chosen_fields = "none" %>
-
+<br>
+<br>
+<br>
+<br>
+<br>
 <button href="#" class="btn stickyBtn" onclick="showDragAndDrop();" data-toggle="tooltip" title="Hide or Show the Drag & Drop box"><i id="stickyBtnIcon" class=" fa fa-chevron-down fa-5x" ></i></button>
 
 <div class= "examples" style="margin-left:10px;">
-	<button id="helpBtn" type="button" class="btn helpBtn" data-toggle="modal" data-target="#helpModal">
+	<button id="helpBtn" type="button" class="btn helpBtn hidden" data-toggle="modal" data-target="#helpModal">
 		Help <span class="glyphicon glyphicon-question-sign"></span>
 	</button>
 	<div class='parent'>
@@ -28,7 +32,8 @@
 			</ul>
 		</div>  
 	</div>
-	<button id="continueWithBudgetBtn" class="btn btn-lg greenBG whiteFont" onclick="submitClicked();" style="margin-top: 50px; margin-right: 10px; float: right; margin-bottom: 5px; display: none;"> I'm ready to make my budget </button>
+	<button id="continueWithBudgetBtn" class="btn btn-lg greenBG whiteFont" onclick="submitClicked();"><%= image_tag "next" %></button>
+
   </div>
 <!-- list -->
 <div id="list">
@@ -49,7 +54,11 @@
 	</div>
 	<div class="container" id="prettyList" style="padding-bottom: 50px;"></div>
 	<div id="changeSomethingBtn" onclick="showDragAndDrop()">Wait! I want to Change Something</div>
-	<%= link_to "continue", new_budget_path(:chosen_fields => chosen_fields), id: "submitBtn", class: "bounce" %>
+	<div class="col-sm-4">
+		<%= link_to new_budget_path(:chosen_fields => chosen_fields), id: "submitBtn", class: "bounce" do %>
+			<%= image_tag "next" %>
+		<% end %>
+	</div>
 </div>
 
 <!-- Modal -->

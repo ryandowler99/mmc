@@ -13,6 +13,7 @@
 	var elemId; // current field - active field
 	var weekNumHelperFinished = false;
 	var skipWeekField;
+	var globalLabel;
 
 		skipWeekField = function(){
 			$('.weekNumHelper1').remove();
@@ -34,7 +35,7 @@
 		recievedParams =  $('.recievedParams').text(); //budget items(fields) chosen 
 		numParams =  parseInt($('.numParams').text()); //the number of budget items chosen
 		$j_object = $(".field"); //list of all page fields
-		$j_object.each( function(i) {	 if(i > 2){ $(this).remove(); }}); //remove all but first 3 fields (title, money in, week) 
+		$j_object.each( function(i) {	 if(i > 1){ $(this).remove(); }}); //remove all but first 2 fields (title, money in) use > 2 to includee week again 
 
 		//----rename allFields later its confussing & hh1(Change)
 
@@ -55,7 +56,26 @@
 	}); //DO I NEED TO THIS 2/2
 
 	//spin the wheel
-	function spinWheel(){ degrees+=120; $('.spinWheel').css('transform', 'rotate(' + degrees + 'deg)'); }
+	function spinWheel(){ 
+		if (curIteration > 1) {
+			$('.nextCategoryArrow').removeClass("hidden");
+			$('#spinWheel').css("opacity", "0");
+			$('#titleImg_category').css("opacity", "0");
+			$('#title').css("opacity", "0");
+			$('#wheelCycleBtn').css("opacity", "0");
+			theTime = 6000;
+		}else{
+			theTime = 0;
+		}
+		setTimeout(function() {
+			degrees+=120; $('.spinWheel').css('transform', 'rotate(' + degrees + 'deg)'); 
+			$('.nextCategoryArrow').addClass("hidden");
+			$('#spinWheel').css("opacity", "1");
+			$('#titleImg_category').css("opacity", "1");
+			$('#title').css("opacity", "1");
+			$('#wheelCycleBtn').css("opacity", "1");
+		}, theTime);
+	}
 	
 	function wheelCycle(){
 	 	elemId = "#currentField" + numSpinTimes;
@@ -81,15 +101,20 @@
 	 }
 	//check if enter is pressed in .spinWheel input then call spinWheel();
 	$('.spinWheel').on("keypress", function(e) {
-		
         if (e.keyCode == 13) {
-        	if (curIteration != 2){
+        	/*if (curIteration != 2){
         		wheelCycle();
         	}//is on weeknum (2) and helper has finished
         	else if(weekNumHelperFinished){
         		wheelCycle();
-        	}
+        	}*/
+        	$('#wheelCycleBtn').addClass("hidden");
+        	wheelCycle();
         }
+	});
+	$('#wheelCycleBtn').click(function(){ 
+		$(this).addClass("hidden");
+	 wheelCycle();
 	});
 var tempCount = 0; //temp store how  many times user input less than 15 on items
 	// add the wheel values to the hidden form
@@ -100,12 +125,13 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 		curIteration += 1;	//increase variable to keep track of number of calls this method gets  (to iterate through object)
 		var elem = $('#myBar2')[0];
 		var label = $('.fields').find('div:nth-child('+(curIteration + 1)+')').text().trim(); //get the label (starts at index 2, holds labels(field names) for wheel spins					becasue first label is present in html and because this function runs after field has been used) ./ 	
-
+		globalLabel = label;
 		//if there is no more fields remove wheel
 		if(!label){
 			$('.spinWheel').hide();
 			$('#myProgress').hide();
 			$('#submitBudgetBtn').removeClass("hidden");
+			$("#wheelCycleBtn").addClass("hidden");
 			$('body').css('background-color', 'rgba(123, 105, 235, 0.40)');
 		}
 
@@ -116,8 +142,20 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 		if(curIteration == 2){
 			purse = theValue;
 			total = theValue;
+
+			let message = "You have €" + purse
+			$('#myBar').text(message);
+			$('#circledivText').text("Out of €" + purse);
+			$('#myProgress').css("visibility", "visible");
+			responsiveVoice.speak(message + " left to spend", "UK English Male");
+			$('#categoriesDock').removeClass("hidden");
+
+			//add icon beside title
+			var theSrc = $("#currentCat").attr('src'); //the desired image			
+			$('#titleImg_category').attr('src', theSrc);
+
 			//profile attr - if true will skip the field all together
-			var isFalse = (skipTheWeekField === 'false');
+			/*var isFalse = (skipTheWeekField === 'false');
 			if(isFalse){
 				$('#pageIntroduceBtn').css("display", "none");
 				$('#wheelContainer').addClass("overlay");
@@ -168,15 +206,17 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 				}, 500);
 				
 			}
+			*/
 		}//start retrieving values after 'week' 
-		else if(curIteration == 3){
-			$('#myBar').text("You have €" + purse);
-			$('#circledivText').text("Out of €" + purse);
-			$('#myProgress').css("visibility", "visible");
+		else if(curIteration == 2){
+
 		}
-		else if(curIteration > 3){
+	
+		else if(curIteration > 2){
 			purse = purse - theValue;
-			$('#myBar').text("You have €" + purse + " remaining");
+			let message2 = "You have €" + purse;
+			$('#myBar').text(message2 + " remaining");
+			responsiveVoice.speak(message2 + " left to spend now", "UK English Male");
 			$('#circledivText').text("Out of €" + total);
 			var percentageOfPurseSpent = Math.floor(( (total - purse) / total) * 100);
 
@@ -187,6 +227,29 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 				$('#myBar2').text("You have €" + purse + " remaining");
 			}
 			elem.style.width = (percentageOfPurseSpent - 7) + '%';
+		}
+		//sloppy dont look below - hacky category order is messed up fix later]
+		if(curIteration > 2){
+			//alert("now" + globalLabel);
+			//$('#title').text("---"+categoryArray[(curIteration)]); //change the title above wheel 
+			let theClassName = globalLabel + "_categoryImg";
+			$('.' + theClassName).animate({
+				top: "-=200"
+			}, 5000, function() {
+				// Animation complete.
+				var theSrc = $("." +theClassName).attr('src'); //the desired image
+
+				$("." +theClassName).remove();
+				$('#currentCat').attr('src', theSrc);
+				$('#titleImg_category').attr('src', theSrc);
+			});
+			
+		}
+		if(curIteration > 3){
+			/*let theClassName = categoryArray[(curIteration + 1)] + "_categoryImg";
+			alert("2yo ar: " + categoryArray);
+			alert("2yo think its: " + theClassName);
+			alert("cur counrr " + curIteration);*/
 		}
 	}
 
@@ -349,6 +412,15 @@ function showGenieQuickButtons(){
 
 $( ".weekNumHelper1" ).click(function() {
 	skipWeekField();
+});
+
+
+//first time typing the rotate wheel button will appear
+$('#currentField1, #currentField2, #currentField3').keypress(function() {
+    //$(this).removeClass("hidden");
+    setTimeout(function() {
+    	$("#wheelCycleBtn").removeClass("hidden");
+    }, 1000);
 });
 
 

@@ -1,3 +1,6 @@
+	body{
+		background: -webkit-linear-gradient(left, #dbf7ff, #eafaff);
+	}
 	/*#submitBtn{display: none;}*/
 	#list{display: none;} /*hide the section that holds the list and continue btn*/
 	#left-defaults li{
@@ -210,4 +213,21 @@ color:#EC644B;;
 
 body.noScroll { /* ...or body.dialogShowing */
   overflow: hidden;
+}
+
+#continueWithBudgetBtn{
+    position: absolute;
+    right: 70;
+    bottom: 20;
+    /*border: 8px solid white;*/
+}
+
+#submitBtn{
+	width: 10%;
+}
+#submitBtn img{
+	width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 10;
 }

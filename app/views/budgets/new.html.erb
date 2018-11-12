@@ -2,15 +2,22 @@
 
 <%= stylesheet_link_tag "new" %>
 <%= javascript_include_tag "http://www.gerardolarios.com/plugins-and-tools/jqmeter/js/jqmeter.min.js" %>
-
+<!-- get the fields that the user wishes to populate -->
+<% chosen_fields = params['chosen_fields'] %>
+<%= chosen_fields_as_array = chosen_fields.gsub(/\s+/m, ' ').strip.split(" ") %>
 <script>
 // var skiptheweekfield = <%= @user.skiptheweekfield %>;
  //alert("-> " + skiptheweekfield);
 
   var skipTheWeekField = '<%= @user.skiptheweekfield %>';
-  alert("-> " + skipTheWeekField);
+  //alert("-> " + skipTheWeekField);
 </script>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <h1 id="progressbarMoney_in"></h1>
 <div id="myProgress" class="row">
 	<div id="myBar" class="col-xs-1" style="background-color: #019875;"> </div>
@@ -23,17 +30,9 @@
   <div class="circlediv" style="max-height: 100%;">
   	<div id="circledivText" class="col-xs-11 col-xs-push-1"></div>
   </div>
-</div>
-
-
-<h4 class="visible-lg"> large </h4>
-      <h4 class="visible-md"> medium </h4>
-      <h4 class="visible-sm"> small </h4>
-      <h4 class="visible-xs"> x small </h4>
-
+</div>  
 
 <div id="wheelContainer"><br><br><br><br>
-  <h1 id="userrrrr">its here: </h1>
   <div id="genieQuickButtons" class="ttsOnHover">
     <div class="ttsElem ttsE1">Skip this Question</div>
     <div class="ttsElem ttsE2" onclick="$('#weekNumberHelpAnswer').css('display', 'block');">Help me with this Question</div>
@@ -58,19 +57,43 @@
   <span id="closeHelperBtn" class="glyphicon glyphicon-remove ignoreThisElem"></span>
   <span id="closeHelperBtnLeft" class="glyphicon glyphicon-remove ignoreThisElem"></span>
   </div>
-
-<h1 id="title">Name of Budget</h1>
+<div>
+  <h1 id="title">Name of Budget</h1>
+  <%= image_tag "blank", id: "titleImg_category" %>
+</div>
+<%= image_tag "nextCategoryArrowGif", class: "nextCategoryArrow hidden" %>
+<div id="wheelCycleBtn" class="col-sm-1 hidden"><%= image_tag "rotate", class: "rotateImg img img-responsive" %></div>
 <div id="spinWheel" class="spinWheel cursor" >
     <div class="first"><input id="currentField1" type="text" class="rq-form-element"><i></i></div>
     <div class="second blurWheelItem"><input id="currentField3" type="text" ></div>
     <div class="third blurWheelItem"><input id="currentField2" type="text" ></div>
 </div>
 </div>
+<div id="categoriesDock" class="hidden">
+<ul class="dock">
+  <%= image_tag "geniePoint", id: "genieCategoryShow" %>
+  <% firstCat = chosen_fields_as_array[-1] %>
+  <%= image_tag firstCat.downcase, id: "currentCat" %>
+  <!-- set to js var to acces in js file -->
+  <script type="text/javascript">
+      var categoryArray = <%= raw chosen_fields_as_array %>;
+  </script>
+  <!-- all but last elem in array -->
+  <% chosen_fields_as_array[0...-1].each do |cat| %>
+    <li>
+    <div title="<%= cat.downcase %>">
+     <%= image_tag cat.downcase, class: "#{cat.downcase}_categoryImg catImg" %> 
+    </div>
+  </li>
+  <% end %>
+</ul>
+
+</div>
 <%# button_tag "Next", onclick: 'spinWheel();'%>
 
-<!-- get the fields that the user wishes to populate, split the recieved string up and left with array -->
-<% chosen_fields = params['chosen_fields'] %>
-<div class="recievedParams" style="margin-top: 100px; display: none;"><%= chosen_fields %></div>
+
+
+<div class="recievedParams" style="margin-top: 200px; display: none;"><%= chosen_fields %></div>
 
 <!-- count number of items revieved -->
 <div class="hidden numParams">
