@@ -55,10 +55,10 @@ typeWriter = function () {
 		 -> typeWriter(); //dont pass as param
 */
 
-$(function() {//was here
+/*$(function() {
 	$(".ttsOnHover").on('click mouseover', function(){//alert("llk");});
 //auto TTS
-	/*var timer = 1500;
+	var timer = 1500;
 	$( ".ttsOnHover" ).mouseover(function() {
 		let theText = $(this).text();
 		console.log(theText);
@@ -70,9 +70,10 @@ $(function() {//was here
 	});
 	$( ".ttsOnHover" ).mouseleave(function() {
 		responsiveVoice.cancel(); // stop anything currently being spoken
-	});*/
+	});
 });
-
+}
+*/
 /*
 
 $(function() {

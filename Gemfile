@@ -36,7 +36,8 @@ gem 'bcrypt' #, '~> 3.1.11'
 
 
 
-gem "chartkick"
+#gem "chartkick"
+gem 'chartkick', '~> 2.2.0'
 #gem "devise"
 gem 'devise', '~> 4.2'
 gem "devise-authy"

@@ -119,6 +119,18 @@
 var tempCount = 0; //temp store how  many times user input less than 15 on items
 	// add the wheel values to the hidden form
 	function addWheelValuesToForm(wheelValues){
+		if(curIteration <= 0){
+			alert("1" + curIteration);
+			// var input = $('.fields').find('input')[curIteration];
+			// var label = $('.fields').find('div:nth-child('+(curIteration + 1)+')').text().trim(); //get the label (starts at index 2, holds labels(field names) for wheel spins					becasue first label is present in html and because this function runs after field has been used) ./ 	
+			// input.value = theValue; //put val from wheel to its corresponding field eg (title into title field)
+		} else{
+			alert("2fff");
+			// var input = chosen_fields_as_arrayJS[curIteration-2] + "Field" ;
+			// var label = chosen_fields_as_arrayJS[(curIteration -2 )] //get the label (starts at index 2, holds labels(field names) for wheel spins					becasue first label is present in html and because this function runs after field has been used) ./ 	
+			// $('#' + input).val(theValue);
+		}
+		 
 		var input = $('.fields').find('input')[curIteration]; //get the input field for this call (like iteration, goes through 1by1)
 		var theValue = wheelValues[curIteration];
 		input.value = theValue; //put val from wheel to its corresponding field eg (title into title field)

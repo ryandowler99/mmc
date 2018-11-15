@@ -79,3 +79,10 @@ color: white;
     background-color: rgba(0,0,0,0.5) !important;
     z-index: 1000;
 }
+
+.on_the_spot_over{
+	background: #7b69eb !important;
+	border: 5px solid #ffb471;
+	border-radius: 10px;
+	padding: 10px;
+}

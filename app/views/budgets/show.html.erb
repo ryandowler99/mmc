@@ -27,7 +27,7 @@
 }
 
 .quote-text{
-    margin-top: -70px;
+    margin-top: -40px;
     padding-bottom: 30px;
     font-size: 40px;
     text-align: center;
@@ -64,6 +64,19 @@
 #weekNum{
   background-color: #79aafc;
   margin-top: 100px;
+}
+
+#categoryEditBubble {
+    background-color: pink;
+    color: black;
+    z-index: 999;
+    border: 3px solid black;
+    border-radius: 20px;
+    font-size: 27pt;
+    font-weight: bold;
+    position: absolute;
+    /* left: 37%; */
+    top: 0;
 }
 </style>
 <p id="notice"><%= notice %></p>
@@ -114,10 +127,10 @@
 
 
 <script>
-  $(".on_the_spot_editing").focus(function(){
-    //$(".on_the_spot_editing span").css("color", "red");
-      alert("ddddddd")
-  })
+  // $(".on_the_spot_editing").focus(function(){
+  //   //$(".on_the_spot_editing span").css("color", "red");
+  //     alert("ddddddd")
+  // })
 
 
   function fieldChanged(){
@@ -128,6 +141,14 @@
 //     alert("dda");
 //     $(this).closest( "blockquote" ).removeClass( "itsBlank" );
 // });
-
-
+$(function() {
+  $(".on_the_spot_editing").on("click", function () {
+    $(".on_the_spot_editing form").eq(0).find("input").select();
+    var $div = $("<div>", {id: "categoryEditBubble"});
+    $div.text("Type the new number for bills now");
+    $div.id = "categoryEditBubble";
+    //$(".quotation-mark").append($div);
+    $(this).closest(".quotation-mark").append($div);
+  });
+});
 </script>
