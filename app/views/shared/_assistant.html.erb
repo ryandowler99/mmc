@@ -78,6 +78,7 @@
 	var taskMode = <%= raw taskMode %>;
 	var sidebarPos = $('.assistantImgSidebar').offset();
 	var pageIntroduceValues = <%= raw pageIntroduce %>;
+	var closestElmPos;
 	function hideShowBubble(){
 		//alert('clicked hint box');
 		//$('#assistantBubbleHint').toggleClass('visHidden');
@@ -481,6 +482,7 @@ $(document).ready(function() {
 			console.log("heree0");
 			var theElm = $("#assistantBubbleHint h2").text(theMessage)
 				.parent().toggleClass('visHidden');
+				console.log('aaa0 ' + closestElmPos);
 			var closestElm_x = closestElmPos['left'];
 			var closestElm_y = closestElmPos['top'];
 			var closestElmHeight = closestElm.height();
@@ -538,7 +540,7 @@ $(document).ready(function() {
 				//alert("recieved id: " + id + " and numOfErrorsAllowed = " + numOfErrorsAllowed);
 				var ItemPosInArray = jQuery.inArray(id, taskElems); //give the pos (0 -> ..) of the elem IF its in there, otherwise it returns -1
 				var closestElm = $('#'+ taskElems[0]);
-				var closestElmPos = closestElm.offset(); // x & y
+				closestElmPos = closestElm.offset(); // x & y
 				var bubbleHeight = $('#assistantBubbleHint').height();
 				var bubbleWidth = $('#assistantBubbleHint').width();
 				var BubbleMessage = (theMessage) ? theMessage : "default message";;

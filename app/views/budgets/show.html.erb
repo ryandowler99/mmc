@@ -1,4 +1,18 @@
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<div id="chartdiv">dfdfd</div>
+
 <style>
+#chartdiv {
+  width: 100%;
+  height: 85%;
+  margin-top: 10px;
+}
+g image {
+    transform: scale(2);
+}
+
   blockquote{
     border-left:none
 }
@@ -9,7 +23,7 @@
   overflow: hidden;
   border-radius: 17px;
   background-color: #4ADFCC;
-  margin-top: 25px;
+  margin-top: -75px;
   margin-left: 60px;
   color:white;
   box-shadow: 2px 2px 2px 2px #E0E0E0;
@@ -27,7 +41,7 @@
 }
 
 .quote-text{
-    margin-top: -40px;
+    margin-top: 0px;
     padding-bottom: 30px;
     font-size: 40px;
     text-align: center;
@@ -60,6 +74,8 @@
   border-radius: 5px;
   color: white;
   font-size: 1.3em;
+      top: 30%;
+    left: 15px;
 }
 #weekNum{
   background-color: #79aafc;
@@ -78,6 +94,12 @@
     /* left: 37%; */
     top: 0;
 }
+.budgetShowImg{
+  position: absolute;
+  top: 20%;
+  right: 39%;
+  margin: 10;
+}
 </style>
 <p id="notice"><%= notice %></p>
 
@@ -88,43 +110,53 @@
   <h5>Money I have to spend on this budget: €188</h5>
 </div> -->
 <div class="col-md-10 col-md-push-2">
-   <%= pie_chart @budget.dup.attributes.keep_if{|k,v| 
+   <%# pie_chart @budget.dup.attributes.keep_if{|k,v| 
         !v.nil? && !(k ==  "money_i_have" || k ==  "week" || k ==  "user_id" ) },
         width: "800px",
         height: "400px",
         legend: "bottom" %>
 </div>
+<div id="editCategoryCards">
+  <% @num_columns.times do |budget| %>
+  <% col_name = comebacktonameme[budget] %>
+    <% col_name %>
+    <% if col_name == 'money_i_have' %>
+      <div id="money_i_have" class="col-md-2 budgetDetails">
+        Money I have to spend on this budget: 
+        <h4>€<%= @budget.public_send(col_name) if @budget.respond_to? col_name  %></h4>
+      </div>
+      <% elsif col_name == 'week' %>
+      <div id="weekNum" class="col-md-2 budgetDetails">
+        This budget is for week: 
+        <h4><%= @budget.public_send(col_name) if @budget.respond_to? col_name  %></h4>  
+      </div>
+      <% else %>
+      <% otherval = @budget.public_send(col_name) if @budget.respond_to? col_name  %>
 
-<% @num_columns.times do |budget| %>
-<% col_name = comebacktonameme[budget] %>
-  <% col_name %>
-  <% if col_name == 'money_i_have' %>
-    <div id="money_i_have" class="col-md-2 budgetDetails">
-      Money I have to spend on this budget: 
-      <h4>€<%= @budget.public_send(col_name) if @budget.respond_to? col_name  %></h4>
-    </div>
-    <% elsif col_name == 'week' %>
-    <div id="weekNum" class="col-md-2 budgetDetails">
-      This budget is for week: 
-      <h4><%= @budget.public_send(col_name) if @budget.respond_to? col_name  %></h4>  
-    </div>
-    <% else %>
-    <% otherval = @budget.public_send(col_name) if @budget.respond_to? col_name  %>
-    <!-- check which ones are not filled in to give it a different css class -->
-    <%# is_blank =  otherval < 1 ? 'itsBlank' :  'notBlank'  %> 
-    <!-- render the partial and pass it parameters (column name and its value) -->
-    <%= render 'shared/budget_item',  :val1 =>  col_name, :val2 =>  otherval, :val3 =>  "is_blank" %>
+     
+      <% unless [nil, 0].include?(otherval) %>
+        <!-- check which ones are not filled in to give it a different css class -->
+        <% is_blank =  otherval < 1 ? 'itsBlank' :  'notBlank'  %> 
+        <!-- render the partial and pass it parameters (column name and its value) -->
+        <%= render 'shared/budget_item',
+                :val1 =>  col_name,
+                :val2 =>  otherval,
+                :val3 =>  is_blank %>
+      <% end %>
+    <% end %>
   <% end %>
-<% end %>
+</div>  
 
 
 
 
-<% link_to 'Edit all at the same time', edit_budget_path(@budget) %> 
+<%= link_to 'Edit all at the same time', edit_budget_path(@budget) %> 
 <% link_to 'Back', budgets_path %>
 
 
-
+<div style="display: none;">
+  <div id="categoryEditBubble">Type the new number for <cat>bills</cat> now</div>
+</div> 
 
 <script>
   // $(".on_the_spot_editing").focus(function(){
@@ -141,14 +173,143 @@
 //     alert("dda");
 //     $(this).closest( "blockquote" ).removeClass( "itsBlank" );
 // });
+
 $(function() {
+  //autofocus on edit cards (edit category div)
   $(".on_the_spot_editing").on("click", function () {
     $(".on_the_spot_editing form").eq(0).find("input").select();
-    var $div = $("<div>", {id: "categoryEditBubble"});
-    $div.text("Type the new number for bills now");
-    $div.id = "categoryEditBubble";
-    //$(".quotation-mark").append($div);
-    $(this).closest(".quotation-mark").append($div);
+    
+    granparentElm = $(this).parent().parent();
+    parentElm = granparentElm.children()[0];
+    //check if div is already there before appending
+    if (granparentElm.find('.quotation-mark').find('#categoryEditBubble').length == 0) {
+    // code to run if it isn't there
+      let theCategory = parentElm.innerText;
+      $(parentElm).append( $('#categoryEditBubble') );
+      $('#categoryEditBubble cat').text(theCategory);
+    }
   });
 });
+var ttws;
+$('blockquote').click(function() {
+    console.log("this---- :");
+    console.log(this);
+    ttws = this;
+    this.children[2].children[0].click(); //bad code -change
+    this.children[3].className += " pushDown50"; //bad code -change
+    });
+
+  $(function() {
+    //pie
+      var chart = AmCharts.makeChart("chartdiv", {
+      "type": "pie",
+      "theme": "light",
+      "addClassNames": true,
+      "dataProvider": [{}],
+      "valueField": "litres",
+      "titleField": "country",
+      "labelRadius": -50,
+      "labelText": "[[title]]",
+      "innerRadius": "40%",
+      "balloon": {
+        "fixedPosition": true
+      },
+      "listeners": [{
+        "event": "rendered",
+        "method": updateLabels
+      }, {
+        "event": "drawn",
+        "method": updateLabels
+      }]
+    });
+        //get the images of the fields filled out
+    var theCatArray = $('blockquote.notBlank .budgetShowImg').map(function() { return this.src; }).get();
+
+    var images = {};
+    var allTheCatsAndAmounts = [{}];
+    for(var i = 0, len = theCatArray.length; i < len; i++) {
+      //retrieve category name from filename
+      let imageUrl = theCatArray[i];
+      var categoryName = imageUrl.substring(
+          imageUrl.lastIndexOf("/assets/") + 8, 
+          imageUrl.lastIndexOf("-")
+      );
+
+      var selector = "span[id^='budget__" + categoryName + "']"; //selects id like
+      var catValAsString = $(selector).text(); //get €val from the elem
+      var iNum = parseFloat(catValAsString); //convert to number
+      var amountSpent = iNum;
+      allTheCatsAndAmounts [categoryName] = amountSpent;
+      //allTheCatsAndAmounts[i] = thisCategory;
+
+      newPieSlice = {country: categoryName, litres: amountSpent} //create slice
+      chart.dataProvider[chart.dataProvider.length] = newPieSlice; //add to pie
+      images[categoryName] = imageUrl; //asign image
+    }
+
+    function updateLabels(event) {
+      $(".amcharts-pie-label").each(function() {
+        
+        // init and find parent
+        var label = this;
+        var parent = this.parentNode;
+        var text = label.children[0].innerHTML;
+
+        // determine image
+        // 
+        //console.log("+++++++++++++++++ :");
+        //console.log(images);
+        var flag = images[text];
+        
+        // create image
+        var group = document.createElementNS('http://www.w3.org/2000/svg', "g");
+        var img = document.createElementNS('http://www.w3.org/2000/svg', "image");
+
+        // Setup image
+        img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', flag);
+        img.setAttribute('x', '-17');
+        img.setAttribute('y', '-17');
+        img.setAttribute('width', '34');
+        img.setAttribute('height', '34');
+
+        // Swap position to group; remove from label
+        group.setAttribute('transform', label.getAttribute('transform'));
+        parent.removeChild(label);
+
+        // Group axis labels
+        //group.appendChild(label);
+        group.appendChild(img);
+        parent.appendChild(group);
+      });;
+    }
+
+    //auto TTS when tap on slice -
+      setTimeout(function() {
+        //tapping on outer slice
+        $("g.amcharts-pie-item").click(function(){
+          var desc = $(this).attr('aria-label');
+          var categoryName = desc.substring(
+              0, 
+              desc.lastIndexOf(":")
+          );
+          //alert(categoryName);
+          let message = allTheCatsAndAmounts[categoryName] + "spent on: " + categoryName;
+        responsiveVoice.speak(message, "UK English Male");
+        });
+      
+        //tapping on image
+        $("image").click(function(){
+        var imgSrc = $(this).attr("href");
+        var categoryName = imgSrc.substring(
+              imgSrc.lastIndexOf("/assets/") + 8, 
+              imgSrc.lastIndexOf("-")
+          );
+        //alert(categoryName + allTheCatsAndAmounts[categoryName]);
+        let message = allTheCatsAndAmounts[categoryName] + "spent on: " + categoryName;
+        responsiveVoice.speak(message, "UK English Male");
+  
+        });
+      }, 500);
+    // ./ pie
+   });
 </script>

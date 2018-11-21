@@ -2,7 +2,7 @@
 <%= stylesheet_link_tag "patternlock", :cache => true %>
 <%= stylesheet_link_tag "new_login", :cache => true %>
 <%= javascript_include_tag "patternlock", :cache => true %>
-
+<%= devise_error_messages! %>
 <!-- <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -113,132 +113,132 @@
 <%= image_tag "loadingIcon", class: "img img-responsive hidden col-sm-4 col-sm-push-4", id: "loadingIcon" %>
     <script type="text/javascript">
       $(function() {
-   
-        //pattern
-        var storedPattern = ""; //used to store a cached like version of the pattern
-        var lock = new PatternLock("#lock", {
-          onPattern: function(pattern) {
-            // Context is the pattern lock instance
-            if(pattern){
-              storedPattern = pattern;
-            }else{
-              $('#redoPattern').removeClass("hidden");
-            }
-            
-            //$('#patternlockDiv').toggle( "slide" );
-            if (lock.getPattern()){
-              console.log(pattern);
-              responsiveVoice.speak("Continue, or draw it again", "UK English Male");
-              $('#confirmPattern').fadeIn(3000);  
-              $('#redoPattern').fadeIn(6000);  
-            }
-            else{
-              console.log("are you havong trouble? show me how to do it")
-            }
-           }
-        });
+        setTimeout(function() {
+          //pattern
+          var storedPattern = ""; //used to store a cached like version of the pattern
+          var lock = new PatternLock("#lock", {
+            onPattern: function(pattern) {
+              // Context is the pattern lock instance
+              if(pattern){
+                storedPattern = pattern;
+              }else{
+                $('#redoPattern').removeClass("hidden");
+              }
+              
+              //$('#patternlockDiv').toggle( "slide" );
+              if (lock.getPattern()){
+                console.log(pattern);
+                responsiveVoice.speak("Continue, or draw it again", "UK English Male");
+                $('#confirmPattern').fadeIn(3000);  
+                $('#redoPattern').fadeIn(6000);  
+              }
+              else{
+                console.log("are you havong trouble? show me how to do it")
+              }
+             }
+          });
 
-        //login options button 1 - type out password
-        $('.typePassBtn').click(function(){ 
-          $('#loginOptionsDiv').addClass('hidden');
-          $('.loginContainer').removeClass('hidden');
-          $('#goBackArrow').css('display', 'block');
-        });
+          //login options button 1 - type out password
+          $('.typePassBtn').click(function(){ 
+            $('#loginOptionsDiv').addClass('hidden');
+            $('.loginContainer').removeClass('hidden');
+            $('#goBackArrow').css('display', 'block');
+          });
 
-        //login options button 2 - pattern
-        $('.drawPassBtn').click(function(){ 
-          responsiveVoice.speak("Draw your secret pattern", "UK English Male");
-          $('#loginOptionsDiv').addClass('hidden');
-          $('#patternlockDiv').removeClass('hidden');
-          $('#goBackArrow').css('display', 'block');
-          $('#mmcNameInput').addClass('hidden');
-          //show buttons
-          $('#redoPattern').removeClass('hidden');
-          $('.confirmPatternBtn2').removeClass('hidden');
-          $('.confirmPatternBtn').removeClass('hidden');
-          $('#lock').css('display', 'block');
-        });
+          //login options button 2 - pattern
+          $('.drawPassBtn').click(function(){ 
+            responsiveVoice.speak("Draw your secret pattern", "UK English Male");
+            $('#loginOptionsDiv').addClass('hidden');
+            $('#patternlockDiv').removeClass('hidden');
+            $('#goBackArrow').css('display', 'block');
+            $('#mmcNameInput').addClass('hidden');
+            //show buttons
+            $('#redoPattern').removeClass('hidden');
+            $('.confirmPatternBtn2').removeClass('hidden');
+            $('.confirmPatternBtn').removeClass('hidden');
+            $('#lock').css('display', 'block');
+          });
 
-        //back arrow
-        $('#goBackArrow').click(function(){ 
-          $('#loginOptionsDiv').removeClass('hidden');
-          $('.loginContainer').addClass('hidden');
-          $('#patternlockDiv').addClass('hidden');
-          $('#goBackArrow').css('display', 'none');
-          $('#redoPattern').addClass('hidden');
-          $('.confirmPatternBtn2').addClass('hidden');
-          $('.confirmPatternBtn').addClass('hidden');
-          $('#mmcNameLabel').addClass('hidden');
-          $('#mmcNameInput').addClass('hidden');
-          //clear the pattern
-          // $(".lock-actives").children().remove(); //remove select dots
-          // $("line").remove(); //remove line connecting them
-          lock.clear(); //empty lock
-          $('input#userName').val(""); //empty username field
-          $('input#userPassword').val(""); //empty password field
-        });
+          //back arrow
+          $('#goBackArrow').click(function(){ 
+            $('#loginOptionsDiv').removeClass('hidden');
+            $('.loginContainer').addClass('hidden');
+            $('#patternlockDiv').addClass('hidden');
+            $('#goBackArrow').css('display', 'none');
+            $('#redoPattern').addClass('hidden');
+            $('.confirmPatternBtn2').addClass('hidden');
+            $('.confirmPatternBtn').addClass('hidden');
+            $('#mmcNameLabel').addClass('hidden');
+            $('#mmcNameInput').addClass('hidden');
+            //clear the pattern
+            // $(".lock-actives").children().remove(); //remove select dots
+            // $("line").remove(); //remove line connecting them
+            lock.clear(); //empty lock
+            $('input#userName').val(""); //empty username field
+            $('input#userPassword').val(""); //empty password field
+          });
 
-        //confirm pattern button
-        $( ".confirmPatternBtn" ).click(function() {
-          $(this).addClass("hidden");
-          $( ".confirmPatternBtn2" ).removeClass("hidden");
-          $('#redoPattern').addClass("hidden");
-          //click the second continue button after a few seconds
-          setTimeout(function() {
-            confirmButton();
-          }, 2000);
-        });
-
-        //animated confirm pattern button (that shows up after click first confirm)
-        function confirmButton () {
-          $('#redoPattern').addClass("hidden");
-          $(this).addClass("hidden");
-          $( ".confirmPatternBtn2" ).removeClass("hidden");
-
-          //fill out the form
-          $('input#userName').val(""); //empty username field
-          $('input#userPassword').val(""); //empty password field
-          let thePattern = lock.getPattern(); //get the inputted pattern
-         
-          //use as password (username filled in elswhere)
-          if(thePattern){
-            $('input#userPassword').val(thePattern); 
-          }else{
-            $('input#userPassword').val(storedPattern); 
-          }
-          setTimeout(function() {
-            $('#lock').toggle( "slide" );
-            $('.redoPatternBtn').addClass("hidden");
-            $('.confirmPatternBtn2').addClass("hidden");
-            $('.confirmPatternBtn').addClass("hidden");
-            $('#patternlockDiv h3').text("What is your Username?");
-            $('#mmcNameInput').removeClass("hidden");
-            $('#mmcNameLabel').removeClass("hidden");
-          }, 1000);
-        }
-
-        //redo pattern button
-        $( ".redoPatternBtn" ).click(function() {
-          $('.confirmPatternBtn2').addClass("hidden");
-          $(this).addClass("hidden");
-          lock.clear();
-        });
-
-        //username input
-        $('#mmcNameInput').keypress(function(e){
-          if(e.keyCode==13){
-            $('#patternlockDiv').toggle( "slide" );
-            $('#mmcNameLabel').toggle( "slide" );
-            $('#mmcNameInput').toggle( "slide" );
-            $('#loadingIcon').removeClass( "hidden" );
-            let theUserName = $('input#mmcNameInput').val(); 
-            $('input#userName').val(theUserName + "@mmc.ie");
+          //confirm pattern button
+          $( ".confirmPatternBtn" ).click(function() {
+            $(this).addClass("hidden");
+            $( ".confirmPatternBtn2" ).removeClass("hidden");
+            $('#redoPattern').addClass("hidden");
+            //click the second continue button after a few seconds
             setTimeout(function() {
-              $("#new_user").submit();
+              confirmButton();
             }, 2000);
+          });
+
+          //animated confirm pattern button (that shows up after click first confirm)
+          function confirmButton () {
+            $('#redoPattern').addClass("hidden");
+            $(this).addClass("hidden");
+            $( ".confirmPatternBtn2" ).removeClass("hidden");
+
+            //fill out the form
+            $('input#userName').val(""); //empty username field
+            $('input#userPassword').val(""); //empty password field
+            let thePattern = lock.getPattern(); //get the inputted pattern
+           
+            //use as password (username filled in elswhere)
+            if(thePattern){
+              $('input#userPassword').val(thePattern); 
+            }else{
+              $('input#userPassword').val(storedPattern); 
+            }
+            setTimeout(function() {
+              $('#lock').toggle( "slide" );
+              $('.redoPatternBtn').addClass("hidden");
+              $('.confirmPatternBtn2').addClass("hidden");
+              $('.confirmPatternBtn').addClass("hidden");
+              $('#patternlockDiv h3').text("What is your Username?");
+              $('#mmcNameInput').removeClass("hidden");
+              $('#mmcNameLabel').removeClass("hidden");
+            }, 1000);
           }
-            
-        });
+
+          //redo pattern button
+          $( ".redoPatternBtn" ).click(function() {
+            $('.confirmPatternBtn2').addClass("hidden");
+            $(this).addClass("hidden");
+            lock.clear();
+          });
+
+          //username input
+          $('#mmcNameInput').keypress(function(e){
+            if(e.keyCode==13){
+              $('#patternlockDiv').toggle( "slide" );
+              $('#mmcNameLabel').toggle( "slide" );
+              $('#mmcNameInput').toggle( "slide" );
+              $('#loadingIcon').removeClass( "hidden" );
+              let theUserName = $('input#mmcNameInput').val(); 
+              $('input#userName').val(theUserName + "@mmc.ie");
+              setTimeout(function() {
+                $("#new_user").submit();
+              }, 2000);
+            } 
+          });
+        }, 100);
       }); 
     </script>
 

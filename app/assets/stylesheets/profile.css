@@ -11,6 +11,7 @@ body{
 }
 .profileDetails{
 	font-size: 1.4em;
+	margin-top: 35%;
 }
 .profileDetails text{
 	color:#7b69eb;
@@ -75,3 +76,17 @@ body{
 }
 
 #myBudgetsContainer{display: none;}
+
+#chnageThisBtn {
+	position: absolute;
+	top: 15%;
+	right: -8%;
+    transform: scale(.8);
+    font-size: x-large;
+    font-weight: bold;
+}
+.imgContainer{
+	border: 1px solid black;
+	min-height: 30%;
+	margin-left: 5%;
+}

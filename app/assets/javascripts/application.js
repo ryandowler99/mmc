@@ -40,6 +40,7 @@ var typeWriter; //function
 var typeWriterCount = 0;
 var typeWriterTxt = "dont forget to override this";
 var speed = 50;
+var itsDoneNow = false;
 typeWriter = function () {
 	if(typeWriterCount < 1){ 
 		document.getElementById("typingText").innerHTML ="";
@@ -49,7 +50,10 @@ typeWriter = function () {
 	    document.getElementById("typingText").innerHTML += typeWriterTxt.charAt(typeWriterCount);
 	    typeWriterCount++;
 	    setTimeout(typeWriter, speed);
-	}else{ typeWriterCount = 0; }
+	}else if (typeWriterCount == typeWriterTxt.length) {
+		itsDoneNow = true;
+	}
+	else{ typeWriterCount = 0; itsDoneNow = false; }
 }
 /* USAGE -> typeWriterTxt = "blah";
 		 -> typeWriter(); //dont pass as param

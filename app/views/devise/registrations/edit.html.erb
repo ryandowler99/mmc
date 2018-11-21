@@ -1,12 +1,65 @@
+<%= devise_error_messages! %>
+
+<style type="text/css">
+body{overflow: hidden;}
+  #edit_user{ display: none; }
+  h3#typingText {
+    font-size: 3em;
+    color: #7b69eb;
+    padding: 70px;
+    line-height: 1.6;
+  }
+  img#next {
+    width: 12%;
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+}
+#enclosure {
+    width: 24% !important;
+    bottom: 0;
+    right: 53%;
+}
+#info{
+  position: relative !important;
+  top: unset !important;
+  bottom: 160px !important;
+  left: -60% !important;
+}
+.patternUnlockDiv{
+  position: absolute;
+  bottom: 0;
+  left: -30%;
+}
+#resetPattern{
+      left: 300px !important;
+}
+#heading { display: none; }
+
+#whatsThisHelperFirst {
+    width: fit-content;
+    position: absolute;
+    top: 45%;
+    right: 10%;
+    background-color: orange;
+    border: 4px solid #7b69eb;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    font-size: 1.4em;
+    font-weight: 700;
+    text-align: center;
+}
+</style>
 
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
-  <%= devise_error_messages! %>
+  
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -48,12 +101,82 @@
     <%= f.check_box :skiptheweekfield %>
   </div>
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", id: "new_user" %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<div style="display: none;">
+  <h3>Cancel my account</h3>
+  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+</div>
 
 <%= link_to "Back", :back %>
+
+<div class="patternUnlockDiv hidden">
+  <%= render 'shared/pattern_unlock2',
+            :val2 =>  "errorMessage2",   
+            :val3 =>  "Draw your old pattern"  %>   
+</div>
+<h3 id="typingText"></h3>
+
+<div id="formPart2" class="col-sm-8 col-sm-push-2">
+          
+        </div>
+
+        <%= image_tag "next", id: "next", class: "hidden" %>
+
+<div id="whatsThisHelperFirst" class="hidden"><span id="pib" class="glyphicon glyphicon-question-sign ignoreThisElem"></span><br/>Show me what to do</div>
+<script type="text/javascript">
+$(function() {
+  typeWriterTxt = "Before we can make a new pass pattern we need to use the old pass pattern one last time";
+  typeWriter(); 
+
+  //show next button
+  setTimeout(function() { 
+    $("#next").removeClass("hidden");
+  }, 7000);
+  //next button click event - changes title and shows pattern unlock div
+  $("#next").click(function() {
+    let msg = 'Draw your old pass pattern';
+    $('#typingText').text(msg);
+    responsiveVoice.speak(msg);
+    $('#next').animate({
+      left: "+=1000"
+    }, 2000, function() {
+      // Animation 1 complete.
+      $(".patternUnlockDiv").removeClass("hidden");
+      $('.patternUnlockDiv').animate({
+        left: "+=55%"
+      }, 2000, function() {
+        // Animation 2 complete.
+        $("#whatsThisHelperFirst").removeClass("hidden");
+      });
+    });
+  });
+
+  $("#whatsThisHelperFirst").click(function() {
+    let msg = 'Draw your old pass pattern, not the new one, we\'ll get to that next';
+    responsiveVoice.speak(msg);
+
+    //simulate a pattern being drawn
+    $('.buttonC').each(function (i, element) {
+        setTimeout(function () {
+            $(element).css("background-color", "aqua");
+        }, i * 1000);
+    });
+
+    // setTimeout(function () {
+    //     $('#8').css("background-color", "aqua");
+    // }, 1000);
+    // setTimeout(function () {
+    //     $('#7').css("background-color", "aqua");
+    // }, 3000);
+  
+  });
+
+  function typeWrite(msg){
+    typeWriterTxt = msg;
+    typeWriter(); 
+  }
+});
+</script>

@@ -1,0 +1,73 @@
+<script type="text/javascript">
+	$(function() {
+		//pie
+		  var chart = AmCharts.makeChart("chartdiv", {
+		  "type": "pie",
+		  "theme": "light",
+		  "addClassNames": true,
+		  "dataProvider": [{
+		    "country": "United Kingdom",
+		    "litres": 501.9 }],
+		  "valueField": "litres",
+		  "titleField": "country",
+		  "labelRadius": -50,
+		  "labelText": "[[title]]",
+		  "innerRadius": "40%",
+		  "balloon": {
+		    "fixedPosition": true
+		  },
+		  "listeners": [{
+		    "event": "rendered",
+		    "method": updateLabels
+		  }, {
+		    "event": "drawn",
+		    "method": updateLabels
+		  }]
+		});
+		  newob2 = {country: "yyyy7y7", litres: 899}
+		  chart.dataProvider[chart.dataProvider.length] = newob2;
+
+		function updateLabels(event) {
+		  $(".amcharts-pie-label").each(function() {
+		    
+		    // init and find parent
+		    var label = this;
+		    var parent = this.parentNode;
+		    var text = label.children[0].innerHTML;
+
+		    // determine image
+		    var images = {
+		      "United Kingdom": "/assets/bills-6b7cbff990187dd63878d2297e1fee1ffadaaf869803a9cc8e09db3ea86ff3ac.png",
+		      "Germany": "/assets/bills-6b7cbff990187dd63878d2297e1fee1ffadaaf869803a9cc8e09db3ea86ff3ac.png",
+		      "United States": "/assets/bills-6b7cbff990187dd63878d2297e1fee1ffadaaf869803a9cc8e09db3ea86ff3ac.png",
+		      "<%= val1 %>": "<%= val1 %>_pie_img",
+		      "Franceieee": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-160/flag_fr.png",
+		    };
+		    //console.log("+++++++++++++++++ :");
+		    //console.log(images);
+		    var flag = images[text];
+		    
+		    // create image
+		    var group = document.createElementNS('http://www.w3.org/2000/svg', "g");
+		    var img = document.createElementNS('http://www.w3.org/2000/svg', "image");
+
+		    // Setup image
+		    img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', flag);
+		    img.setAttribute('x', '-17');
+		    img.setAttribute('y', '-17');
+		    img.setAttribute('width', '34');
+		    img.setAttribute('height', '34');
+
+		    // Swap position to group; remove from label
+		    group.setAttribute('transform', label.getAttribute('transform'));
+		    parent.removeChild(label);
+
+		    // Group axis labels
+		    //group.appendChild(label);
+		    group.appendChild(img);
+		    parent.appendChild(group);
+		  });;
+		}
+		// ./ pie
+	 });
+</script>

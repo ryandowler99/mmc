@@ -25,6 +25,7 @@
 .greenBG{ background-color: #4ECDC4; }
 .pushDown20{margin-top: 20px;}
 .pushDown40{margin-top: 40px;}
+.pushDown50{margin-top: 50px !important;}
 .pushDown80{margin-top: 80px;}
 .ul{ text-decoration: underline; underline-color: black;}
 .marginB20{ margin-bottom: 20px !important; }
@@ -86,3 +87,22 @@ color: white;
 	border-radius: 10px;
 	padding: 10px;
 }
+
+/* error message */
+#error_explanation{
+    margin-top: 10%;
+    margin-left: 22%;
+    font-size: 1.4em;
+    color: #ff8400;
+    background-color: #363636cf;
+    width: max-content;
+    padding: 25px;
+    border: 1px solid #ff8400;
+    border-radius: 10px;
+    text-align: center;
+}
+#error_explanation ul li {
+    list-style: decimal-leading-zero;
+    list-style-position: inside;
+}
+/* ./ error message */

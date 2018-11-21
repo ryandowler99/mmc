@@ -1,9 +1,11 @@
 <style type="text/css"> 	
 #dummyArea {
+    display: none; /*for now*/
     position: absolute;
     top: 0px;
     z-index: -1;
 }
+#canvasArea{display: none;} /*for */
 #enclosure {
     width: 62%;
     height: 400px;
@@ -96,6 +98,7 @@ ul, li {
 }
 .error{ color:red; }
 .info{color: #666; }
+
 </style>
 
 <p id="heading">Pattern Lock<p>
@@ -120,17 +123,18 @@ ul, li {
         </li>
         <li id="row3">
             <ul>
-                <li id="7" class="button buttonA "></li>
-                <li id="8" class="button buttonB "></li>
+                <li id="7" class="button buttonA demoBtn"></li>
+                <li id="8" class="button buttonB demoBtn1"></li>
                 <li id="9" class="button buttonC "></li>
             </ul>
         </li>
     </ul>
-  <input type="button" id="resetPattern" value="Reset Pattern"/>
+
+  <input type="button" id="resetPattern" value="Start over"/>
 </div>
 <p id="info"><p>
 <script type="text/javascript">
-
+var numOfTimesPatternEntered = 0; //keep track of this to use when two pass's entered ie current pass followed by new pass 
 $(document).ready(function () {
     var area = document.getElementById('canvasArea');
     var dummyArea = document.getElementById('dummyArea');
@@ -169,18 +173,67 @@ $(document).ready(function () {
     dummyCtx.strokeStyle = 'red';
 
     function getPattermPasswords(savedPattern){
-        //alert(savedPattern);
         var newPat = savedPattern.replace(/[\s,]+/g,'').trim();
+        //console.log(" pass cjange block: " + newPat);
+
+        //check whether its change pass  or sign up screen
+        var curPassField = $('input#user_current_password');
+        //change pass screen
+        if(curPassField.length){
+            console.log("numOfTimesPatternEntered is: " + numOfTimesPatternEntered);
+            console.log(" pass cjange block: " + newPat);
+             //second time running - new pattern now
+            if(numOfTimesPatternEntered == 0){
+                console.log("1 old pass is: " + newPat);
+                $('input#user_current_password').val(newPat);
+                //reset pattern & change ui for new pass
+                    setTimeout(function() {
+                        let msg = 'Now, Draw a new pass pattern';
+                        $('#typingText').text(msg);
+                        responsiveVoice.speak(msg);
+                        clearThePattern();
+
+                       $('.patternUnlockDiv').animate({
+                            left: "+=85%"
+                        }, 2000, function() {
+                            //animation complete
+                           //$('.patternUnlockDiv').css("display", "none");//hide elem
+                            $('.patternUnlockDiv').css("left", "-65%");//change postion to left side for animation
+                            //animate from left to right again
+                            $('.patternUnlockDiv').animate({
+                                left: "+=65%"
+                            }, 2000, function() {
+                                //animation complete 2
+                            }); 
+                        });                 
+                    }, 1000);
+
+            }else if(numOfTimesPatternEntered == 1){
+                $('input#user_password').val(newPat);
+                $('input#user_password_confirmation').val(newPat);
+                console.log("2 new pass is: " + newPat);
+            }
+            numOfTimesPatternEntered += 1;
+
+            setTimeout(function() {
+                //$("#new_user").click();
+            }, 2000);
+        }else{
+            //new user screen
+            console.log(" new user");
+            let userName = $('input#user_email').val(); //get inputted username
+            let newUserName = userName + "@mmc.ie"; //append @mmc.ie to it
+            if(userName){
+                $('input#user_email').val(newUserName); //set new name to the field
+            }
+            setTimeout(function() {
+                $("#new_user").submit();
+            }, 2000);
+        }
+
+        //add password to form
         $('input#user_password').val(newPat);
         $('input#user_password_confirmation').val(newPat);
-        let userName = $('input#user_email').val(); //get inputted username
-        let newUserName = userName + "@mmc.ie"; //append @mmc.ie to it
-        if(userName){
-          $('input#user_email').val(newUserName); //set new name to the field
-        }
-        setTimeout(function() {
-            $("#new_user").submit();
-        }, 2000);
     }
 
 //Initiate pattern tracking process.
@@ -286,7 +339,7 @@ $(document).ready(function () {
         // localStorage.removeItem("patternLock");
         savedPattern = "";
         patternArray = [];
-        $("#info").html("Try a new pattern").addClass("info").removeClass("error");
+        $("#info").html("<%= val3 ? val3 : 'Try a new pattern' %>").addClass("info").removeClass("error");
         savePattern = true;
     }
 

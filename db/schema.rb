@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181107122440) do
+ActiveRecord::Schema.define(version: 20181119091612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20181107122440) do
     t.string   "title"
     t.decimal  "money_i_have"
     t.integer  "week"
-    t.decimal  "savings"
+    t.decimal  "savings",        default: 0.0
     t.decimal  "bills",          default: 0.0
     t.decimal  "lunches",        default: 0.0
     t.decimal  "phone",          default: 0.0
