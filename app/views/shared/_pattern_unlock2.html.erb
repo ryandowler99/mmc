@@ -201,7 +201,7 @@ $(document).ready(function () {
                             $('.patternUnlockDiv').css("left", "-65%");//change postion to left side for animation
                             //animate from left to right again
                             $('.patternUnlockDiv').animate({
-                                left: "+=65%"
+                                left: "+=100%"
                             }, 2000, function() {
                                 //animation complete 2
                             }); 
@@ -212,6 +212,9 @@ $(document).ready(function () {
                 $('input#user_password').val(newPat);
                 $('input#user_password_confirmation').val(newPat);
                 console.log("2 new pass is: " + newPat);
+                setTimeout(function() {
+                $("#new_user").click();
+            }, 2000);
             }
             numOfTimesPatternEntered += 1;
 

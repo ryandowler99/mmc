@@ -61,7 +61,7 @@
 <!-- assistant bubble hint -->
 <hgroup id="assistantBubbleHint" class="pulse bubble col-md-2 visHidden" onclick="hideShowBubble();">
 	<div id="extraBubbleBtns" style="display: none;">
-		<div id="showMeBubbleBtn" onclick="highlightElem(pageIntroduceValues[1], 'type your answers in here', false);">Show me</div>
+		<div id="showMeBubbleBtn" onclick="highlightElem(pageIntroduceValues[1], 'you can drag them like this', false);">Show me</div>
 		<div id="hideBubbleBtn">Hide X</div>
 	</div>
 	<h2>Assistant hint here</h2>
@@ -89,28 +89,44 @@
 	function highlightElem(theElm, theMessage){
 		responsiveVoice.speak(theMessage, "UK English Male");
 		var itemToAnimate = $(theElm);
+		console.log(" is it sss :" + theElm);
 		//$(pageIntroduceValues[1]);pageIntroduceValues[1]
 
-		itemToAnimate.effect( "highlight", {}, 2000 );
-		itemToAnimate.animate([
-		  // keyframes
-		  { transform: 'translateY(0px)' }, 
-		  { transform: 'translateY(-200px)' }
-		], { 
-		  // timing options
-		  duration: 1500,
-		  iterations: 1
-		});
-		itemToAnimate.effect( "highlight", {}, 4000 );
-		if(theMessage != null){
-			if(!theMessage){
-				theMessage = "Try using this";
+		//adding in chopping fix to work on before new page, getting #right-defaults instead of one the options, dont want to change now incase something else using it and testing is next week - change 
+		if(theElm == "#right-defaults"){
+			itemToAnimate = $('.taskElement').eq(1);
+			$(itemToAnimate).animate({
+				top: "-=200"
+			}, 5000, function() {
+				// Animation complete.
+				itemToAnimate.css("opacity", "0");//hide it for a moment
+				itemToAnimate.css("top", "0px"); //put it back to its original
+				setTimeout(function() {
+					itemToAnimate.css("opacity", "1");//hide it for a moment
+				}, 500);
+			});
+		}else{
+			itemToAnimate.effect( "highlight", {}, 2000 );
+			itemToAnimate.animate([
+			  // keyframes
+			  { transform: 'translateY(0px)' }, 
+			  { transform: 'translateY(-200px)' }
+			], { 
+			  // timing options
+			  duration: 1500,
+			  iterations: 1
+			});
+			itemToAnimate.effect( "highlight", {}, 4000 );
+			if(theMessage != null){
+				if(!theMessage){
+					theMessage = "Try using this";
+				}
+				/*setTimeout(function(){
+					responsiveVoice.speak(theMessage);
+				}, 1500);*/
 			}
-			/*setTimeout(function(){
-				responsiveVoice.speak(theMessage);
-			}, 1500);*/
 		}
-	}
+	}	
 
 	function statusOfModes(){
 		console.log("missedClickMode: " + missedClickMode);
@@ -614,11 +630,11 @@ $(document).ready(function() {
 <style type="text/css">
 	/*button on hint bubble*/
 #extraBubbleBtns, #showMeBubbleBtn, #hideBubbleBtn {
-    color: white;
+    color: gold;
     /*width: unset;*/
     width: 100%;
     padding: 5px;
-    border: 2px dashed rgba(255, 255, 255, 0.7);
+    border: 2px dashed rgb(214, 210, 98);
     margin: 10px;
     border-radius: 5px;
     font-weight: 900;
@@ -628,6 +644,7 @@ $(document).ready(function() {
 	display: inline-block;
 	border: 3px solid white;
 	width: max-content;
+	margin-left: 0;
 }
 #hideBubbleBtn{
 	background-color: #ff9811;
@@ -635,5 +652,9 @@ $(document).ready(function() {
 	border: 3px solid white;
 	width: max-content;
 	float: right;
+	margin-left: 0;
+}
+#assistantBubbleHint h2 {
+    color: rgb(238, 234, 128);
 }
 </style>

@@ -1,5 +1,5 @@
 	body{
-		background: -webkit-linear-gradient(left, #dbf7ff, #eafaff);
+		/*background: -webkit-linear-gradient(left, #dbf7ff, #eafaff);*/
 	}
 	/*#submitBtn{display: none;}*/
 	#list{display: none;} /*hide the section that holds the list and continue btn*/
@@ -215,11 +215,26 @@ body.noScroll { /* ...or body.dialogShowing */
   overflow: hidden;
 }
 
-#continueWithBudgetBtn{
+#continueWithBudgetBtn {
     position: absolute;
     right: 70;
     bottom: 20;
-    /*border: 8px solid white;*/
+    /* border: 8px solid white; */
+    width: 16%;
+    height: 15%;
+    font-size: 4em;
+    font-weight: 600;
+    text-align: left;
+    background-color: #fffa68;
+    border: 3px solid #fff;
+    box-shadow: -4px 5px 17px 9px black;
+    color: black;
+    text-shadow: 3px 1px #7b69eb;
+}
+#continueWithBudgetBtn:hover {
+    background-color: #fff;
+    text-shadow: 5px 1px #7b69eb;
+    color: #525252;
 }
 
 #submitBtn{
@@ -230,4 +245,10 @@ body.noScroll { /* ...or body.dialogShowing */
     position: absolute;
     left: 0;
     bottom: 10;
+}
+#continueWithBudgetBtn arrow {
+    position: absolute;
+    right: 5;
+    bottom: -45%;
+    font-size: 2.5em;
 }

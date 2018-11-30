@@ -9,3 +9,8 @@
 		color: #7b69eb;
 	}
 	.ssb-title{ color: black; }
+
+
+	.cd-header{
+		background: linear-gradient(to bottom, rgba(237,237,237,1) 49%,rgb(255, 198, 113) 67%,rgb(255, 160, 38) 100%) !important;
+	}

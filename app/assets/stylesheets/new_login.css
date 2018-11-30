@@ -5,15 +5,17 @@
 }
 
 .form-login {
+    position: absolute;
+    width: fit-content;
     background-color: #EDEDED;
-    padding-top: 10px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 10px 30px 30px 30px;
     border-radius: 15px;
-    border-color:#d2d2d2;
+    border-color: #d2d2d2;
     border-width: 5px;
-    box-shadow:0 1px 0 #cfcfcf;
+    box-shadow: 0 1px 0 #cfcfcf;
+    margin-top: 35%;
+    margin-left: 30%;
+    transform: scale(1.5);
 }
 
 h4 { 
@@ -67,7 +69,7 @@ form{ margin-top: 39px; }
 }
 .loginOptionsHeading{
 	text-align: center;
-	margin: 50px 0px 50px 0px;
+	margin: 11% 0px 50px 0px;
 }
 
 .loginOptionsHeading h1{
@@ -89,6 +91,8 @@ form{ margin-top: 39px; }
   display: none;
   padding: 20px;
   width: max-content;
+  position: absolute;
+  top: 20%;
 }
 
 #goBackWording{
@@ -107,7 +111,7 @@ form{ margin-top: 39px; }
 }
 
 #patternlockDiv {
-    margin-top: -7%;
+    margin-top: 9%;
 }
 #patternlockDiv h3{
   font-size: 2.5em;
@@ -169,5 +173,5 @@ input#mmcNameInput {
 
 }
 img#loadingIcon {
-    margin-top: -5%;
+    margin-top: 10%;
 }

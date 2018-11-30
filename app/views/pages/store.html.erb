@@ -3,23 +3,123 @@
 	 http://www.edtech.ie/details.asp?id=16032&ptid=20124 - too expensive
 	 https://www.gynzy.com/teachers/publishers/mathematics/  free
 -->
-<% stylesheet_link_tag "store" %>
+<%= stylesheet_link_tag "store" %>
+<%= stylesheet_link_tag "filterPanelReset" %>
+<%= stylesheet_link_tag "filterPanelStyle" %>
+ <header class="cd-header">
+  <br><br>
+    <h1>App store</h1>
+  </header>
 
- <% @iframe_games.each do |iframe_game| %>
+
+  <main id="filterPanelContainer" class="cd-main-content">
+    <div class="cd-tab-filter-wrapper">
+      <div class="cd-tab-filter">
+        <ul class="cd-filters">
+          <li class="placeholder"> 
+            <a data-type="all" href="#0">All</a> <!-- selected option on mobile -->
+          </li> 
+          <li class="filter"><a class="selected" href="#0" data-type="all">All</a></li>
+          <li class="filter" data-filter=".category-money"><a href="#0" data-type="category-money">Money</a></li>
+          <li class="filter" data-filter=".category-budgets"><a href="#0" data-type="category-budgets">Budgets</a></li>
+        </ul> <!-- cd-filters -->
+      </div> <!-- cd-tab-filter -->
+    </div> <!-- cd-tab-filter-wrapper -->
+
+    <section class="cd-gallery">
+      <ul>
+        <!-- <li class="mix category-money check1 radio2 option3"><img src="" alt="Image 1"></li>
+        <li class="mix category-budgets check2 radio2 option2"><img src="" alt="Image 2"></li>
+ -->
+     <% @iframe_games.each do |iframe_game| %>
      <%= link_to iframe_game do %>
- 		<div class="col-md-6 gameDiv">       
+ 		<div class="col-md-6 gameDiv mix category-<%= "iframe_game.category here" %>">
 			<div class="ssb-icon"><i class="fa fa-gamepad" aria-hidden="true"></i></div>
 			<h2 class="ssb-title"><%= iframe_game.title %></h2>       
     	</div>
+
+    	<!-- <li class="col-sm-6 videoElm mix category-<%= video.category %>">
+          <div id="testBox" class="box text-center">
+            <div class="video hidden">
+              <iframe src="<%= video.link %>?version=3&enablejsapi=1" class="testVidClass" heightframeborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="videoDescCard">
+                <div class="incon-box">
+                    <i class="fa <%= video.icon %>" aria-hidden="true"></i>
+                </div>
+                <h3 class="box-tittle"><%= video.title %> </h3>
+                <p class="box-text"><%= video.description %></p>
+            </div>
+          </div>
+      </li> -->
     <% end %>
 <% end %>
 
 <iframe width="480" height="355" src="//www.gynzy.com/embed/655" frameborder="0" allowfullscreen></iframe>
+     <!--    <li class="mix category-money check3 radio3 option1"><img src="" alt="Image 3"></li>
+        <li class="mix category-money check3 radio2 option4"><img src="" alt="Image 4"></li>
+        <li class="mix category-money check1 radio3 option2"><img src="" alt="Image 5"></li>
+        <li class="mix category-budgets check2 radio3 option3"><img src="" alt="Image 6"></li>
+        <li class="mix category-budgets check2 radio2 option1"><img src="" alt="Image 7"></li>
+        <li class="mix category-money check1 radio3 option4"><img src="" alt="Image 8"></li>
+        <li class="mix category-budgets check1 radio2 option3"><img src="" alt="Image 9"></li>
+        <li class="mix category-money check3 radio2 option4"><img src="" alt="Image 10"></li>
+        <li class="mix category-money check3 radio3 option2"><img src="" alt="Image 11"></li>
+        <li class="mix category-budgets check1 radio3 option1"><img src="" alt="Image 12"></li> -->
+        <li class="gap"></li>
+        <li class="gap"></li>
+        <li class="gap"></li>
+      </ul>
+      <div class="cd-fail-message">No results found</div>
+    </section> <!-- cd-gallery -->
 
-   
+    <div class="cd-filter">
+      <form>
+        <div class="cd-filter-block">
+          <h4>Check boxes</h4>
 
+          <ul class="cd-filter-content cd-filters list">
+            <li>
+              <input class="filter" data-filter=".check1" type="checkbox" id="checkbox1">
+                <label class="checkbox-label" for="checkbox1">Money</label>
+            </li>
 
-   
+            <li>
+              <input class="filter" data-filter=".check2" type="checkbox" id="checkbox2">
+              <label class="checkbox-label" for="checkbox2">Budgets</label>
+            </li>
+
+            <li>
+              <input class="filter" data-filter=".check3" type="checkbox" id="checkbox3">
+              <label class="checkbox-label" for="checkbox3">Option 3 here</label>
+            </li>
+          </ul> <!-- cd-filter-content -->
+        </div> <!-- cd-filter-block -->
+
+        <div class="cd-filter-block">
+          <h4>Select</h4>
+          
+          <div class="cd-filter-content">
+            <div class="cd-select cd-filters">
+              <select class="filter" name="selectThis" id="selectThis">
+                <option value="">Choose an option</option>
+                <option value=".option1">Option 1</option>
+                <option value=".option2">Option 2</option>
+                <option value=".option3">Option 3</option>
+                <option value=".option4">Option 4</option>
+              </select>
+            </div> <!-- cd-select -->
+          </div> <!-- cd-filter-content -->
+        </div> <!-- cd-filter-block -->
+      </form>
+
+      <a href="#0" class="cd-close">Close</a>
+    </div> <!-- cd-filter -->
+
+  <a href="#0" class="cd-filter-trigger">Filters</a> 
+  </main> <!-- cd-main-content -->
+<%= javascript_include_tag "jquery.mixitup.min" %>
+<%= javascript_include_tag "filterPanelMain" %>   
 
 
 

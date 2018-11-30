@@ -1,7 +1,5 @@
 <% content_for :title, "Login to MyMoneyCounts" %>
-<%= stylesheet_link_tag "patternlock", :cache => true %>
 <%= stylesheet_link_tag "new_login", :cache => true %>
-<%= javascript_include_tag "patternlock", :cache => true %>
 <%= devise_error_messages! %>
 <!-- <h2>Log in</h2>
 
@@ -37,6 +35,7 @@
 <div id="loginOptionsDiv" class="container">
   <!-- heading -->
   <div class="loginOptionsHeading col-sm-12">
+
     <h1>You can use My Money Counts in 2 ways: </h1>
   </div>
   <!-- arrows -->
@@ -80,7 +79,6 @@
             <% end %>
             </div>
             </div>
-        
         </div>
     </div>
 </div>
@@ -97,6 +95,7 @@
 
 <!-- pattern -->
  <%= render 'shared/pattern_unlock' %>
+ <%= render 'shared/pattern_unlock' %>
 <div id="redoPattern" class="afterPatternBtn col-sm-2">
   <%= image_tag "undo", class: "img img-responsive redoPatternBtn" %>
 </div>
@@ -106,7 +105,7 @@
 </div>
 <div id="mmcNameLabel" class="hidden">
   <h2>YOUR USERNAME HERE
-    <%= image_tag "smallDownArrow2", class: "img img-responsive" %>
+    <%= image_tag "smallDownArrow2", id: "loginArrow", class: "img img-responsive" %>
   </h2>
 </div>
 <input class="form-control hidden" id="mmcNameInput" type="text" autofocus />
@@ -224,20 +223,28 @@
             lock.clear();
           });
 
-          //username input
-          $('#mmcNameInput').keypress(function(e){
-            if(e.keyCode==13){
-              $('#patternlockDiv').toggle( "slide" );
+          function submitTheForm(){
+            $('#patternlockDiv').toggle( "slide" );
               $('#mmcNameLabel').toggle( "slide" );
               $('#mmcNameInput').toggle( "slide" );
               $('#loadingIcon').removeClass( "hidden" );
-              let theUserName = $('input#mmcNameInput').val(); 
-              $('input#userName').val(theUserName + "@mmc.ie");
-              setTimeout(function() {
-                $("#new_user").submit();
-              }, 2000);
+            let theUserName = $('input#mmcNameInput').val(); 
+            $('input#userName').val(theUserName + "@mmc.ie");
+            setTimeout(function() {
+              $("#new_user").submit();
+            }, 2000);
+          }
+          //username input
+          $('#mmcNameInput').keypress(function(e){
+            if(e.keyCode==13){
+              submitTheForm();
             } 
           });
+
+          $("#loginArrow").click(function() {
+            submitTheForm();
+          }); 
+
         }, 100);
       }); 
     </script>

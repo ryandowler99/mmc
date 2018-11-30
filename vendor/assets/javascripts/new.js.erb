@@ -165,7 +165,8 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 			$('#myBar').text(message);
 			$('#circledivText').text("Out of €" + purse);
 			$('#myProgress').css("visibility", "visible");
-			responsiveVoice.speak(message + " left to spend", "UK English Male");
+			let catsLeft = (numParams - curIteration) +2;
+			responsiveVoice.speak(message + " to spend on" + catsLeft + " categories. Type a number for the first one now", "UK English Male");
 			$('#categoriesDock').removeClass("hidden");
 
 			//add icon beside title
@@ -234,7 +235,18 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 			purse = purse - theValue;
 			let message2 = "You have €" + purse;
 			$('#myBar').text(message2 + " remaining");
-			responsiveVoice.speak(message2 + " left to spend now", "UK English Male");
+
+			//diffeent message for last category (tidy change)
+			let catsLeft = (numParams - curIteration) +2;
+			let voiceMessage;
+			if(catsLeft < 1){
+			voiceMessage = "you are almost done, click the button below to continue";
+			}else if (catsLeft <2) {
+				voiceMessage = message2 + " left to spend on the last category. Spend it all or save some, it's up to you.";
+			}else{
+				voiceMessage = message2 + " left to spend on" + catsLeft + " categories";
+			}
+			responsiveVoice.speak(voiceMessage, "UK English Male");
 			$('#circledivText').text("Out of €" + total);
 			var percentageOfPurseSpent = Math.floor(( (total - purse) / total) * 100);
 
@@ -440,7 +452,6 @@ $('#currentField1, #currentField2, #currentField3').keypress(function() {
     	$("#wheelCycleBtn").removeClass("hidden");
     }, 1000);
 });
-
 
 
 

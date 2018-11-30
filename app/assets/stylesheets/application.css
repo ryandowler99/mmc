@@ -86,7 +86,9 @@ color: white;
 	border: 5px solid #ffb471;
 	border-radius: 10px;
 	padding: 10px;
+    z-index: 2;
 }
+
 
 /* error message */
 #error_explanation{
@@ -106,3 +108,8 @@ color: white;
     list-style-position: inside;
 }
 /* ./ error message */
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: #e7e7e7;
+    font-size: 1.2em;
+}

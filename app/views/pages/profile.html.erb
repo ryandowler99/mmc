@@ -17,7 +17,11 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-xs-5 col-sm-4 imgContainer">
-                        <%=image_tag (@user.profileimage), class: "img-rounded img-responsive" if @user.profileimage? %>
+                        <% if  @user.profileimage.present? %>
+                           <%=image_tag (@user.profileimage), class: "img-rounded img-responsive" %>
+                        <% else %>
+                            <%= image_tag 'profileDefault'%>
+                        <% end %>
                     </div>
                     <div class="col-sm-7">
                         <h4 class="profile_name col-sm-8"><%= @user.first_name %> <%= @user.last_name %></h4> 
@@ -28,7 +32,7 @@
                         	  <%= button_tag id: "chnageThisBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-sm-9" do %> 
                                 <div>
                                     <text class="col-sm-12">Change your PASSWORD<br/>(Pass Pattern)</text>
-                                    <%= image_tag "patternLockIcon", class: "btn btn-responsive col-sm-4 col-sm-push-4 " %>
+                                    <%= image_tag "patternLockIcon", class: "patUnlockIcon btn btn-responsive col-sm-4 col-sm-push-4 " %>
                                 </div>
                               <% end %>
                               <%# button_tag "Change That", id: "chnageThatBtn", class: "profile_updateBtn btn btn-primary btn-responsive col-sm-4" %>
@@ -41,9 +45,9 @@
 	                            <br />
 	                            <i class="glyphicon glyphicon-gift"></i> You signed in <text><%= @user.sign_in_count %> </text> times
                                 <br /><br />
-                                 <i class="glyphicon glyphicon-flash yellowFont"></i>
-                                    <%= link_to "Enable fast login", user_enable_authy_path, class: "redFont ul" %>
-                                 <i class="glyphicon glyphicon-flash yellowFont"></i>
+                                <!--  <i class="glyphicon glyphicon-flash yellowFont"></i>
+                                    <%# link_to "Enable fast login", user_enable_authy_path, class: "redFont ul" %>
+                                 <i class="glyphicon glyphicon-flash yellowFont"></i> -->
                             </div>
                     </div>
                 </div>
@@ -74,7 +78,7 @@
 
 <%= javascript_include_tag "profile" %>
 <!-- Nessesary elements to copmplete page task (in order of usage) -->
-<%= render 'shared/assistant', 
+<%# render 'shared/assistant', 
     :taskMode => true,
     :missedClickMode => false,
     :taskElems =>  ['myGamesBtn','booButton', 'myBudgetsBtn' ],

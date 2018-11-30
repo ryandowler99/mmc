@@ -38,7 +38,7 @@ Main Components
 .cd-header {
   position: relative;
   height: 150px;
-  background-color: #331d35;
+  background: linear-gradient(to bottom, rgba(237,237,237,1) 40%,rgba(174,153,225,1) 70%,rgba(133,94,218,1) 100%);
 }
 .cd-header h1 {
   color: #ffffff;
@@ -49,10 +49,13 @@ Main Components
 }
 @media only screen and (min-width: 1170px) {
   .cd-header {
-    height: 180px;
+    height: 35%;
   }
   .cd-header h1 {
     line-height: 180px;
+    font-size: 5.4rem;
+    font-weight: bold;
+    margin-top: 3%;
   }
 }
 
@@ -258,7 +261,7 @@ xgallery
 }
 .cd-gallery li {
   margin-bottom: 1.6em;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);*/
   display: none;
 }
 .cd-gallery li.gap {
@@ -301,7 +304,8 @@ xgallery
     transition: width 0.3s;
   }
   .cd-gallery li {
-    width: 23%;
+   /* width: 23%;*/
+    width: 50%;
   }
   .cd-gallery.filter-is-visible {
     /* reduce width when filter is visible */

@@ -59,43 +59,47 @@ typeWriter = function () {
 		 -> typeWriter(); //dont pass as param
 */
 
-/*$(function() {
-	$(".ttsOnHover").on('click mouseover', function(){//alert("llk");});
-//auto TTS
-	var timer = 1500;
-	$( ".ttsOnHover" ).mouseover(function() {
-		let theText = $(this).text();
-		console.log(theText);
-		//if needed so the above voice doesnt get interupted
-		if(true){
-			//speak - each elem
-			responsiveVoice.speak(theText, "UK English Male");
-		}
-	});
-	$( ".ttsOnHover" ).mouseleave(function() {
-		responsiveVoice.cancel(); // stop anything currently being spoken
-	});
-});
-}
-*/
-/*
-
 $(function() {
-//auto TTS
-	var timer = 1500;
-	$( ".ttsOnHover" ).mouseover(function() {
-		let theText = $(this).text();
-		console.log(theText);
-		//if needed so the above voice doesnt get interupted
-		if(true){
-			//speak - each elem
-			responsiveVoice.speak(theText, "UK English Male");
-		}
+	$(".ttsOnHover").on('click mouseover', function(){//alert("llk");});
+		//auto TTS
+		var timer = 1500;
+		//$( ".ttsOnHover" ).mouseover(function() {
+			let theText = $(this).text();
+			console.log(theText);
+			//if needed so the above voice doesnt get interupted
+			if(true){
+				//speak - each elem
+				setTimeout(function() {
+					responsiveVoice.speak(theText, "UK English Male");
+				}, 500);
+			}
+		//});
+		
 	});
 	$( ".ttsOnHover" ).mouseleave(function() {
-		responsiveVoice.cancel(); // stop anything currently being spoken
-	});
+			responsiveVoice.cancel(); // stop anything currently being spoken
+		});
+
+	function checkIfMouseAwayFromAutottsElm() {
+	   alert('this ');
+	}
+	//setInterval(checkIfMouseAwayFromAutottsElm, 2000);
 });
 
 
-*/
+// $(function() {
+// //auto TTS
+// 	var timer = 1500;
+// 	$( ".ttsOnHover" ).mouseover(function() {
+// 		let theText = $(this).text();
+// 		console.log(theText);
+// 		//if needed so the above voice doesnt get interupted
+// 		if(true){
+// 			//speak - each elem
+// 			responsiveVoice.speak(theText, "UK English Male");
+// 		}
+// 	});
+// 	$( ".ttsOnHover" ).mouseleave(function() {
+// 		responsiveVoice.cancel(); // stop anything currently being spoken
+// 	});
+// });

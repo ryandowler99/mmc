@@ -81,12 +81,15 @@
       var categoryArray = <%= raw chosen_fields_as_array %>;
   </script>
   <!-- all but last elem in array -->
-  <% chosen_fields_as_array.each do |cat| %>
-    <li>
-    <div title="<%= cat.downcase %>">
-     <%= image_tag cat.downcase, class: "#{cat.downcase}_categoryImg catImg" %> 
-    </div>
-  </li>
+  <% chosen_fields_as_array.each_with_index do |cat, index| %>
+    <!-- skip first, its already displayed -->
+    <% if index > 0 %>
+      <li>
+        <div title="<%= cat.downcase %>">
+          <%= image_tag cat.downcase, class: "#{cat.downcase}_categoryImg catImg" %> 
+        </div>
+      </li>
+    <% end %>
   <% end %>
 </ul>
 

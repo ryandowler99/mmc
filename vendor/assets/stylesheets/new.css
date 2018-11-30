@@ -100,17 +100,19 @@
   /*background-color: #ddd;*/
 /*  visibility: hidden; */
   margin-left: 0px; 
-  margin-top: -60px;
+  margin-top: 3%;
 }
 #myBar, #barEnd, #myBar2 {
   width: 10%;
   height: 30px;
   background-color: #4CAF50;
   text-align: center;
-  line-height: 30px;
+  line-height: 45px;
   color: white;
   font-weight: 600;
   height: 90%;
+  font-size: 1.8em;
+  margin-top: -1.5%;
 }
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 480px) {
@@ -164,8 +166,10 @@
     position:fixed;
     overflow:hidden;
     right: 0;
-    top: 70px;
+    top: 18%;
     z-index: 999;
+    font-size: 1.8em;
+    line-height: 45px;
 }
 .circlediv:before{
     content:'';
@@ -457,7 +461,8 @@
     position: fixed;
     left: 2%;
     bottom: 0px;
-    max-width: 22%;
+    /*max-width: 22%;*/
+    min-width: 22%;
     max-height: 20%;
     border-radius: 32px 32px 0px 0px;
     border: 6px solid white;
@@ -502,3 +507,9 @@
     height: 80px;
     margin-left: 10px;
 }
+
+/*override sidebar so it doesnt overlap with progress bar*/
+/*.assistantImgSidebar{
+  top: 15% !important;
+}*/
+#sidebar{display: none;}
