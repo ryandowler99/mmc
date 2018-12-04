@@ -373,9 +373,7 @@
   font-weight: bold;
 }
 
-.ttsOnHover {
-    cursor: url("autottsCursor2.png"), auto;
-}
+
 
 .weekNumberHelpAnswerBtn1, .weekNumberHelpAnswerBtn2{
     background-color: green;

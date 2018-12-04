@@ -27,6 +27,7 @@
 .pushDown40{margin-top: 40px;}
 .pushDown50{margin-top: 50px !important;}
 .pushDown80{margin-top: 80px;}
+.pull34percent{margin-left: 34% !important;}
 .ul{ text-decoration: underline; underline-color: black;}
 .marginB20{ margin-bottom: 20px !important; }
 .opHidden{ opacity: 0;}
@@ -112,4 +113,7 @@ color: white;
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border-color: #e7e7e7;
     font-size: 1.2em;
+}
+.ttsOnHover {
+    cursor: url("autottsCursor2.png"), auto;
 }

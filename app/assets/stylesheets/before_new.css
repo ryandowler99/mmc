@@ -216,6 +216,7 @@ body.noScroll { /* ...or body.dialogShowing */
 }
 
 #continueWithBudgetBtn {
+	display: none;
     position: absolute;
     right: 70;
     bottom: 20;
@@ -252,3 +253,5 @@ body.noScroll { /* ...or body.dialogShowing */
     bottom: -45%;
     font-size: 2.5em;
 }
+
+#sidebar{ display: none; }

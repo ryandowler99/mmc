@@ -160,7 +160,7 @@ var tempCount = 0; //temp store how  many times user input less than 15 on items
 		if(curIteration == 2){
 			purse = theValue;
 			total = theValue;
-
+			$("#title").removeClass("pull34percent");
 			let message = "You have €" + purse
 			$('#myBar').text(message);
 			$('#circledivText').text("Out of €" + purse);
