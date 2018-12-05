@@ -123,10 +123,10 @@
     margin-top: -4px;
 }
 #calculator_money, #calculator_number {
-    transform: scale(0.9);
+    transform: scaleY(0.78);
 }
-#calculator_money { margin-top: -17px; }
-#calculator_number { margin-top: -2px; }
+#calculator_money { margin-top: -50px; }
+#calculator_number { margin-top: -40px; }
 
 dot{
 	font-size: 4em;

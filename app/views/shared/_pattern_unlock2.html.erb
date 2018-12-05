@@ -8,9 +8,10 @@
 #canvasArea{display: none;} /*for */
 #enclosure {
     width: 62%;
-    height: 400px;
     position: absolute;
     cursor: pointer;
+    transform: scale(1.4);
+    margin-top: 10%;
 }
 #pattern {
     position: absolute;
@@ -20,7 +21,7 @@
 #resetPattern {
     position: absolute;
     top: 151px;
-    left: 150%;
+    left: 115%;
     background-color: #6476D8;
     padding: 10px;
 }
@@ -223,7 +224,7 @@ $(document).ready(function () {
             }, 2000);
         }else{
             //new user screen
-            console.log(" new user");
+            console.log("new user");
             let userName = $('input#user_email').val(); //get inputted username
             let newUserName = userName + "@mmc.ie"; //append @mmc.ie to it
             if(userName){

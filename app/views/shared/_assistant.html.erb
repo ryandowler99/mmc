@@ -12,7 +12,8 @@
 <div class="js-states"></div>
  -->
 <div id="pageIntroduceBtn" class="ignoreThisElem">
-	<span id="pib" class="glyphicon glyphicon-question-sign ignoreThisElem"></span>Show me what to do
+	<center><span>?</span></center>
+	<p class="col-xs-12">Show me what to do</p>
 </div>
 <!-- sidebar -->
 <aside id="sidebar" class="hidden-xs">
@@ -60,14 +61,15 @@
 
 <!-- assistant bubble hint -->
 <hgroup id="assistantBubbleHint" class="pulse bubble col-md-2 visHidden" onclick="hideShowBubble();">
-	<div id="extraBubbleBtns" style="display: none;">
-		<div id="showMeBubbleBtn" onclick="highlightElem(pageIntroduceValues[1], 'you can drag them like this', false);">Show me</div>
+	<div id="extraBubbleBtns" style="display: block;">
+		<!-- <div id="showMeBubbleBtn" onclick="highlightElem(pageIntroduceValues[1], 'you can drag them like this');">Show me</div> -->
+		<div id="showMeBubbleBtn" onclick="highlightElemStatic();">Show me</div>
 		<div id="hideBubbleBtn">Hide X</div>
 	</div>
 	<h2>Assistant hint here</h2>
 </hgroup>
 
-<!-- WU -inline makes sense in this situation (call one file get the assistant and dont have to pass variables twice down -->
+<!-- put in external file - change -->
 <script type="text/javascript">
 	var assistant;
 	var goHome;
@@ -80,12 +82,13 @@
 	var pageIntroduceValues = <%= raw pageIntroduce %>;
 	var closestElmPos;
 	function hideShowBubble(){
+		highlightElemStatic();
 		//alert('clicked hint box');
-		//$('#assistantBubbleHint').toggleClass('visHidden');
+		//$('#assistantBubbleHint').toggleClass('visHidden'); moved for now
 		$('#extraBubbleBtns').css("display", "block");
 	}
 
-	//second elem in page intro flashes using this func
+	//second elem in page intro flashes using this func (changing this from abstract to specifically for one use)
 	function highlightElem(theElm, theMessage){
 		responsiveVoice.speak(theMessage, "UK English Male");
 		var itemToAnimate = $(theElm);
@@ -127,6 +130,55 @@
 			}
 		}
 	}	
+
+
+	//delte this after ux testing and only use the one func (above)
+	function highlightElemStatic(){
+		$('#assistantBubbleHint').toggleClass('visHidden');
+		//$('#extraBubbleBtns').css("display", "none");
+			theElm = pageIntroduceValues[1];
+			theMessage =  'you can drag them like this';
+		responsiveVoice.speak(theMessage, "UK English Male");
+		var itemToAnimate = $(theElm);
+		console.log(" is it sss :" + theElm);
+		//$(pageIntroduceValues[1]);pageIntroduceValues[1]
+
+		//adding in chopping fix to work on before new page, getting #right-defaults instead of one the options, dont want to change now incase something else using it and testing is next week - change 
+		if(theElm == "#right-defaults"){
+			itemToAnimate = $('.taskElement').eq(1);
+			$(itemToAnimate).animate({
+				top: "-=200"
+			}, 5000, function() {
+				// Animation complete.
+				itemToAnimate.css("opacity", "0");//hide it for a moment
+				itemToAnimate.css("top", "0px"); //put it back to its original
+				setTimeout(function() {
+					itemToAnimate.css("opacity", "1");//hide it for a moment
+				}, 500);
+			});
+		}else{
+			itemToAnimate.effect( "highlight", {}, 2000 );
+			itemToAnimate.animate([
+			  // keyframes
+			  { transform: 'translateY(0px)' }, 
+			  { transform: 'translateY(-200px)' }
+			], { 
+			  // timing options
+			  duration: 1500,
+			  iterations: 1
+			});
+			itemToAnimate.effect( "highlight", {}, 4000 );
+			if(theMessage != null){
+				if(!theMessage){
+					theMessage = "Try using this";
+				}
+				/*setTimeout(function(){
+					responsiveVoice.speak(theMessage);
+				}, 1500);*/
+			}
+		}
+	}
+	//
 
 	function statusOfModes(){
 		console.log("missedClickMode: " + missedClickMode);
@@ -488,6 +540,7 @@ $(document).ready(function() {
 		and coordinates (bubble points to the elem & makes it pulse) */
 		function elemPointerBubble(closestElm, closestElmPos, bubbleHeight, bubbleWidth, message){
 			//alert("your clicking the wrong elems - you must be lost, you first need to use: " + closestElm);
+			responsiveVoice.speak("Click this bubble to get some help", "UK English Male");
 			var theMessage = message ? message : 'fallback message here that is generic';
 
 			// screen divided into 4 quadrants to determin what direction to point bubble

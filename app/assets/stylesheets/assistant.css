@@ -394,7 +394,7 @@
 	left: 10px;
 	background-color: orange;
 	height: fit-content;
-    padding: 25px;
+    padding: 5px;
     color: white;
     font-size: 1.4em;
     font-weight: 600;
@@ -421,7 +421,11 @@
 	margin-bottom: 5px;
 }
 
-
 .clippy{
 	position: absolute;
+}
+#pageIntroduceBtn center span {
+    color: #7b69eb;
+    font-size: 3em;
+    font-weight: 700;
 }

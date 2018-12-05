@@ -497,7 +497,7 @@
     position: absolute;
     left: 20%;
     z-index: 999;
-    top: 7%;
+    top: -14%;
 }
 #titleImg_category {
     position: absolute;
@@ -505,6 +505,7 @@
     height: 80px;
     margin-left: 10px;
 }
+
 
 /*override sidebar so it doesnt overlap with progress bar*/
 /*.assistantImgSidebar{

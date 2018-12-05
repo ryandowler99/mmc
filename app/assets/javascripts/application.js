@@ -58,20 +58,40 @@ typeWriter = function () {
 /* USAGE -> typeWriterTxt = "blah";
 		 -> typeWriter(); //dont pass as param
 */
-
+var autoTTsMessagesSpoken = [];
+var counter = 0;
 $(function() {
 	$(".ttsOnHover").on('click mouseover', function(){//alert("llk");});
 		//auto TTS
 		var timer = 1500;
+
 		//$( ".ttsOnHover" ).mouseover(function() {
 			let theText = $(this).text();
-			console.log(theText);
+			autoTTsMessagesSpoken[counter] = theText;
+
+			if(counter == 1){
+				counter = 0;
+			}else{ counter++; }
+			var auttoTTSMessage1 = autoTTsMessagesSpoken[0];
+			var auttoTTSMessage2 = autoTTsMessagesSpoken[1];
+			// console.log(theText + " - " + counter);
+			// console.log(theText);
+			console.log("auttoTTSMessage1 :" + auttoTTSMessage1);
+			console.log("auttoTTSMessage2 :" + auttoTTSMessage2);
 			//if needed so the above voice doesnt get interupted
 			if(true){
 				//speak - each elem
 				setTimeout(function() {
-					responsiveVoice.speak(theText, "UK English Male");
+					//dont say the same thing twice
+					if(auttoTTSMessage1 !== auttoTTSMessage2){
+						responsiveVoice.speak(theText, "UK English Male");
+					}
 				}, 500);
+				//reset after 2 seconds incase they actually do want to autotts the same thing again
+				setTimeout(function() {
+					autoTTsMessagesSpoken = [];
+				}, 2000);
+				
 			}
 		//});
 		

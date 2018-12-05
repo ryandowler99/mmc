@@ -89,6 +89,10 @@ color: white;
 	padding: 10px;
     z-index: 2;
 }
+.override_hover{
+    background: none !important;
+    border: none;
+}
 
 
 /* error message */

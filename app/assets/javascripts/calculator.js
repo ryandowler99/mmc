@@ -1,11 +1,12 @@
  $(document).ready(function(){
             var displayValue = '0';   
+            var lastValue;//used for context memory ie. after 3,+,3,=  are pressed the value is held onto in case an operator is pressed straight after   
             $('.result').text(displayValue);
  
             $('.key').each(function(index, key){       
                 $(this).click(function(e){
                     if(displayValue == '0') displayValue = '';
-                    if($(this).text() == 'C'){
+                    if($(this).attr("value") == 'C'){
                         displayValue = '0';
                         $('.result').text(displayValue);
                     }
@@ -13,6 +14,7 @@
                         try{
                             displayValue = eval(displayValue);
                             $('.result').text(displayValue);
+                            lastValue = displayValue;
                             displayValue = '0';
                         }
                         catch (e){
@@ -23,6 +25,13 @@
                     else{
                         displayValue += $(this).attr('value');
                         //alert("adding + " + displayValue);
+                        displayValIsEmpty = $('.result').text('');
+                         if($(this).text() == '+' ){
+                            //alert("displ ++ : " + displayValue + " old one is "+ lastValue );
+                            newDisplayValue = lastValue + displayValue;
+                            //displayValue = newDisplayValue;
+                        }
+
                         $('.result').text(displayValue);
                     }
                     e.preventDefault()

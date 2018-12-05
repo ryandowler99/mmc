@@ -191,7 +191,8 @@ Animator.prototype._playSound = function _playSound () {
     var s = this._currentFrame.sound;
     if (!s) { return; }
     var audio = this._sounds[s];
-    if (audio) { audio.play(); }
+    if (audio) { //audio.play(); 
+    }
 };
 
 Animator.prototype._atLastFrame = function _atLastFrame () {

@@ -53,6 +53,7 @@
     border: none;
     cursor: pointer;
 }
+.form-control{ height: 60px; }
 </style>
 <!-- --------- HTML -->
 <%= form_for(resource, as: resource_name,
@@ -101,6 +102,39 @@
          
    
 <script type="text/javascript">
+  $(document).ready(function() {
+    //page introduce
+    var nameField = $("#user_first_name");
+    var emailField = $("#user_email");
+
+    responsiveVoice.speak("Type your name in this box" , "UK English Male");
+    //first field animation
+    $(nameField).animate({
+        height: "+=20px"
+    }, 1000, function() {
+      //animation finished
+      setTimeout(function() {
+        nameField.css("height", "60px"); //set name field back
+        
+        responsiveVoice.speak("And then make up a username and put it in here" , "UK English Male");
+
+        //second field animation
+        $(emailField).animate({
+            height: "+=20px"
+        }, 1500, function() {
+          //animation finished - wait a sec and put back
+          setTimeout(function() {
+            emailField.css("height", "60px"); //set field back
+          }, 1500);
+        });
+      }, 3500);
+    });
+  });
+
+
+
+
+
   function submitTheForm(){
     let userName = $('input#user_email').val(); //get inputted username
     let newUserName = userName + "@mmc.ie"; //append @mmc.ie to it

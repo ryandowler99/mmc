@@ -42,25 +42,25 @@ svg.patternlock.error g.lock-actives circle {
     }
 }
 
+#patternlockDiv {
+    padding: 0;
+    margin: 0;
+    margin-top: 10%;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+	  /*margin: auto;
+    height: 100%;*/
+}
 
-        #patternlockDiv {
-            padding: 0;
-            margin: 0;
-            height: 100vh;
-            max-height: 100vh;
-            overflow: hidden;
-			  /*margin: auto;
-            height: 100%;*/
-        }
+#lock {
+    width: 100%;
+    height: calc(100% - 15vh);
+    padding-bottom: 12vh;
+    min-height: 120px;
+}
 
-        #lock {
-            width: 100%;
-            height: calc(100% - 15vh);
-            padding-bottom: 12vh;
-            min-height: 120px;
-        }
-
-        .stars {
-            margin: auto;
-            display: block;
-        }
+.stars {
+    margin: auto;
+    display: block;
+}
